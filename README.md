@@ -7,6 +7,8 @@ Some differences:
 + .entry MAIN needed to be defined explicitly.
 + There wont be any generated .ent/.ext files, if they are not needed.
 
+Documentation can be found [here](https://g0mb4.github.io/tas/).
+
 # "Hardware"
 Our computer architecture consists from CPU (Central Processing Unit), registers and Random Access Memory RAM, where part of the memory is being used as a stack. The size of each word in memory is 16 bits. Arithmetics is to be carried by the '2's complement' method. Our computer machine can only handle integers (Positives or negatives), it doesn't handle real numbers.
 
