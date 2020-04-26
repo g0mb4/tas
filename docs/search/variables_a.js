@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['value',['value',['../structsymbol__s.html#a900b69af7d674b8db3bceae754b4955a',1,'symbol_s::value()'],['../structobject__code__s.html#a900b69af7d674b8db3bceae754b4955a',1,'object_code_s::value()']]]
+  ['type',['type',['../structsymbol__s.html#aff17911edc8208aa8ddb1c7c52c78389',1,'symbol_s::type()'],['../structobject__code__s.html#aff17911edc8208aa8ddb1c7c52c78389',1,'object_code_s::type()']]]
 ];

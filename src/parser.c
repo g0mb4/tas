@@ -24,10 +24,9 @@ bool is_valid_numeric_literal(char * str, int start_index) {
 		return false;
 	}
 
-	int len = strlen(str);
+	int i, len = (int)strlen(str);
 	bool valid = false;
 	char ch;
-	int i;
 
 	for (i = start_index; i < len; i++) {
 		ch = str[i];
@@ -66,10 +65,9 @@ bool is_valid_label_name(char * str, int start_index, int end_offset) {
 		return false;
 	}
 
-	int len = strlen(str);
+	int i, len = (int)strlen(str);
 	bool valid = false;
 	char ch;
-	int i;
 
 	/* if it is a valid register name, it cant be a label */
 	if (is_valid_register_name(str, start_index) == true) {
@@ -208,8 +206,7 @@ uint16_t get_number(char * str, int start_index) {
 
 	uint16_t value = 0;
 	bool negative = false;
-	int i;
-	int len = strlen(str);
+	int i, len = (int)strlen(str);
 
 	/* check for -+ signs */
 	if (str[start_index] == '-') {
@@ -245,8 +242,7 @@ uint16_t get_number(char * str, int start_index) {
  * \return		type of the column
  */
 column_t column_type(char * str){
-    int len = strlen(str);
-    int i;
+    int i, len = (int)strlen(str);
 
 	/* not a valid column */
     if(!str || len <= 1){

@@ -19,8 +19,8 @@ char * string_trim(const char * str, const char * chars){
         return NULL;
     }
 
-    int len = strlen(str);
-    int len_chars = strlen(chars);
+    int len = (int)strlen(str);
+    int len_chars = (int)strlen(chars);
     bool found = true;
     int i, j, offset = 0;
 
@@ -52,8 +52,8 @@ char * string_trim_end(const char * str, const char * chars){
         return NULL;
     }
 
-    int len = strlen(str);
-    int len_chars = strlen(chars);
+    int len = (int)strlen(str);
+    int len_chars = (int)strlen(chars);
     bool found = true;
     int i, j, offset = 0;
 
@@ -139,8 +139,7 @@ char * clean_line(const char * line){
         return NULL;
     }
 
-    int len = strlen(trimmed);
-    int i, n = 0;
+    int i, n = 0, len = (int)strlen(trimmed);
     char ch;
 
     char * ret = (char *) malloc(sizeof(char) * (len + 1));

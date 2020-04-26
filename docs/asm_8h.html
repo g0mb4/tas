@@ -313,6 +313,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="asm_
 <tr class="memitem:a7b61f0b0becfa47c78b9635fdf5fa402"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="asm_8h.html#a7b61f0b0becfa47c78b9635fdf5fa402">create_extern_file</a> (const char *file_name, <a class="el" href="asm_8h.html#a6fdea67b8cc6a06cd82937c880f619b8">link_object_t</a> *table, uint16_t len)</td></tr>
 <tr class="memdesc:a7b61f0b0becfa47c78b9635fdf5fa402"><td class="mdescLeft">&#160;</td><td class="mdescRight">creates an ascii extern file from the extern table  <a href="#a7b61f0b0becfa47c78b9635fdf5fa402">More...</a><br /></td></tr>
 <tr class="separator:a7b61f0b0becfa47c78b9635fdf5fa402"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2f91f7fdabe6801cac65cb33a787abb"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="asm_8h.html#ae2f91f7fdabe6801cac65cb33a787abb">create_binary_file</a> (const char *file_name, <a class="el" href="asm_8h.html#a47465b45d72295d758eeabd6c512476f">object_code_t</a> *objectc, uint16_t objectc_len)</td></tr>
+<tr class="memdesc:ae2f91f7fdabe6801cac65cb33a787abb"><td class="mdescLeft">&#160;</td><td class="mdescRight">creates a binary file from the object code  <a href="#ae2f91f7fdabe6801cac65cb33a787abb">More...</a><br /></td></tr>
+<tr class="separator:ae2f91f7fdabe6801cac65cb33a787abb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>definitions for the whole project </p>
@@ -581,7 +584,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="asm_
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>type of the column </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="parser_8c_source.html#l00247">247</a> of file <a class="el" href="parser_8c_source.html">parser.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="parser_8c_source.html#l00244">244</a> of file <a class="el" href="parser_8c_source.html">parser.c</a>.</p>
 
 </div>
 </div>
@@ -676,6 +679,53 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="asm_
 <dl class="section return"><dt>Returns</dt><dd>number of elements </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="table__functions_8c_source.html#l00016">16</a> of file <a class="el" href="table__functions_8c_source.html">table_functions.c</a>.</p>
+
+</div>
+</div>
+<a id="ae2f91f7fdabe6801cac65cb33a787abb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2f91f7fdabe6801cac65cb33a787abb">&#9670;&nbsp;</a></span>create_binary_file()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t create_binary_file </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>file_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="asm_8h.html#a47465b45d72295d758eeabd6c512476f">object_code_t</a> *&#160;</td>
+          <td class="paramname"><em>objectc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>objectc_len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>creates a binary file from the object code </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file_name</td><td>file name of the source file </td></tr>
+    <tr><td class="paramname">objectc</td><td>object code </td></tr>
+    <tr><td class="paramname">objectc_len</td><td>length of the object code </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>number of errors </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="file__io_8c_source.html#l00221">221</a> of file <a class="el" href="file__io_8c_source.html">file_io.c</a>.</p>
 
 </div>
 </div>
@@ -1309,7 +1359,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="asm_
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>addressing or NULL </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="parser_8c_source.html#l00317">317</a> of file <a class="el" href="parser_8c_source.html">parser.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="parser_8c_source.html#l00313">313</a> of file <a class="el" href="parser_8c_source.html">parser.c</a>.</p>
 
 </div>
 </div>
@@ -1416,7 +1466,7 @@ start_index is there, because we want to apply the same function to "1" and "#1"
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>numeric value </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="parser_8c_source.html#l00204">204</a> of file <a class="el" href="parser_8c_source.html">parser.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="parser_8c_source.html#l00202">202</a> of file <a class="el" href="parser_8c_source.html">parser.c</a>.</p>
 
 </div>
 </div>
@@ -1446,7 +1496,7 @@ start_index is there, because we want to apply the same function to "1" and "#1"
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>operation or NULL </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="parser_8c_source.html#l00293">293</a> of file <a class="el" href="parser_8c_source.html">parser.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="parser_8c_source.html#l00289">289</a> of file <a class="el" href="parser_8c_source.html">parser.c</a>.</p>
 
 </div>
 </div>
@@ -1490,7 +1540,7 @@ start_index is there, because we want to apply the same function to "r1" and "@r
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>numeric value </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="parser_8c_source.html#l00189">189</a> of file <a class="el" href="parser_8c_source.html">parser.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="parser_8c_source.html#l00187">187</a> of file <a class="el" href="parser_8c_source.html">parser.c</a>.</p>
 
 </div>
 </div>
@@ -1519,7 +1569,7 @@ start_index is there, because we want to apply the same function to "r1" and "@r
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>16-bit machine word </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="parser_8c_source.html#l00353">353</a> of file <a class="el" href="parser_8c_source.html">parser.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="parser_8c_source.html#l00349">349</a> of file <a class="el" href="parser_8c_source.html">parser.c</a>.</p>
 
 </div>
 </div>
@@ -1566,7 +1616,7 @@ start_index is there, because we want to apply the same function to "r1" and "@r
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>addressing mode is valid or not </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="parser_8c_source.html#l00149">149</a> of file <a class="el" href="parser_8c_source.html">parser.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="parser_8c_source.html#l00147">147</a> of file <a class="el" href="parser_8c_source.html">parser.c</a>.</p>
 
 </div>
 </div>
@@ -1617,7 +1667,7 @@ end_offset is there, because we want to apply the same function to "LABEL" and "
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>valid or not </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="parser_8c_source.html#l00064">64</a> of file <a class="el" href="parser_8c_source.html">parser.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="parser_8c_source.html#l00063">63</a> of file <a class="el" href="parser_8c_source.html">parser.c</a>.</p>
 
 </div>
 </div>
@@ -1701,7 +1751,7 @@ end_offset is there, because we want to apply the same function to "LABEL" and "
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>valid or not </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="parser_8c_source.html#l00111">111</a> of file <a class="el" href="parser_8c_source.html">parser.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="parser_8c_source.html#l00109">109</a> of file <a class="el" href="parser_8c_source.html">parser.c</a>.</p>
 
 </div>
 </div>

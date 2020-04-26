@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['help',['help',['../main_8c.html#a67b7e976c6444c3d7fab151527bdae33',1,'main.c']]]
+  ['external_5fctr',['external_ctr',['../main_8c.html#aea1efcdf52c62b21ec3cc229987e5468',1,'main.c']]],
+  ['external_5ftable',['external_table',['../main_8c.html#a16b58fd7c332acaa8e92bd0d5a959613',1,'main.c']]]
 ];

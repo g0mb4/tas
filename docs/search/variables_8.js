@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['src_5faddr',['src_addr',['../structinstruction__s.html#adb2e7f6160cedef8d478a1e248d69564',1,'instruction_s']]],
-  ['src_5flegal',['src_legal',['../structoperation__s.html#a6a147cc91cebc01816279fd6c046785d',1,'operation_s']]],
-  ['src_5freg',['src_reg',['../structinstruction__s.html#a9162a9b86471c8b22cf638f60eeb4fa6',1,'instruction_s']]],
-  ['sym_5fctr',['sym_ctr',['../main_8c.html#a20afa9239fd31953940788f48b6ede99',1,'main.c']]],
-  ['sym_5ftable',['sym_table',['../main_8c.html#ab71b608a0370eb3be751e4555b436eb0',1,'main.c']]]
+  ['object_5fcode',['object_code',['../main_8c.html#a93bcdb36cc5b4f5c26ff5ec6340a7009',1,'main.c']]],
+  ['object_5fctr',['object_ctr',['../main_8c.html#a35a4ef42900235372e0763082cd17fe3',1,'main.c']]],
+  ['op',['op',['../structinstruction__s.html#a3fe410a28ee11b520d9dd574d2139f4b',1,'instruction_s']]],
+  ['opcode',['opcode',['../structoperation__s.html#a5c1b56e6bccc2a95dbddf1a08e56e87d',1,'operation_s']]],
+  ['operands',['operands',['../structoperation__s.html#a0ce64cde4fd32a2ebb6662c316036657',1,'operation_s']]],
+  ['operations',['operations',['../opcodes_8c.html#ad7961be830b50fd204937fd15b5c0335',1,'operations():&#160;opcodes.c'],['../parser_8c.html#ad7961be830b50fd204937fd15b5c0335',1,'operations():&#160;opcodes.c']]]
 ];

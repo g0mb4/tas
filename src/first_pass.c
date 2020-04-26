@@ -202,7 +202,7 @@ void first_process_line(char * line, int column_index){
  */
 void first_process_label(char * line){
     char * label = string_split(line, " ", 0);	/* get the label, first column of the line */
-    int len = strlen(label);
+	int len = (int)strlen(label);
 
     label[len - 1] = '\0';  /* remove ':' */
     symbol_t sym;

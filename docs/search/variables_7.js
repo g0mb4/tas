@@ -1,9 +1,5 @@
 var searchData=
 [
-  ['object_5fcode',['object_code',['../main_8c.html#a93bcdb36cc5b4f5c26ff5ec6340a7009',1,'main.c']]],
-  ['object_5fctr',['object_ctr',['../main_8c.html#a35a4ef42900235372e0763082cd17fe3',1,'main.c']]],
-  ['op',['op',['../structinstruction__s.html#a3fe410a28ee11b520d9dd574d2139f4b',1,'instruction_s']]],
-  ['opcode',['opcode',['../structoperation__s.html#a5c1b56e6bccc2a95dbddf1a08e56e87d',1,'operation_s']]],
-  ['operands',['operands',['../structoperation__s.html#a0ce64cde4fd32a2ebb6662c316036657',1,'operation_s']]],
-  ['operations',['operations',['../opcodes_8c.html#ad7961be830b50fd204937fd15b5c0335',1,'operations():&#160;opcodes.c'],['../parser_8c.html#ad7961be830b50fd204937fd15b5c0335',1,'operations():&#160;opcodes.c']]]
+  ['name',['name',['../structsymbol__s.html#a5ac083a645d964373f022d03df4849c8',1,'symbol_s']]],
+  ['no_5foutput',['no_output',['../main_8c.html#a06b0a582c3747f221e1922ce4420d52f',1,'main.c']]]
 ];

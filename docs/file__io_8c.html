@@ -93,12 +93,62 @@ Functions</h2></td></tr>
 <tr class="memitem:abcb29f75dbc88f68d02198e34e0f0657"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file__io_8c.html#abcb29f75dbc88f68d02198e34e0f0657">create_extern_file</a> (const char *file_name, <a class="el" href="asm_8h.html#a6fdea67b8cc6a06cd82937c880f619b8">link_object_t</a> *extern_table, uint16_t extern_table_len)</td></tr>
 <tr class="memdesc:abcb29f75dbc88f68d02198e34e0f0657"><td class="mdescLeft">&#160;</td><td class="mdescRight">creates an ascii extern file from the extern table  <a href="#abcb29f75dbc88f68d02198e34e0f0657">More...</a><br /></td></tr>
 <tr class="separator:abcb29f75dbc88f68d02198e34e0f0657"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2f91f7fdabe6801cac65cb33a787abb"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file__io_8c.html#ae2f91f7fdabe6801cac65cb33a787abb">create_binary_file</a> (const char *file_name, <a class="el" href="asm_8h.html#a47465b45d72295d758eeabd6c512476f">object_code_t</a> *objectc, uint16_t objectc_len)</td></tr>
+<tr class="memdesc:ae2f91f7fdabe6801cac65cb33a787abb"><td class="mdescLeft">&#160;</td><td class="mdescRight">creates a binary file from the object code  <a href="#ae2f91f7fdabe6801cac65cb33a787abb">More...</a><br /></td></tr>
+<tr class="separator:ae2f91f7fdabe6801cac65cb33a787abb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>file Input/Output functions </p>
 
 <p class="definition">Definition in file <a class="el" href="file__io_8c_source.html">file_io.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="ae2f91f7fdabe6801cac65cb33a787abb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2f91f7fdabe6801cac65cb33a787abb">&#9670;&nbsp;</a></span>create_binary_file()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t create_binary_file </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>file_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="asm_8h.html#a47465b45d72295d758eeabd6c512476f">object_code_t</a> *&#160;</td>
+          <td class="paramname"><em>objectc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>objectc_len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>creates a binary file from the object code </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file_name</td><td>file name of the source file </td></tr>
+    <tr><td class="paramname">objectc</td><td>object code </td></tr>
+    <tr><td class="paramname">objectc_len</td><td>length of the object code </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>number of errors </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="file__io_8c_source.html#l00221">221</a> of file <a class="el" href="file__io_8c_source.html">file_io.c</a>.</p>
+
+</div>
+</div>
 <a id="af9cde92beef473f9a14226f13ada5ff5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af9cde92beef473f9a14226f13ada5ff5">&#9670;&nbsp;</a></span>create_entry_file()</h2>
 

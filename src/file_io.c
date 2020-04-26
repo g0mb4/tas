@@ -40,7 +40,7 @@ char * get_file_base_name(const char * path){
  * \return		path without extension or NULL
  */
 char * get_file_name_no_ext(const char * path){
-    int i, len = strlen(path);
+    int i, len = (int)strlen(path);
     int dot_pos = -1;
 
     if(path){
@@ -207,5 +207,52 @@ uint16_t create_extern_file(const char * file_name, link_object_t * extern_table
 	}
 
 	free(extern_name);
+	return errors;
+}
+
+/*!
+ * \brief creates a binary file from the object code
+ *
+ * \param file_name		file name of the source file
+ * \param objectc		object code
+ * \param objectc_len	length of the object code
+ * \return				number of errors
+ */
+uint16_t create_binary_file(const char * file_name, object_code_t * objectc, uint16_t objectc_len) {
+	char * file_name_no_ext = get_file_name_no_ext(file_name);
+	FILE * fp = NULL;
+	uint16_t i;
+	uint16_t errors = 0;
+
+	if (!file_name_no_ext) {
+		return 1;
+	}
+
+	char * object_name = (char *)malloc(strlen(file_name_no_ext) + 4 + 1);	/* ".bin" + NULL */
+	if (object_name) {
+		strcpy(object_name, file_name_no_ext);
+		strcat(object_name, ".bin");
+
+		fp = fopen(object_name, "wb");	/* write binary */
+
+		if (fp) {
+			for (i = 0; i < objectc_len; i++) {
+				object_code_t * o = &objectc[i];
+				if (fwrite(&o->value, sizeof(uint16_t), 1, fp) != 1) {
+					errors++;
+					break;
+				}
+			}
+			fclose(fp);
+		}
+		else {
+			errors++;
+		}
+	}
+	else {
+		errors++;
+	}
+
+	free(object_name);
 	return errors;
 }

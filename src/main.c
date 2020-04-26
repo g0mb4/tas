@@ -26,6 +26,7 @@ uint16_t external_ctr;				/*!< \brief size of the table of externals */
 
 bool list_tables = false;			/*!< \brief flag of table listing */
 bool no_output = false;				/*!< \brief flag of no output */
+bool binary_out = false;			/*!< \brief flag of binary output file */
 
 /*!
  * \brief usage string
@@ -36,6 +37,7 @@ char * help = "toy two pass assembler by gmb\n\n"
 			  "options:\n"
 			  "  -l : prints debugging lists after each pass\n"
 			  "  -n : creates NO output files\n"
+			  "  -b : creates binary output file\n"
 			  "  -h : shows this text\n";
 
 /* prototypes */
@@ -74,6 +76,10 @@ int main(int argc, char * argv[]){
             case 'n':
                 no_output = true;
                 break;
+
+			case 'b':
+				binary_out = true;
+				break;
 
 			case 'h':
 				printf("%s", help);
@@ -139,32 +145,45 @@ int main(int argc, char * argv[]){
 
 	/* if output is desired */
 	if (no_output == false) {
-		/* create object file from object code */
-		errors = create_object_file(file_name, object_code, object_ctr, data_ctr);
-		if (errors != 0) {
-			fprintf(stderr, "object file creation failed with %u error(s)\n", errors);
-			return 4;
-		}
+		if (binary_out) {
+			if (external_ctr > 0) {
+				fprintf(stderr, "unable to create binary file if source contains .extern-s\n");
+				return 4;
+			}
 
-		/* if the are entry symbols */
-		if (count_table_objects_type('n', link_table, link_ctr) > 0) {
-			/* create entry file */
-			errors = create_entry_file(file_name, link_table, link_ctr);
+			errors = create_binary_file(file_name, object_code, object_ctr);
 			if (errors != 0) {
-				fprintf(stderr, "entry file creation failed with %u error(s)\n", errors);
+				fprintf(stderr, "binary file creation failed with %u error(s)\n", errors);
 				return 5;
 			}
-		}
-
-		/* if the are external symbols */
-		if (external_ctr > 0) {
-			/* create extern file */
-			errors = create_extern_file(file_name, external_table, external_ctr);
+		} else {
+			/* create object file from object code */
+			errors = create_object_file(file_name, object_code, object_ctr, data_ctr);
 			if (errors != 0) {
-				fprintf(stderr, "extern file creation failed with %u error(s)\n", errors);
-				return 6;
+				fprintf(stderr, "object file creation failed with %u error(s)\n", errors);
+				return 4;
 			}
-		}	
+
+			/* if the are entry symbols */
+			if (count_table_objects_type('n', link_table, link_ctr) > 0) {
+				/* create entry file */
+				errors = create_entry_file(file_name, link_table, link_ctr);
+				if (errors != 0) {
+					fprintf(stderr, "entry file creation failed with %u error(s)\n", errors);
+					return 5;
+				}
+			}
+
+			/* if the are external symbols */
+			if (external_ctr > 0) {
+				/* create extern file */
+				errors = create_extern_file(file_name, external_table, external_ctr);
+				if (errors != 0) {
+					fprintf(stderr, "extern file creation failed with %u error(s)\n", errors);
+					return 6;
+				}
+			}
+		}
 	}
 
 	return 0;

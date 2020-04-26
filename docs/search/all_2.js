@@ -1,14 +1,13 @@
 var searchData=
 [
-  ['data_5fctr',['data_ctr',['../main_8c.html#a4a800a61e5d8c686905cdf8fa49f6052',1,'main.c']]],
-  ['data_5fimage',['data_image',['../main_8c.html#ab0d4bec446cea2ab9a208e58d56c8a88',1,'main.c']]],
-  ['dest_5faddr',['dest_addr',['../structinstruction__s.html#adf5509c278ba73a28efb7aef7fb49e8a',1,'instruction_s']]],
-  ['dest_5flegal',['dest_legal',['../structoperation__s.html#a3822467bff1a732968bff789040fe28c',1,'operation_s']]],
-  ['dest_5freg',['dest_reg',['../structinstruction__s.html#a3aa74fd11d74f6e6119af4c7ee911cf4',1,'instruction_s']]],
-  ['direct',['DIRECT',['../asm_8h.html#a992dd69fddcc0028aad3eecb662e705ea1ea328a644e627283a35716a54108248',1,'asm.h']]],
-  ['direct_5fregister',['DIRECT_REGISTER',['../asm_8h.html#a992dd69fddcc0028aad3eecb662e705ea0f7626d791991911ab8f77bacd0268f1',1,'asm.h']]],
-  ['directive_5fentry',['DIRECTIVE_ENTRY',['../asm_8h.html#aebfb0b6215044ac381faf1d97dfa79c8aa5863b54084ad0d44902a810a4d84ed5',1,'asm.h']]],
-  ['directive_5fextern',['DIRECTIVE_EXTERN',['../asm_8h.html#aebfb0b6215044ac381faf1d97dfa79c8acf712669411c4d938270880d9eb6dc5d',1,'asm.h']]],
-  ['directive_5fnumber',['DIRECTIVE_NUMBER',['../asm_8h.html#aebfb0b6215044ac381faf1d97dfa79c8a046dc6553e50686afeef4fe345eb49de',1,'asm.h']]],
-  ['directive_5fstring',['DIRECTIVE_STRING',['../asm_8h.html#aebfb0b6215044ac381faf1d97dfa79c8a47a7ce1894395d38f483d6dd3e0f4a26',1,'asm.h']]]
+  ['clean_5fline',['clean_line',['../asm_8h.html#ac77285fcde3910655042a23822ebc5d6',1,'clean_line(const char *str):&#160;string_functions.c'],['../string__functions_8c.html#a3bcd44e4271addacf504cc635b522083',1,'clean_line(const char *line):&#160;string_functions.c']]],
+  ['column_5fe',['column_e',['../asm_8h.html#aebfb0b6215044ac381faf1d97dfa79c8',1,'asm.h']]],
+  ['column_5ft',['column_t',['../asm_8h.html#a9bce869e58009f3aae066cf9cedbeb3d',1,'asm.h']]],
+  ['column_5ftype',['column_type',['../asm_8h.html#a462a95426d16ba2d514818fedc7fad13',1,'column_type(char *str):&#160;parser.c'],['../parser_8c.html#a462a95426d16ba2d514818fedc7fad13',1,'column_type(char *str):&#160;parser.c']]],
+  ['count_5ftable_5fobjects_5fname',['count_table_objects_name',['../asm_8h.html#aabf5a14170dd41fb10f3abffc0f91090',1,'count_table_objects_name(char *name, link_object_t *table, uint16_t len):&#160;table_functions.c'],['../table__functions_8c.html#aabf5a14170dd41fb10f3abffc0f91090',1,'count_table_objects_name(char *name, link_object_t *table, uint16_t len):&#160;table_functions.c']]],
+  ['count_5ftable_5fobjects_5ftype',['count_table_objects_type',['../asm_8h.html#aaba920cc5fa1da61751fef3c940343c9',1,'count_table_objects_type(char type, link_object_t *table, uint16_t len):&#160;table_functions.c'],['../table__functions_8c.html#aaba920cc5fa1da61751fef3c940343c9',1,'count_table_objects_type(char type, link_object_t *table, uint16_t len):&#160;table_functions.c']]],
+  ['create_5fbinary_5ffile',['create_binary_file',['../asm_8h.html#ae2f91f7fdabe6801cac65cb33a787abb',1,'create_binary_file(const char *file_name, object_code_t *objectc, uint16_t objectc_len):&#160;file_io.c'],['../file__io_8c.html#ae2f91f7fdabe6801cac65cb33a787abb',1,'create_binary_file(const char *file_name, object_code_t *objectc, uint16_t objectc_len):&#160;file_io.c']]],
+  ['create_5fentry_5ffile',['create_entry_file',['../asm_8h.html#ac4437959272a58826fed985b4c464b1a',1,'create_entry_file(const char *file_name, link_object_t *table, uint16_t len):&#160;file_io.c'],['../file__io_8c.html#af9cde92beef473f9a14226f13ada5ff5',1,'create_entry_file(const char *file_name, link_object_t *link_table, uint16_t link_table_len):&#160;file_io.c']]],
+  ['create_5fextern_5ffile',['create_extern_file',['../asm_8h.html#a7b61f0b0becfa47c78b9635fdf5fa402',1,'create_extern_file(const char *file_name, link_object_t *table, uint16_t len):&#160;file_io.c'],['../file__io_8c.html#abcb29f75dbc88f68d02198e34e0f0657',1,'create_extern_file(const char *file_name, link_object_t *extern_table, uint16_t extern_table_len):&#160;file_io.c']]],
+  ['create_5fobject_5ffile',['create_object_file',['../asm_8h.html#a59bbda7fbcd80eca1bb64a1416fa9f41',1,'create_object_file(const char *file_name, object_code_t *objectc, uint16_t objectc_len, uint16_t data_len):&#160;file_io.c'],['../file__io_8c.html#a59bbda7fbcd80eca1bb64a1416fa9f41',1,'create_object_file(const char *file_name, object_code_t *objectc, uint16_t objectc_len, uint16_t data_len):&#160;file_io.c']]]
 ];
