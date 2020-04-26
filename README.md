@@ -166,17 +166,17 @@ Directive statement may optionally start with a label, the label has to follow c
 
     The parameter(s) of data is a list of legal numbers separated by a comma ',' character. For example:
 ```
-        .data    +7,-57 ,17   ,    9
+.data    +7,-57 ,17   ,    9
 ```
     Notice that any number of whitespace characters may appear between the number(s) and the comma character(s). However, the comma character must separate between two numeric values.
     The '.data' directive statement directs the assembler to allocate space in its data image where the appropriate numeric parameters is to be stored. It also direct the assembler to advance the data counter by the number of parameters (of the '.data' directive). If the '.data' directive has a label name, then this label name is assigned with the value in the data image (before it was advanced) and get inserted to the symbols table. This way we can refer to certain place in the data image using the label name. For instance, if we write
 ```
-        XYZ:    .data   +7,-57,17,9
-                mov 	XYZ, r1
+XYZ:    .data   +7,-57,17,9
+    mov 	XYZ, r1
 ```
     then register r1 is assigned with the value +7. If we continue to write
 ```
-        lea    XYZ, r1
+lea    XYZ, r1
 ```
     then r1 would have been assigned with the address (in the data image) that stores the +7 value.
 
@@ -184,7 +184,7 @@ Directive statement may optionally start with a label, the label has to follow c
 
     The '.string' directive statement gets only one legal string as parameter. The meaning of '.string' directive statement is similar to the '.data' directive statement. The ASCII characters composed the string are coded to their appropriate numeric ASCII values) and get inserted to the data image by their order. At the end a zero value is being inserted, to mark the end of the string. The value of the data counter is to be increase, according to the length of the string + one. If the line includes a label name, then the value of the label name is going to point to the location in memory that stores the ASCII code of the first character of the string, at the same way as it was done for the '.data' string. For instance the directive statement
 ```
-        ABC:    .string    "abcdef"
+ABC:    .string    "abcdef"
 ```
     is going to allocate an array of characters of length 7 starting from the address stored in the ABC label name. This "array" is initialized to the ASCII value of characters 'a', 'b', 'c', 'd', 'e', 'f' in correspondence, the array is to be ended with the zero value concatenate to the end of the array.
 
@@ -192,8 +192,8 @@ Directive statement may optionally start with a label, the label has to follow c
 
     The '.entry' directive statement gets one parameter only. This parameter is a label name, declared by other directive statement in the very same file where the The purpose of the '.entry' directive statement is to deal handle cases where a label name defined in an assembly source file A needs to be referred by other assembly source file(s) B, C, D, etc. In this case the '.entry' directive statement, written in the file A, gets the label name as its parameter (the '.entry' directive statement has to have a single parameter). For instance, if an assembly source file A contains the following lines
 ```
-        .entry	HELLO
-        HELLO:  add		#1, r1
+.entry	HELLO
+HELLO:  add		#1, r1
 ```
     then other assembly source file(s), may refer to HELLO label name. Notice that a label at the beginning of the '.entry' directive is meaningless.
 
@@ -201,7 +201,7 @@ Directive statement may optionally start with a label, the label has to follow c
 
     The '.extern' directive statement gets one parameter this parameter is the name of a label name defined in other assembly source file. The purpose of this directive statement is to declare that the label has been defined in other source file and that this assembly source file (the one that contains the '.extern' directive statement) is using it. The correspondence between the value of the label, as appeared in the source file where it was defined, and the operation instruction(s) that are using it as an argument is to be done at linking time.
 ```
-        .extern HELLO
+.extern HELLO
 ```
     Notice that a label at the beginning of the '.extern' directive is meaningless.
 
@@ -416,6 +416,9 @@ The entries file is composed out of lines of text. Each line contains the entry 
 ## The externals file (.ext)
 The externals file is composed out of lines of text. Each line contains the name and memory address of the external variable.
 
+## Binary file (.bin)
+The binary file contains the object code in binary (non-text) format. It can't be created, if the source code contains .extern directives.
+
 ## Example files
 ### test
 Prints the string "abcdef".
@@ -473,14 +476,14 @@ The main routine of the program of reversing string "abcdef".
 ; Includes main routine of reversing string "abcdef"
 
 MAIN:	lea STR, STRADD
-		jsr	COUNT
-		jsr	PRTSTR
-		mov	*STRADD, LASTCHAR
-		add	LEN, LASTCHAR
-		dec	LASTCHAR
-		jsr	REVERSE
-		jsr	PRTSTR
-		hlt
+        jsr	COUNT
+        jsr	PRTSTR
+        mov	*STRADD, LASTCHAR
+        add	LEN, LASTCHAR
+        dec	LASTCHAR
+        jsr	REVERSE
+        jsr	PRTSTR
+        hlt
 
 .entry	STRADD
 .entry	MAIN
@@ -543,13 +546,14 @@ PRTSTR 0012
 # Usage of tas
 
 ```
-        tas <options> source-file
+tas <options> source-file
 ```
 where the options are:
 ```
-        -l : prints debugging lists after each pass
-        -n : creates NO output files
-        -h : shows this text
+-l : prints debugging lists after each pass
+-n : creates NO output files
+-b : creates binary output file
+-h : shows this text
 ```
 
 # Compilation of tas
@@ -558,16 +562,16 @@ Use [premake5](https://premake.github.io) to generate the build configuration.
 
 *Windows*
 ```
-        cd tas
-        premake5 vs2017
-        cd build
-        tas.sln
+cd tas
+premake5 vs2017
+cd build
+tas.sln
 ```
 *Linux*
 ```
-       cd tas
-       premake5 gmake
-       cd build
-       make                # build default (Debug) configuration
-       make config=release # build Release configuration
+cd tas
+premake5 gmake
+cd build
+make                # build default (Debug) configuration
+make config=release # build Release configuration
 ```
