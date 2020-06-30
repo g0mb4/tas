@@ -13,13 +13,13 @@
  * \param fmt		printf style format string
  * \param ...		printf style variable argument list
  */
-void error(const char * file_name, uint32_t line, char * fmt, ...){
+void error(const char * file_name, uint32_t line, char * fmt, ...) {
     va_list list;
 
     fprintf(stderr, "%s:%u: error: ", file_name ? file_name : "", line);
     va_start(list, fmt);
-	vfprintf(stderr, fmt, list);
-	va_end(list);
+    vfprintf(stderr, fmt, list);
+    va_end(list);
     fprintf(stderr, "\n");
 }
 
@@ -31,12 +31,12 @@ void error(const char * file_name, uint32_t line, char * fmt, ...){
  * \param fmt		printf style format string
  * \param ...		printf style variable argument list
  */
-void warning(const char * file_name, uint32_t line, char * fmt, ...){
+void warning(const char * file_name, uint32_t line, char * fmt, ...) {
     va_list list;
 
     fprintf(stderr, "%s:%u: warning: ", file_name ? file_name : "", line);
     va_start(list, fmt);
-	vfprintf(stderr, fmt, list);
-	va_end(list);
+    vfprintf(stderr, fmt, list);
+    va_end(list);
     fprintf(stderr, "\n");
 }

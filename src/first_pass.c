@@ -23,9 +23,9 @@
 
 /* static variables, used "globally" trhough first pass */
 /* error macros need them */
-static uint32_t line_number;	/* current line number of the source code */
-static char * file_base_name;	/* name of the source file */
-static int errors;				/* number of errors though first pass  */
+static uint32_t line_number; /* current line number of the source code */
+static char * file_base_name; /* name of the source file */
+static int errors; /* number of errors though first pass  */
 
 static symbol_t * sym_table = NULL;
 static uint16_t sym_tyble_ctr;
@@ -44,33 +44,35 @@ static uint16_t link_table_ctr;
  * 
  * \param s	symbol to be added
  */
-#define ADD_SYM(s)          sym_table[sym_tyble_ctr++] = (s)
+#define ADD_SYM(s) sym_table[sym_tyble_ctr++] = (s)
 /*!
 * \brief adding data to the data image
 * 
 * \param d 16-bit data word
 */
-#define ADD_DATA(d)         data_image[data_image_ctr++] = (d)
+#define ADD_DATA(d) data_image[data_image_ctr++] = (d)
 /*!
  * \brief adding instruction to the object code
  * 
  * \param i 16-bit machine word 
  */
-#define ADD_OBJECT_CODE(i)  object_code_t o; \
-                            o.value = (i); \
-                            o.type = 'a'; \
-                            object_code[object_code_ctr++] = o;
+#define ADD_OBJECT_CODE(i) \
+    object_code_t o;       \
+    o.value = (i);         \
+    o.type = 'a';          \
+    object_code[object_code_ctr++] = o;
 /*!
  * \brief adding placeholder data to the object code
  */
-#define ADD_DUMMY_WORD()    object_code_t o; \
-                            o.value = 0xFFFF; \
-                            o.type = '?'; \
-                            object_code[object_code_ctr++] = o;
- /*!
+#define ADD_DUMMY_WORD() \
+    object_code_t o;     \
+    o.value = 0xFFFF;    \
+    o.type = '?';        \
+    object_code[object_code_ctr++] = o;
+/*!
   * \brief adding link object to its table
   */
-#define ADD_LINK_OBJECT(o)  link_table[link_table_ctr++] = (o);
+#define ADD_LINK_OBJECT(o) link_table[link_table_ctr++] = (o);
 
 /*!
  * \brief main function of the first pass
@@ -86,12 +88,10 @@ static uint16_t link_table_ctr;
  * \param linko_ctr		counter of the link objec table
  * \return				number of errors during first pass
  */
-uint16_t first_pass(const char * file_name,
-    symbol_t * symt, uint16_t * symt_ctr,
-    uint16_t * datai, uint16_t * datai_ctr,
-    object_code_t * objectc, uint16_t * objectc_ctr,
-    link_object_t * linko, uint16_t * linko_ctr){
-
+uint16_t first_pass(const char * file_name, symbol_t * symt,
+                    uint16_t * symt_ctr, uint16_t * datai, uint16_t * datai_ctr,
+                    object_code_t * objectc, uint16_t * objectc_ctr,
+                    link_object_t * linko, uint16_t * linko_ctr) {
     FILE * fp;
     char line[256];
 
@@ -101,7 +101,7 @@ uint16_t first_pass(const char * file_name,
     object_code = objectc;
 
     fp = fopen(file_name, "r");
-    if(fp == NULL){
+    if (fp == NULL) {
         fprintf(stderr, "unable to open '%s'\n", file_name);
         return 1;
     }
@@ -116,19 +116,19 @@ uint16_t first_pass(const char * file_name,
     line_number = 1;
     errors = 0;
 
-    while(fgets(line, sizeof(line), fp) != NULL) {
-        if(strlen(line) > 80){
+    while (fgets(line, sizeof(line), fp) != NULL) {
+        if (strlen(line) > 80) {
             WARN("line is longer than 80 characters");
         }
         /* remove whitespaces, tabs, spaces after commas and comments */
         char * clean = clean_line(line);
 
-        if(!clean){
+        if (!clean) {
             ERROR_F("unable to clean the line: %s", line);
         } else {
-            if(strlen(clean) == 0){
+            if (strlen(clean) == 0) {
                 /* empty line  */
-            } else if(clean[0] == ';'){
+            } else if (clean[0] == ';') {
                 /* comment */
             } else {
                 first_process_line(clean, 0);
@@ -142,7 +142,7 @@ uint16_t first_pass(const char * file_name,
 
     fclose(fp);
 
-	/* update counter (length) values */
+    /* update counter (length) values */
     *symt_ctr = sym_tyble_ctr;
     *datai_ctr = data_image_ctr;
     *objectc_ctr = object_code_ctr;
@@ -157,12 +157,14 @@ uint16_t first_pass(const char * file_name,
  * \param line			line to process
  * \param column_index	starting column index
  */
-void first_process_line(char * line, int column_index){
-    char * col_str = string_split(line, " ", column_index);	/* split te line into columns, and get the desired one */
-    column_t col = column_type(col_str);	/* get the type of the column */
+void first_process_line(char * line, int column_index) {
+    char * col_str = string_split(
+        line, " ",
+        column_index); /* split te line into columns, and get the desired one */
+    column_t col = column_type(col_str); /* get the type of the column */
 
-	/* process the column */
-    switch(col){
+    /* process the column */
+    switch (col) {
     case LABEL:
         first_process_label(line);
         break;
@@ -200,61 +202,66 @@ void first_process_line(char * line, int column_index){
  * 
  * \param line	line starting with the label
  */
-void first_process_label(char * line){
-    char * label = string_split(line, " ", 0);	/* get the label, first column of the line */
-	int len = (int)strlen(label);
+void first_process_label(char * line) {
+    char * label = string_split(
+        line, " ", 0); /* get the label, first column of the line */
+    int len = (int)strlen(label);
 
-    label[len - 1] = '\0';  /* remove ':' */
+    label[len - 1] = '\0'; /* remove ':' */
     symbol_t sym;
     sym.name = (char *)malloc(strlen(label));
 
-    if(!sym.name){
+    if (!sym.name) {
         ERROR_F("unable to allocate memory for symbol '%s'", label);
     } else {
         strcpy(sym.name, label);
 
-		/* get the next column */
+        /* get the next column */
         char * col2_str = string_split(line, " ", 1);
         column_t col2 = column_type(col2_str);
 
         /* decide symbol type based on the next column */
-        switch(col2){
-            case OPERATION:
-                sym.value = object_code_ctr;	/* current position in the object code */
-                sym.type = 'a';					/* absolute */
+        switch (col2) {
+        case OPERATION:
+            sym.value =
+                object_code_ctr; /* current position in the object code */
+            sym.type = 'a'; /* absolute */
 
-				/* add symbol, if it not defined earlier */
-				if (count_table_objects_name(label, sym_table, sym_tyble_ctr) > 0) {
-					ERROR_F("symbol is already defined: %s", label);
-				} else {
-					ADD_SYM(sym);
-				}
+            /* add symbol, if it not defined earlier */
+            if (count_table_objects_name(label, sym_table, sym_tyble_ctr) > 0) {
+                ERROR_F("symbol is already defined: %s", label);
+            } else {
+                ADD_SYM(sym);
+            }
 
-                first_process_line(line, 1);	/* recursively process the line, starting with the second column */
-                break;
-            case DIRECTIVE_ENTRY:
-            case DIRECTIVE_EXTERN:
-                WARN_F("label in front of a compiler directive: %s", line);
-                break;
+            first_process_line(
+                line,
+                1); /* recursively process the line, starting with the second column */
+            break;
+        case DIRECTIVE_ENTRY:
+        case DIRECTIVE_EXTERN:
+            WARN_F("label in front of a compiler directive: %s", line);
+            break;
 
-            case DIRECTIVE_NUMBER:
-            case DIRECTIVE_STRING:
-                sym.value = data_image_ctr;	/* current position in the data image */
-                sym.type = 'r';				/* relocatable */
+        case DIRECTIVE_NUMBER:
+        case DIRECTIVE_STRING:
+            sym.value = data_image_ctr; /* current position in the data image */
+            sym.type = 'r'; /* relocatable */
 
-				/* add symbol, if it not defined earlier */
-				if (count_table_objects_name(label, sym_table, sym_tyble_ctr) > 0) {
-					ERROR_F("symbol is already defined: %s", label);
-				}
-				else {
-					ADD_SYM(sym);
-				}
+            /* add symbol, if it not defined earlier */
+            if (count_table_objects_name(label, sym_table, sym_tyble_ctr) > 0) {
+                ERROR_F("symbol is already defined: %s", label);
+            } else {
+                ADD_SYM(sym);
+            }
 
-                first_process_line(line, 1);	/* recursively process the line, starting with the second column */
-                break;
-            default:
-                ERROR_F("unknown label type: %s", col2_str);
-                break;
+            first_process_line(
+                line,
+                1); /* recursively process the line, starting with the second column */
+            break;
+        default:
+            ERROR_F("unknown label type: %s", col2_str);
+            break;
         }
 
         free(col2_str);
@@ -271,28 +278,28 @@ void first_process_label(char * line){
  * \param line			line containing the label
  * \param column_index	column containing the parameter of the entry, a label
  */
-void first_process_entry(char * line, int column_index){
+void first_process_entry(char * line, int column_index) {
     char * label = string_split(line, " ", column_index);
 
-    if(!label){
+    if (!label) {
         ERROR_F("expected LABEL: %s", line);
         return;
     }
 
-	/* check if label is valid */
-    if(is_valid_label_name(label, 0, 0) == false){
+    /* check if label is valid */
+    if (is_valid_label_name(label, 0, 0) == false) {
         ERROR_F("invalid LABEL: %s", label);
     } else {
         link_object_t obj;
         obj.name = (char *)malloc(strlen(label) + 1);
-        if(!obj.name){
+        if (!obj.name) {
             ERROR_F("unable to allocate memory for link object: %s", line);
         } else {
-            strcpy(obj.name, label);	/* set the name */
-            obj.value = 0xFFFF;			/* it does not matter */
-            obj.type = 'n';				/* entry */
+            strcpy(obj.name, label); /* set the name */
+            obj.value = 0xFFFF; /* it does not matter */
+            obj.type = 'n'; /* entry */
 
-            ADD_LINK_OBJECT(obj);		/* add it to the table */
+            ADD_LINK_OBJECT(obj); /* add it to the table */
         }
     }
 
@@ -307,29 +314,29 @@ void first_process_entry(char * line, int column_index){
  * \param line			line containing the label
  * \param column_index	column containing the parameter of the extern, a label
  */
-void first_process_extern(char * line, int column_index){
+void first_process_extern(char * line, int column_index) {
     char * label = string_split(line, " ", column_index);
 
-    if(!label){
+    if (!label) {
         ERROR_F("expected LABEL: %s", line);
         return;
     }
 
-	/* check if label is valid */
-    if(is_valid_label_name(label, 0, 0) == false){
+    /* check if label is valid */
+    if (is_valid_label_name(label, 0, 0) == false) {
         ERROR_F("invalid LABEL: %s", label);
     } else {
         link_object_t obj;
         obj.name = (char *)malloc(strlen(label) + 1);
 
-        if(!obj.name){
+        if (!obj.name) {
             ERROR_F("unable to allocate memory for link object: %s", line);
         } else {
-            strcpy(obj.name, label);	/* set the name */
-			obj.value = 0xFFFF;			/* it does not matter */
-			obj.type = 'e';				/* extern */
+            strcpy(obj.name, label); /* set the name */
+            obj.value = 0xFFFF; /* it does not matter */
+            obj.type = 'e'; /* extern */
 
-			ADD_LINK_OBJECT(obj);		/* add it to the table */
+            ADD_LINK_OBJECT(obj); /* add it to the table */
         }
     }
 
@@ -344,30 +351,32 @@ void first_process_extern(char * line, int column_index){
  * \param line			line containing the number/numbers
  * \param column_index	column containing the parameter of the data, a number/list of numbers
  */
-void first_process_numbers(char * line, int column_index){
+void first_process_numbers(char * line, int column_index) {
     char * list = string_split(line, " ", column_index);
     int i = 0;
 
-    if(!list){
+    if (!list) {
         ERROR_F("expected numbers, got: %s", line);
         return;
     }
 
-    char * number = string_split(list, ",", i);	 /* get the first number from the list */
-	/* while there is numbers */
-    while(number){
-		/* check if number is valid */
-        if(is_valid_numeric_literal(number, 0) == false){
+    char * number =
+        string_split(list, ",", i); /* get the first number from the list */
+    /* while there is numbers */
+    while (number) {
+        /* check if number is valid */
+        if (is_valid_numeric_literal(number, 0) == false) {
             ERROR_F("not a valid numeric literal: '%s'", number);
             return;
         }
 
-        uint16_t val = get_number(number, 0);	/* get the value */
+        uint16_t val = get_number(number, 0); /* get the value */
 
-        ADD_DATA(val);	/* add the value to the data image */
+        ADD_DATA(val); /* add the value to the data image */
 
         free(number);
-        number = string_split(list, ",", ++i);	/* get the next number in the list */
+        number =
+            string_split(list, ",", ++i); /* get the next number in the list */
     }
     free(list);
 }
@@ -380,16 +389,16 @@ void first_process_numbers(char * line, int column_index){
  * \param line			line containing the string
  * \param column_index	column containing the parameter of the string, a string (what a surprise)
  */
-void first_process_string(char * line, int column_index){
+void first_process_string(char * line, int column_index) {
     char * string = string_split(line, " ", column_index);
     uint32_t i = 1;
 
-	/* check if the parameter is a valid string literal */
-    if(string[0] != '"'){
+    /* check if the parameter is a valid string literal */
+    if (string[0] != '"') {
         ERROR_F("not a valid string literal: '%s'", string);
     } else {
-		/* copy the contents of the literal into tha data image */
-        while(string[i] && string[i] != '"'){
+        /* copy the contents of the literal into tha data image */
+        while (string[i] && string[i] != '"') {
             uint16_t val = (uint16_t)string[i];
 
             ADD_DATA(val);
@@ -397,9 +406,9 @@ void first_process_string(char * line, int column_index){
             i++;
         }
 
-        ADD_DATA(0);    /* add terminating NULL */
+        ADD_DATA(0); /* add terminating NULL */
 
-        if(i != strlen(string) - 1){
+        if (i != strlen(string) - 1) {
             WARN_F("unclosed string literal: '%s'", string);
         }
     }
@@ -415,97 +424,107 @@ void first_process_string(char * line, int column_index){
  * \param line			line containing the operation
  * \param column_index	column containing the operation, NOT the operands
  */
-void first_process_operation(char * line, int column_index){
-    char * operation = string_split(line, " ", column_index);		/* get the operation */
-    char * operands = string_split(line, " ", column_index + 1);	/* get the operands */
-    char * operand1 = string_split(operands, ",", 0);				/* get the 1st operand */
-    char * operand2 = string_split(operands, ",", 1);				/* get the 2nd operand */
+void first_process_operation(char * line, int column_index) {
+    char * operation =
+        string_split(line, " ", column_index); /* get the operation */
+    char * operands =
+        string_split(line, " ", column_index + 1); /* get the operands */
+    char * operand1 = string_split(operands, ",", 0); /* get the 1st operand */
+    char * operand2 = string_split(operands, ",", 1); /* get the 2nd operand */
 
-    operation_t * op = get_operation(operation);	/* identify the operation */
+    operation_t * op = get_operation(operation); /* identify the operation */
 
-    if(!operation || !op){
+    if (!operation || !op) {
         ERROR_F("invalid operation: %s", line);
     } else {
-		/* count the number of the operands */
+        /* count the number of the operands */
         uint8_t number_of_operands = 0;
         number_of_operands += operand1 ? 1 : 0;
         number_of_operands += operand2 ? 1 : 0;
 
-        if(number_of_operands != op->operands){
+        if (number_of_operands != op->operands) {
             ERROR_F("wrong number of operands at '%s', expected %u, got %u",
-                operation, op->operands, number_of_operands);
+                    operation, op->operands, number_of_operands);
         } else {
-            switch(op->operands){
-			/* operations with no operands */
-			case 0: {
-					uint16_t inst = first_create_instruction(op, NULL, NULL);	/* create instruction from operation */
+            switch (op->operands) {
+            /* operations with no operands */
+            case 0: {
+                uint16_t inst = first_create_instruction(
+                    op, NULL, NULL); /* create instruction from operation */
 
-					ADD_OBJECT_CODE(inst);	/* add instruction to the object code */
-				}
-				break;
+                ADD_OBJECT_CODE(inst); /* add instruction to the object code */
+            } break;
 
-			/* operations with 1 operand */
-			case 1: {
-					addressing_t * dest_mode = get_addressing(operand1);	/* get the addressing mode of the operand */
+            /* operations with 1 operand */
+            case 1: {
+                addressing_t * dest_mode = get_addressing(
+                    operand1); /* get the addressing mode of the operand */
 
-					/* check if addressing is valid for this operation */
-					if (is_valid_addressing(op, dest_mode, 1) == false) {
-						ERROR_F("wrong destination addressing mode '%s'", operand1);
-					} else {
-						uint16_t inst = first_create_instruction(op, NULL, operand1);	/* create instruction from operation */
+                /* check if addressing is valid for this operation */
+                if (is_valid_addressing(op, dest_mode, 1) == false) {
+                    ERROR_F("wrong destination addressing mode '%s'", operand1);
+                } else {
+                    uint16_t inst = first_create_instruction(
+                        op, NULL,
+                        operand1); /* create instruction from operation */
 
-						ADD_OBJECT_CODE(inst);	/* add instruction to the object code */
-						/* if addressing requires an additional word */
-						if (dest_mode->add_word) {
-							ADD_DUMMY_WORD();	/* add placeholder to the object code */
-						}
-					}
-				}
-				break;
+                    ADD_OBJECT_CODE(
+                        inst); /* add instruction to the object code */
+                    /* if addressing requires an additional word */
+                    if (dest_mode->add_word) {
+                        ADD_DUMMY_WORD(); /* add placeholder to the object code */
+                    }
+                }
+            } break;
 
-			/* operations with 2 operands */
+            /* operations with 2 operands */
             case 2: {
-                    addressing_t * src_mode = get_addressing(operand1);		/* get the addressing mode of the 1st operand */
-                    addressing_t * dest_mode = get_addressing(operand2);	/* get the addressing mode of the 2nd operand */
+                addressing_t * src_mode = get_addressing(
+                    operand1); /* get the addressing mode of the 1st operand */
+                addressing_t * dest_mode = get_addressing(
+                    operand2); /* get the addressing mode of the 2nd operand */
 
-					/* check if 1st addressing is valid for this operation */
-                    if(is_valid_addressing(op, src_mode, 0) == false){
-                        ERROR_F("wrong source addressing mode '%s'", operand1);
+                /* check if 1st addressing is valid for this operation */
+                if (is_valid_addressing(op, src_mode, 0) == false) {
+                    ERROR_F("wrong source addressing mode '%s'", operand1);
+                } else {
+                    /* check if 2nd addressing is valid for this operation */
+                    if (is_valid_addressing(op, dest_mode, 1) == false) {
+                        ERROR_F("wrong destination addressing mode '%s",
+                                operand2);
+                        return;
                     } else {
-						/* check if 2nd addressing is valid for this operation */
-                        if(is_valid_addressing(op, dest_mode, 1) == false){
-                            ERROR_F("wrong destination addressing mode '%s", operand2);
-                            return;
-                        } else {
-                            uint16_t inst = first_create_instruction(op, operand1, operand2);	/* create instruction from operation */
+                        uint16_t inst = first_create_instruction(
+                            op, operand1,
+                            operand2); /* create instruction from operation */
 
-                            ADD_OBJECT_CODE(inst);	/* add instruction to the object code */
-							/* if 1st addressing requires an additional word */
-                            if(src_mode->add_word){
-                                ADD_DUMMY_WORD();	/* add placeholder to the object code */
-                            }
-							/* if 2nd addressing requires an additional word */
-                            if(dest_mode->add_word){
-                                ADD_DUMMY_WORD();	/* add placeholder to the object code */
-                            }
+                        ADD_OBJECT_CODE(
+                            inst); /* add instruction to the object code */
+                        /* if 1st addressing requires an additional word */
+                        if (src_mode->add_word) {
+                            ADD_DUMMY_WORD(); /* add placeholder to the object code */
+                        }
+                        /* if 2nd addressing requires an additional word */
+                        if (dest_mode->add_word) {
+                            ADD_DUMMY_WORD(); /* add placeholder to the object code */
                         }
                     }
                 }
-                break;
+            } break;
             }
         }
     }
 
-	/* free resources */
-    if(operand1){
+    /* free resources */
+    if (operand1) {
         free(operand1);
     }
 
-    if(operand2){
+    if (operand2) {
         free(operand2);
     }
 
-    if(operands){
+    if (operands) {
         free(operands);
     }
 
@@ -520,78 +539,79 @@ void first_process_operation(char * line, int column_index){
  * \param dest	destination operand
  * \return		16-bit instruction word
  */
-uint16_t first_create_instruction(operation_t * op, char * src, char * dest){
+uint16_t first_create_instruction(operation_t * op, char * src, char * dest) {
     instruction_t inst;
 
     inst.op = op->opcode;
 
-    switch(op->operands){
-	/* operations with no operands */
+    switch (op->operands) {
+    /* operations with no operands */
     case 0:
-		/* only the opcode matters, everithing else is 0 */
+        /* only the opcode matters, everithing else is 0 */
         inst.src_addr = 0;
         inst.src_reg = 0;
         inst.dest_addr = 0;
         inst.dest_reg = 0;
 
         break;
-	/* operations with 1 operand */
-    case 1:{
-			/* if addressing is register addressing, need to fill the required fields */
-            addressing_t * dest_mode = get_addressing(dest);
+    /* operations with 1 operand */
+    case 1: {
+        /* if addressing is register addressing, need to fill the required fields */
+        addressing_t * dest_mode = get_addressing(dest);
 
-            inst.src_addr = 0;
-            inst.src_reg = 0;
-            inst.dest_addr = dest_mode->mode;	/* set the mode */
-			/* get the register, if needed */
-            switch(dest_mode->mode){
-                case DIRECT_REGISTER:
-                    inst.dest_reg = get_register(dest, 0);	/* rx */
-                    break;
-                case INDIRECT_REGISTER:
-                    inst.dest_reg = get_register(dest, 1);	/* @rx */
-                    break;
-                default:
-                    inst.dest_reg = 0;
-            }
+        inst.src_addr = 0;
+        inst.src_reg = 0;
+        inst.dest_addr = dest_mode->mode; /* set the mode */
+        /* get the register, if needed */
+        switch (dest_mode->mode) {
+        case DIRECT_REGISTER:
+            inst.dest_reg = get_register(dest, 0); /* rx */
+            break;
+        case INDIRECT_REGISTER:
+            inst.dest_reg = get_register(dest, 1); /* @rx */
+            break;
+        default:
+            inst.dest_reg = 0;
         }
-
-        break;
-	/* operations with 2 operands */
-    case 2: {
-			/* if addressing is register addressing, need to fill the required fields */
-            addressing_t * src_mode = get_addressing(src);
-            addressing_t * dest_mode = get_addressing(dest);
-
-            inst.src_addr = src_mode->mode;	/* set the mode */
-			/* get the register, if needed */
-            switch(src_mode->mode){
-                case DIRECT_REGISTER:
-                    inst.src_reg = get_register(src, 0);	/* rx */
-                    break;
-                case INDIRECT_REGISTER:
-                    inst.src_reg = get_register(src, 1);	/* @rx */
-                    break;
-                default:
-                    inst.src_reg = 0;
-            }
-
-            inst.dest_addr = dest_mode->mode;	/* set the mode */
-			/* get the register, if needed */
-            switch(dest_mode->mode){
-                case DIRECT_REGISTER:
-                    inst.dest_reg = get_register(dest, 0);	/* rx */
-                    break;
-                case INDIRECT_REGISTER:
-                    inst.dest_reg = get_register(dest, 1);	/* @rx */
-                    break;
-                default:
-                    inst.dest_reg = 0;
-            }
-        }
-
-        break;
     }
 
-    return instruction_to_word(inst);	/* create the 16-bit instruction word from struct */
+    break;
+    /* operations with 2 operands */
+    case 2: {
+        /* if addressing is register addressing, need to fill the required fields */
+        addressing_t * src_mode = get_addressing(src);
+        addressing_t * dest_mode = get_addressing(dest);
+
+        inst.src_addr = src_mode->mode; /* set the mode */
+        /* get the register, if needed */
+        switch (src_mode->mode) {
+        case DIRECT_REGISTER:
+            inst.src_reg = get_register(src, 0); /* rx */
+            break;
+        case INDIRECT_REGISTER:
+            inst.src_reg = get_register(src, 1); /* @rx */
+            break;
+        default:
+            inst.src_reg = 0;
+        }
+
+        inst.dest_addr = dest_mode->mode; /* set the mode */
+        /* get the register, if needed */
+        switch (dest_mode->mode) {
+        case DIRECT_REGISTER:
+            inst.dest_reg = get_register(dest, 0); /* rx */
+            break;
+        case INDIRECT_REGISTER:
+            inst.dest_reg = get_register(dest, 1); /* @rx */
+            break;
+        default:
+            inst.dest_reg = 0;
+        }
+    }
+
+    break;
+    }
+
+    return instruction_to_word(
+        inst); /* create the 16-bit instruction word from struct */
 }

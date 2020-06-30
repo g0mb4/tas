@@ -21,9 +21,9 @@
 
 /* static variables, used "globally" trhough the second pass */
 /* error macros need them */
-static uint32_t line_number;	/* current line number of the source code */
-static char * file_base_name;	/* name of the source file */
-static int errors;				/* number of errors though second pass  */
+static uint32_t line_number; /* current line number of the source code */
+static char * file_base_name; /* name of the source file */
+static int errors; /* number of errors though second pass  */
 
 static symbol_t * sym_table = NULL;
 static uint16_t sym_tyble_ctr;
@@ -45,23 +45,26 @@ static uint16_t external_table_ctr;
  * \brief icrease the obcject code counter, to keep track of position
  * 
  */
-#define ADD_DUMMY_OBJECT_CODE()     object_code_ctr++;
+#define ADD_DUMMY_OBJECT_CODE() object_code_ctr++;
 /*!
  * \brief adds an object word with type to the table
  * 
  * \param w	16-bit object word
  * \param t type
  */
-#define ADD_OBJECT_WORD(w, t)       {object_code_t o; \
-                                    o.value = (w); \
-                                    o.type = (t); \
-                                    object_code[object_code_ctr++] = o;}
+#define ADD_OBJECT_WORD(w, t)               \
+    {                                       \
+        object_code_t o;                    \
+        o.value = (w);                      \
+        o.type = (t);                       \
+        object_code[object_code_ctr++] = o; \
+    }
 /*!
  * \brief adds an external object to the external table
  * 
  * \param e external object
  */
-#define ADD_EXTERNAL(e)             external_table[external_table_ctr++] = (e);
+#define ADD_EXTERNAL(e) external_table[external_table_ctr++] = (e);
 
 /*!
  * \brief main function of the second pass 
@@ -79,13 +82,12 @@ static uint16_t external_table_ctr;
  * \param exts_ctr		counter of the external table
  * \return				number of errors during second pass
  */
-uint16_t second_pass(const char * file_name,
-    symbol_t * symt, uint16_t * symt_ctr,
-    uint16_t * datai, uint16_t * datai_ctr,
-    object_code_t * objectc, uint16_t * objectc_ctr,
-    link_object_t * linko, uint16_t * linko_ctr,
-    link_object_t * exts, uint16_t * exts_ctr){
-
+uint16_t second_pass(const char * file_name, symbol_t * symt,
+                     uint16_t * symt_ctr, uint16_t * datai,
+                     uint16_t * datai_ctr, object_code_t * objectc,
+                     uint16_t * objectc_ctr, link_object_t * linko,
+                     uint16_t * linko_ctr, link_object_t * exts,
+                     uint16_t * exts_ctr) {
     FILE * fp;
     char line[128];
 
@@ -100,7 +102,7 @@ uint16_t second_pass(const char * file_name,
     link_table_ctr = *linko_ctr;
 
     fp = fopen(file_name, "r");
-    if(fp == NULL){
+    if (fp == NULL) {
         fprintf(stderr, "unable to open '%s'\n", file_name);
         return 1;
     }
@@ -112,19 +114,19 @@ uint16_t second_pass(const char * file_name,
     object_code_ctr = 0;
     external_table_ctr = 0;
 
-	/* update the tables */
+    /* update the tables */
     second_update_tables();
 
-    while(fgets (line, sizeof(line), fp) != NULL) {
-		/* remove whitespaces, tabs, spaces after commas and comments */
+    while (fgets(line, sizeof(line), fp) != NULL) {
+        /* remove whitespaces, tabs, spaces after commas and comments */
         char * clean = clean_line(line);
 
-        if(!clean){
-			ERROR_F("unable to clean the line: %s", line);
+        if (!clean) {
+            ERROR_F("unable to clean the line: %s", line);
         } else {
-            if(strlen(clean) == 0){
+            if (strlen(clean) == 0) {
                 /* empty line  */
-            } else if(clean[0] == ';'){
+            } else if (clean[0] == ';') {
                 /* comment */
             } else {
                 second_process_line(clean, 0);
@@ -138,8 +140,9 @@ uint16_t second_pass(const char * file_name,
 
     fclose(fp);
 
-	/* update counter (length) values */
-    *objectc_ctr = *objectc_ctr + *datai_ctr;	/* object code and data image had been merged */
+    /* update counter (length) values */
+    *objectc_ctr = *objectc_ctr +
+                   *datai_ctr; /* object code and data image had been merged */
     *exts_ctr = external_table_ctr;
 
     return errors;
@@ -149,21 +152,21 @@ uint16_t second_pass(const char * file_name,
  * \brief update te tables after the first pass
  * 
  */
-void second_update_tables(void){
+void second_update_tables(void) {
     uint32_t i, j;
 
     /* update data locations */
-    for(i = 0; i < sym_tyble_ctr; i++){
-        if(sym_table[i].type == 'r'){
+    for (i = 0; i < sym_tyble_ctr; i++) {
+        if (sym_table[i].type == 'r') {
             sym_table[i].value += object_code_first_len;
         }
     }
 
     /* update extern/entry labels */
-    for(i = 0; i < sym_tyble_ctr; i++){
-        for(j = 0; j < link_table_ctr; j++){
-            if(strcmp(sym_table[i].name, link_table[j].name) == 0){
-                switch(link_table[i].type){
+    for (i = 0; i < sym_tyble_ctr; i++) {
+        for (j = 0; j < link_table_ctr; j++) {
+            if (strcmp(sym_table[i].name, link_table[j].name) == 0) {
+                switch (link_table[i].type) {
                 /* extern */
                 case 'e':
                     sym_table[i].type = 'e';
@@ -180,7 +183,7 @@ void second_update_tables(void){
     }
 
     /* append data to object code */
-    for(i = 0, j = object_code_first_len; i < data_image_len; i++, j++){
+    for (i = 0, j = object_code_first_len; i < data_image_len; i++, j++) {
         object_code_t o;
         o.value = data_image[i];
         o.type = ' ';
@@ -196,23 +199,26 @@ void second_update_tables(void){
  * \param line			line to process
  * \param column_index	starting column index
  */
-void second_process_line(char * line, int column_index){
+void second_process_line(char * line, int column_index) {
     char * col_str = string_split(line, " ", column_index);
     column_t col = column_type(col_str);
 
-    switch(col){
+    switch (col) {
     case LABEL:
-        second_process_label(line);	/* just because it can contain an operation */
+        second_process_label(
+            line); /* just because it can contain an operation */
         break;
 
     case DIRECTIVE_ENTRY:
     case DIRECTIVE_EXTERN:
     case DIRECTIVE_NUMBER:
     case DIRECTIVE_STRING:
-		/* had been dealt with during the first pass */
+        /* had been dealt with during the first pass */
         break;
     case OPERATION:
-        second_process_operation(line, column_index);	/* this is the main purpuse of the second pass */
+        second_process_operation(
+            line,
+            column_index); /* this is the main purpuse of the second pass */
         break;
 
     case UNKNOWN:
@@ -230,24 +236,24 @@ void second_process_line(char * line, int column_index){
  * 
  * \param line
  */
-void second_process_label(char * line){
+void second_process_label(char * line) {
     char * col2_str = string_split(line, " ", 1);
     column_t col2 = column_type(col2_str);
 
     /* decide symbol type based on the next column */
-    switch(col2){
-        case OPERATION:
-            second_process_line(line, 1);	/* process the operation */
-            break;
-        case DIRECTIVE_ENTRY:
-        case DIRECTIVE_EXTERN:
-        case DIRECTIVE_NUMBER:
-        case DIRECTIVE_STRING:
-			/* had been dealt with during the first pass */
-            break;
-        default:
-            ERROR_F("unknown column type: %s", col2_str);
-            break;
+    switch (col2) {
+    case OPERATION:
+        second_process_line(line, 1); /* process the operation */
+        break;
+    case DIRECTIVE_ENTRY:
+    case DIRECTIVE_EXTERN:
+    case DIRECTIVE_NUMBER:
+    case DIRECTIVE_STRING:
+        /* had been dealt with during the first pass */
+        break;
+    default:
+        ERROR_F("unknown column type: %s", col2_str);
+        break;
     }
 
     free(col2_str);
@@ -260,26 +266,27 @@ void second_process_label(char * line){
  * \param word		word to add
  * \param ext		is it external
  */
-void second_add_object_word(char * operand, uint16_t word, bool ext){
-    addressing_t * addr_mode = get_addressing(operand);	/* get addressing mode */
+void second_add_object_word(char * operand, uint16_t word, bool ext) {
+    addressing_t * addr_mode =
+        get_addressing(operand); /* get addressing mode */
     char type;
 
-	/* check if addressing mode requires the additional word */
-    switch(addr_mode->mode){
-        case INSTANT:
-        case RELATIVE:
-            type = 'a';						/* absolute */
-            ADD_OBJECT_WORD(word, type);	/* add the word to the object code */
-            break;
-        case DIRECT:
-        case INDIRECT:
-            type = ext ? 'e' : 'r';			/* extern | reallocatable */
-            ADD_OBJECT_WORD(word, type);	/* add the word to the object code */
-            break;
-        case DIRECT_REGISTER:
-        case INDIRECT_REGISTER:
-            /* noting to do */
-            break;
+    /* check if addressing mode requires the additional word */
+    switch (addr_mode->mode) {
+    case INSTANT:
+    case RELATIVE:
+        type = 'a'; /* absolute */
+        ADD_OBJECT_WORD(word, type); /* add the word to the object code */
+        break;
+    case DIRECT:
+    case INDIRECT:
+        type = ext ? 'e' : 'r'; /* extern | reallocatable */
+        ADD_OBJECT_WORD(word, type); /* add the word to the object code */
+        break;
+    case DIRECT_REGISTER:
+    case INDIRECT_REGISTER:
+        /* noting to do */
+        break;
     }
 }
 
@@ -288,30 +295,32 @@ void second_add_object_word(char * operand, uint16_t word, bool ext){
  * 
  * \param operand label marked as external
  */
-void second_add_external(char * operand){
+void second_add_external(char * operand) {
     addressing_t * addr_mode = get_addressing(operand);
     char * real_symbol = (char *)malloc(strlen(operand) + 1);
     int start_index = 0;
     link_object_t obj;
 
-	/* get tel label name based on the addressing */
-    switch(addr_mode->mode){
-        case DIRECT:
-            start_index = 0;	/* LABEL */
-            break;
-        case INDIRECT:
-            start_index = 1;	/* @LABEL */
-            break;
-        case RELATIVE:
-        case INSTANT:
-        case DIRECT_REGISTER:
-        case INDIRECT_REGISTER:
-        default:
-            ERROR_F("expected EXTERN LABEL with DIRECT|INDIRECT addressing, got: %s", operand);
-            return;
+    /* get tel label name based on the addressing */
+    switch (addr_mode->mode) {
+    case DIRECT:
+        start_index = 0; /* LABEL */
+        break;
+    case INDIRECT:
+        start_index = 1; /* @LABEL */
+        break;
+    case RELATIVE:
+    case INSTANT:
+    case DIRECT_REGISTER:
+    case INDIRECT_REGISTER:
+    default:
+        ERROR_F("expected EXTERN LABEL with DIRECT|INDIRECT addressing, got: "
+                "%s",
+                operand);
+        return;
     }
 
-    if(!real_symbol){
+    if (!real_symbol) {
         ERROR_F("cannot allocate memory for symbol: %s", operand);
         return;
     }
@@ -319,14 +328,15 @@ void second_add_external(char * operand){
     strcpy(real_symbol, operand + start_index);
 
     obj.name = (char *)malloc(strlen(real_symbol) + 1);
-    if(!obj.name){
-        ERROR_F("unable ot allocate memory for external symbol: %s", real_symbol);
+    if (!obj.name) {
+        ERROR_F("unable ot allocate memory for external symbol: %s",
+                real_symbol);
     } else {
         strcpy(obj.name, real_symbol);
         obj.type = 'e';
         obj.value = object_code_ctr;
 
-        ADD_EXTERNAL(obj);	/* edd external object */
+        ADD_EXTERNAL(obj); /* edd external object */
     }
 }
 
@@ -338,71 +348,81 @@ void second_add_external(char * operand){
  * \param line			line containing the operation
  * \param column_index	column containing the operation, NOT the operands
  */
-void second_process_operation(char * line, int column_index){
-    char * operation = string_split(line, " ", column_index);		/* get the operation */
-	char * operands = string_split(line, " ", column_index + 1);	/* get the operands */
-	char * operand1 = string_split(operands, ",", 0);				/* get the 1st operand */
-	char * operand2 = string_split(operands, ",", 1);				/* get the 2nd operand */
+void second_process_operation(char * line, int column_index) {
+    char * operation =
+        string_split(line, " ", column_index); /* get the operation */
+    char * operands =
+        string_split(line, " ", column_index + 1); /* get the operands */
+    char * operand1 = string_split(operands, ",", 0); /* get the 1st operand */
+    char * operand2 = string_split(operands, ",", 1); /* get the 2nd operand */
 
     uint16_t word1 = 0, word2 = 0;
     bool ext1 = false, ext2 = false;
 
-    operation_t * op = get_operation(operation);	/* identify the operation */
+    operation_t * op = get_operation(operation); /* identify the operation */
 
-    if(!operation || !op){
+    if (!operation || !op) {
         ERROR_F("invalid operation: %s", line);
     } else {
-        switch(op->operands){
-		/* operations with no operands */
-		case 0:
-			/* nothing to do */
-			ADD_DUMMY_OBJECT_CODE();	/* step position */
-			break;
+        switch (op->operands) {
+        /* operations with no operands */
+        case 0:
+            /* nothing to do */
+            ADD_DUMMY_OBJECT_CODE(); /* step position */
+            break;
 
-		/* operations with 1 operand */
-		case 1:
-			second_create_words(op, NULL, operand1, NULL, &word1, NULL, &ext1);	/* create the additional words */
+        /* operations with 1 operand */
+        case 1:
+            second_create_words(op, NULL, operand1, NULL, &word1, NULL,
+                                &ext1); /* create the additional words */
 
-			ADD_DUMMY_OBJECT_CODE();	/* step position */
+            ADD_DUMMY_OBJECT_CODE(); /* step position */
 
-			/* if operand is external */
-			if (ext1) {
-				second_add_external(operand1);	/* add it to the external table */
-			}
-			second_add_object_word(operand1, word1, ext1);	/* add word to the object code */
+            /* if operand is external */
+            if (ext1) {
+                second_add_external(
+                    operand1); /* add it to the external table */
+            }
+            second_add_object_word(operand1, word1,
+                                   ext1); /* add word to the object code */
 
-			break;
+            break;
 
         case 2:
-            second_create_words(op, operand1, operand2, &word1, &word2, &ext1, &ext2);	/* create the additional words */
+            second_create_words(op, operand1, operand2, &word1, &word2, &ext1,
+                                &ext2); /* create the additional words */
 
-            ADD_DUMMY_OBJECT_CODE();	/* step position */
+            ADD_DUMMY_OBJECT_CODE(); /* step position */
 
-			/* if operand is external */
-            if(ext1){
-                second_add_external(operand1);	/* add it to the external table */
+            /* if operand is external */
+            if (ext1) {
+                second_add_external(
+                    operand1); /* add it to the external table */
             }
-            second_add_object_word(operand1, word1, ext1);	/* add word to the object code */
+            second_add_object_word(operand1, word1,
+                                   ext1); /* add word to the object code */
 
-			/* if operand is external */
-            if(ext2){
-                second_add_external(operand2);	/* add it to the external table */
+            /* if operand is external */
+            if (ext2) {
+                second_add_external(
+                    operand2); /* add it to the external table */
             }
-            second_add_object_word(operand2, word2, ext2);	/* add word to the object code */
+            second_add_object_word(operand2, word2,
+                                   ext2); /* add word to the object code */
 
             break;
         }
     }
 
-    if(operand1){
+    if (operand1) {
         free(operand1);
     }
 
-    if(operand2){
+    if (operand2) {
         free(operand2);
     }
 
-    if(operands){
+    if (operands) {
         free(operands);
     }
 
@@ -416,24 +436,24 @@ void second_process_operation(char * line, int column_index){
  * \param ext		set this if operand is extern
  * \return			16-bit machine word
  */
-uint16_t second_get_word(char * operand, bool * ext){
+uint16_t second_get_word(char * operand, bool * ext) {
     addressing_t * addr_mode = get_addressing(operand);
 
-    switch(addr_mode->mode){
-        case INSTANT:
-            *ext = false;						/* can't be external */
-            return get_number(operand, 1);		/* get the numeric value */
-        case DIRECT:
-            return second_get_symbol_value(operand, 0, ext);	/* LABEL */
-        case INDIRECT:
-            return second_get_symbol_value(operand, 1, ext);	/* @LABEL */
-        case RELATIVE:
-            return second_get_symbol_value_relative(operand, object_code_ctr, ext);
-        /* code could not reach this point */
-        case DIRECT_REGISTER:
-        case INDIRECT_REGISTER:
-        default:
-            return 0;
+    switch (addr_mode->mode) {
+    case INSTANT:
+        *ext = false; /* can't be external */
+        return get_number(operand, 1); /* get the numeric value */
+    case DIRECT:
+        return second_get_symbol_value(operand, 0, ext); /* LABEL */
+    case INDIRECT:
+        return second_get_symbol_value(operand, 1, ext); /* @LABEL */
+    case RELATIVE:
+        return second_get_symbol_value_relative(operand, object_code_ctr, ext);
+    /* code could not reach this point */
+    case DIRECT_REGISTER:
+    case INDIRECT_REGISTER:
+    default:
+        return 0;
     }
 }
 
@@ -448,17 +468,20 @@ uint16_t second_get_word(char * operand, bool * ext){
  * \param ext1	set this if word1 is extern
  * \param ext2	set this if word2 is extern
  */
-void second_create_words(operation_t * op, char * src, char * dest, uint16_t * word1, uint16_t * word2, bool * ext1, bool * ext2){
-    switch(op->operands){
-	/* operations with no operands */
+void second_create_words(operation_t * op, char * src, char * dest,
+                         uint16_t * word1, uint16_t * word2, bool * ext1,
+                         bool * ext2) {
+    switch (op->operands) {
+    /* operations with no operands */
     case 0:
         /* noting to do */
         break;
-	/* operations with 1 operand */
+    /* operations with 1 operand */
     case 1:
-        *word2 = second_get_word(dest, ext2);	/* only the destination operands are valid */
+        *word2 = second_get_word(
+            dest, ext2); /* only the destination operands are valid */
         break;
-	/* operations with 2 operands */
+    /* operations with 2 operands */
     case 2:
         *word1 = second_get_word(src, ext1);
         *word2 = second_get_word(dest, ext2);
@@ -476,33 +499,33 @@ void second_create_words(operation_t * op, char * src, char * dest, uint16_t * w
  * \param ext			set if symbol si external
  * \return				value of the symbol
  */
-uint16_t second_get_symbol_value(char * symbol, int start_index, bool * ext){
+uint16_t second_get_symbol_value(char * symbol, int start_index, bool * ext) {
     uint32_t i;
 
     char * real_symbol = (char *)malloc(strlen(symbol) + 1);
-    if(!real_symbol){
+    if (!real_symbol) {
         ERROR_F("cannot allocate memory for symbol: %s", symbol);
         return 0;
     }
 
     strcpy(real_symbol, symbol + start_index);
 
-	/* search in the symbol table */
-    for(i = 0; i < sym_tyble_ctr; i++){
+    /* search in the symbol table */
+    for (i = 0; i < sym_tyble_ctr; i++) {
         symbol_t * sym = &sym_table[i];
-        if(strcmp(sym->name, real_symbol) == 0){
-			*ext = false;		/* not an external symbol */
-            return sym->value;	/* get the value */
+        if (strcmp(sym->name, real_symbol) == 0) {
+            *ext = false; /* not an external symbol */
+            return sym->value; /* get the value */
         }
     }
 
     /* search in the extern table */
-    for(i = 0; i < link_table_ctr; i++){
+    for (i = 0; i < link_table_ctr; i++) {
         link_object_t * obj = &link_table[i];
-        if(strcmp(obj->name, real_symbol) == 0){
-            if(obj->type == 'e'){
-                *ext = true;	/* external symbol*/
-                return 0xFFFF;	/* value does not matter */
+        if (strcmp(obj->name, real_symbol) == 0) {
+            if (obj->type == 'e') {
+                *ext = true; /* external symbol*/
+                return 0xFFFF; /* value does not matter */
             }
         }
     }
@@ -520,25 +543,26 @@ uint16_t second_get_symbol_value(char * symbol, int start_index, bool * ext){
  * \param ext			set if symbol si external
  * \return				value of the symbol
  */
-uint16_t second_get_symbol_value_relative(char * symbol, uint16_t current, bool * ext){
-    uint16_t sym_addr = second_get_symbol_value(symbol, 1, ext);	/* *LABEL */
+uint16_t second_get_symbol_value_relative(char * symbol, uint16_t current,
+                                          bool * ext) {
+    uint16_t sym_addr = second_get_symbol_value(symbol, 1, ext); /* *LABEL */
 
-    int diff = sym_addr - current;	/* compute difference */
+    int diff = sym_addr - current; /* compute difference */
     bool negative = false;
     uint16_t ret = 0;
 
-	/* check if negative */
-    if(diff < 0){
+    /* check if negative */
+    if (diff < 0) {
         negative = true;
-		diff *= -1;
+        diff *= -1;
     }
 
-    ret = (uint16_t) diff;
+    ret = (uint16_t)diff;
 
-	/* if negative, create 2's complement */
-    if(negative == true){
-        ret = ~ret;     /* 1's complement */
-        ret += 1;       /* 2's complement */
+    /* if negative, create 2's complement */
+    if (negative == true) {
+        ret = ~ret; /* 1's complement */
+        ret += 1; /* 2's complement */
     }
 
     return ret;

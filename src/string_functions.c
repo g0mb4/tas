@@ -14,8 +14,8 @@
  * \param chars	characters to remove
  * \return		output string or NULL
  */
-char * string_trim(const char * str, const char * chars){
-    if(!str){
+char * string_trim(const char * str, const char * chars) {
+    if (!str) {
         return NULL;
     }
 
@@ -24,10 +24,11 @@ char * string_trim(const char * str, const char * chars){
     bool found = true;
     int i, j, offset = 0;
 
-    for(i = 0; str[i] && i < len && found; i++){
-        found = false;  /* not found a removeable character => first valid char */
-        for(j = 0; j < len_chars; j++){
-            if(str[i] == chars[j]){
+    for (i = 0; str[i] && i < len && found; i++) {
+        found =
+            false; /* not found a removeable character => first valid char */
+        for (j = 0; j < len_chars; j++) {
+            if (str[i] == chars[j]) {
                 found = true;
                 offset++;
                 break;
@@ -35,7 +36,7 @@ char * string_trim(const char * str, const char * chars){
         }
     }
 
-    return strdup(str + offset);	/* must be free()-d */
+    return strdup(str + offset); /* must be free()-d */
 }
 
 /*!
@@ -47,8 +48,8 @@ char * string_trim(const char * str, const char * chars){
  * \param chars	characters to remove
  * \return		output string or NULL
  */
-char * string_trim_end(const char * str, const char * chars){
-    if(!str){
+char * string_trim_end(const char * str, const char * chars) {
+    if (!str) {
         return NULL;
     }
 
@@ -57,11 +58,12 @@ char * string_trim_end(const char * str, const char * chars){
     bool found = true;
     int i, j, offset = 0;
 
-	/* start from the end and go backwards */
-    for(i = len - 1; str[i] && i >= 0 && found; i--){
-        found = false;  /* not found a removeable character => first valid char */
-        for(j = 0; j < len_chars; j++){
-            if(str[i] == chars[j]){
+    /* start from the end and go backwards */
+    for (i = len - 1; str[i] && i >= 0 && found; i--) {
+        found =
+            false; /* not found a removeable character => first valid char */
+        for (j = 0; j < len_chars; j++) {
+            if (str[i] == chars[j]) {
                 found = true;
                 offset++;
                 break;
@@ -70,13 +72,13 @@ char * string_trim_end(const char * str, const char * chars){
     }
 
     /* strange error */
-    if(offset > len){
+    if (offset > len) {
         return NULL;
     }
 
-    char * ret = (char *)malloc((len - offset + 1));	/* must be free()-d */
+    char * ret = (char *)malloc((len - offset + 1)); /* must be free()-d */
 
-    if(ret){
+    if (ret) {
         strncpy(ret, str, len - offset);
         ret[len - offset] = 0;
         return ret;
@@ -95,8 +97,8 @@ char * string_trim_end(const char * str, const char * chars){
  * \param index	index of the returnable substring
  * \return		substring  or NULL
  */
-char * string_split(const char * str, const char * delim, int index){
-    if(!str){
+char * string_split(const char * str, const char * delim, int index) {
+    if (!str) {
         return NULL;
     }
 
@@ -107,8 +109,8 @@ char * string_split(const char * str, const char * delim, int index){
 
     token = strtok(s, delim);
     while (token != NULL) {
-        if(index == target){
-            ret = strdup(token);    /* must be free()-d */
+        if (index == target) {
+            ret = strdup(token); /* must be free()-d */
             break;
         }
 
@@ -129,46 +131,46 @@ char * string_split(const char * str, const char * delim, int index){
  * \param line	line of a source file
  * \return		cleaned string or NULL
  */
-char * clean_line(const char * line){
-    if(!line){
+char * clean_line(const char * line) {
+    if (!line) {
         return NULL;
     }
 
-    char * trimmed = string_trim(line, " \t");  /* remove starting junk */
-    if(!trimmed){
+    char * trimmed = string_trim(line, " \t"); /* remove starting junk */
+    if (!trimmed) {
         return NULL;
     }
 
     int i, n = 0, len = (int)strlen(trimmed);
     char ch;
 
-    char * ret = (char *) malloc(sizeof(char) * (len + 1));
+    char * ret = (char *)malloc(sizeof(char) * (len + 1));
 
     /* first char is copied automatically, it is trimmed */
     ret[0] = trimmed[0];
     n = 1;
 
-    if(ret){
-        for(i = 1; trimmed[i] && i < len; i++){
+    if (ret) {
+        for (i = 1; trimmed[i] && i < len; i++) {
             ch = trimmed[i];
 
             /* start of comment, not needed */
-            if(ch == ';'){
+            if (ch == ';') {
                 break;
             }
 
             /* tabs to spaces */
-            if(ch == '\t'){
+            if (ch == '\t') {
                 ch = ' ';
             }
 
             /* not add duplicated space or space after comma */
-            if((ret[n - 1] == ' ' || ret[n - 1] == ',') && ch == ' '){
+            if ((ret[n - 1] == ' ' || ret[n - 1] == ',') && ch == ' ') {
                 continue;
             }
 
             /* not add space after a number */
-            if(ret[n - 1] >= '0' && ret[n - 1] <= '9' && ch == ' '){
+            if (ret[n - 1] >= '0' && ret[n - 1] <= '9' && ch == ' ') {
                 continue;
             }
 
@@ -180,5 +182,5 @@ char * clean_line(const char * line){
 
     free(trimmed);
 
-    return string_trim_end(ret, " \t\r\n");  /* remove ending junk */
+    return string_trim_end(ret, " \t\r\n"); /* remove ending junk */
 }
