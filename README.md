@@ -558,20 +558,19 @@ where the options are:
 
 # Compilation of tas
 
-Use [premake5](https://premake.github.io) to generate the build configuration.
-
 *Windows*
 ```
 cd tas
-premake5 vs2017
+mkdir build
 cd build
+cmake ..
 tas.sln
 ```
 *Linux*
 ```
 cd tas
-premake5 gmake
+mkdir build
 cd build
-make                # build default (Debug) configuration
-make config=release # build Release configuration
+cmake ..
+make
 ```
