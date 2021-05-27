@@ -157,37 +157,13 @@ int main(int argc, char * argv[]) {
         } else {
             /* create object file from object code */
             errors = create_object_file(file_name, object_code, object_ctr,
-                                        data_ctr);
+                                        data_ctr, link_table, link_ctr,
+                                        external_table, external_ctr);
             if (errors != 0) {
                 fprintf(stderr,
                         "object file creation failed with %u error(s)\n",
                         errors);
                 return 4;
-            }
-
-            /* if the are entry symbols */
-            if (count_table_objects_type('n', link_table, link_ctr) > 0) {
-                /* create entry file */
-                errors = create_entry_file(file_name, link_table, link_ctr);
-                if (errors != 0) {
-                    fprintf(stderr,
-                            "entry file creation failed with %u error(s)\n",
-                            errors);
-                    return 5;
-                }
-            }
-
-            /* if the are external symbols */
-            if (external_ctr > 0) {
-                /* create extern file */
-                errors =
-                    create_extern_file(file_name, external_table, external_ctr);
-                if (errors != 0) {
-                    fprintf(stderr,
-                            "extern file creation failed with %u error(s)\n",
-                            errors);
-                    return 6;
-                }
             }
         }
     }

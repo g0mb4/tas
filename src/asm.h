@@ -8,7 +8,7 @@
 
 /* standard headers */
 #include <stdio.h> /* for displaying and file operations */
-#include <stdlib.h> /* for malloc()/free() */
+#include <stdlib.h> /* for malloc(),free() */
 #include <stdint.h> /* for uint8_t, uint16_t, ... */
 #include <stdbool.h> /* for bool */
 #include <stdarg.h> /* for variable arguments in error()/warning() */
@@ -206,11 +206,10 @@ char * get_file_base_name(const char * path);
 char * get_file_name_no_ext(const char * file);
 
 uint16_t create_object_file(const char * file_name, object_code_t * objectc,
-                            uint16_t objectc_len, uint16_t data_len);
-uint16_t create_entry_file(const char * file_name, link_object_t * table,
-                           uint16_t len);
-uint16_t create_extern_file(const char * file_name, link_object_t * table,
-                            uint16_t len);
+                            uint16_t objectc_len, uint16_t data_len,
+                            link_object_t * link_table, uint16_t link_table_len,
+                            link_object_t * extern_table,
+                            uint16_t extern_table_len);
 
 uint16_t create_binary_file(const char * file_name, object_code_t * objectc,
                             uint16_t objectc_len);
