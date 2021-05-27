@@ -87,15 +87,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a006674780896e6133f179e7f1b48969d"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file__io_8c.html#a006674780896e6133f179e7f1b48969d">get_file_name_no_ext</a> (const char *path)</td></tr>
 <tr class="memdesc:a006674780896e6133f179e7f1b48969d"><td class="mdescLeft">&#160;</td><td class="mdescRight">gets the file name (containing the path) without extension  <a href="file__io_8c.html#a006674780896e6133f179e7f1b48969d">More...</a><br /></td></tr>
 <tr class="separator:a006674780896e6133f179e7f1b48969d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59bbda7fbcd80eca1bb64a1416fa9f41"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file__io_8c.html#a59bbda7fbcd80eca1bb64a1416fa9f41">create_object_file</a> (const char *file_name, <a class="el" href="asm_8h.html#ad28fa48002f8afe82cd5fde4cf6ce1fc">object_code_t</a> *objectc, uint16_t objectc_len, uint16_t data_len)</td></tr>
-<tr class="memdesc:a59bbda7fbcd80eca1bb64a1416fa9f41"><td class="mdescLeft">&#160;</td><td class="mdescRight">creates an ascii base16 object file from the object code  <a href="file__io_8c.html#a59bbda7fbcd80eca1bb64a1416fa9f41">More...</a><br /></td></tr>
-<tr class="separator:a59bbda7fbcd80eca1bb64a1416fa9f41"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9cde92beef473f9a14226f13ada5ff5"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file__io_8c.html#af9cde92beef473f9a14226f13ada5ff5">create_entry_file</a> (const char *file_name, <a class="el" href="asm_8h.html#a6fdea67b8cc6a06cd82937c880f619b8">link_object_t</a> *<a class="el" href="main_8c.html#a8a60227350abdd1c4ef45911f8e9e218">link_table</a>, uint16_t link_table_len)</td></tr>
-<tr class="memdesc:af9cde92beef473f9a14226f13ada5ff5"><td class="mdescLeft">&#160;</td><td class="mdescRight">creates an ascii entry file from the link table  <a href="file__io_8c.html#af9cde92beef473f9a14226f13ada5ff5">More...</a><br /></td></tr>
-<tr class="separator:af9cde92beef473f9a14226f13ada5ff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abcb29f75dbc88f68d02198e34e0f0657"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file__io_8c.html#abcb29f75dbc88f68d02198e34e0f0657">create_extern_file</a> (const char *file_name, <a class="el" href="asm_8h.html#a6fdea67b8cc6a06cd82937c880f619b8">link_object_t</a> *extern_table, uint16_t extern_table_len)</td></tr>
-<tr class="memdesc:abcb29f75dbc88f68d02198e34e0f0657"><td class="mdescLeft">&#160;</td><td class="mdescRight">creates an ascii extern file from the extern table  <a href="file__io_8c.html#abcb29f75dbc88f68d02198e34e0f0657">More...</a><br /></td></tr>
-<tr class="separator:abcb29f75dbc88f68d02198e34e0f0657"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac93fe1f91d6539a2c58c68c7dac8eb6a"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file__io_8c.html#ac93fe1f91d6539a2c58c68c7dac8eb6a">create_object_file</a> (const char *file_name, <a class="el" href="asm_8h.html#ad28fa48002f8afe82cd5fde4cf6ce1fc">object_code_t</a> *objectc, uint16_t objectc_len, uint16_t data_len, <a class="el" href="asm_8h.html#a6fdea67b8cc6a06cd82937c880f619b8">link_object_t</a> *<a class="el" href="main_8c.html#a8a60227350abdd1c4ef45911f8e9e218">link_table</a>, uint16_t link_table_len, <a class="el" href="asm_8h.html#a6fdea67b8cc6a06cd82937c880f619b8">link_object_t</a> *extern_table, uint16_t extern_table_len)</td></tr>
+<tr class="memdesc:ac93fe1f91d6539a2c58c68c7dac8eb6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">creates an ascii base16 object file  <a href="file__io_8c.html#ac93fe1f91d6539a2c58c68c7dac8eb6a">More...</a><br /></td></tr>
+<tr class="separator:ac93fe1f91d6539a2c58c68c7dac8eb6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae2f91f7fdabe6801cac65cb33a787abb"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file__io_8c.html#ae2f91f7fdabe6801cac65cb33a787abb">create_binary_file</a> (const char *file_name, <a class="el" href="asm_8h.html#ad28fa48002f8afe82cd5fde4cf6ce1fc">object_code_t</a> *objectc, uint16_t objectc_len)</td></tr>
 <tr class="memdesc:ae2f91f7fdabe6801cac65cb33a787abb"><td class="mdescLeft">&#160;</td><td class="mdescRight">creates a binary file from the object code  <a href="file__io_8c.html#ae2f91f7fdabe6801cac65cb33a787abb">More...</a><br /></td></tr>
 <tr class="separator:ae2f91f7fdabe6801cac65cb33a787abb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -148,106 +142,12 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>number of errors </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="file__io_8c_source.html#l00223">223</a> of file <a class="el" href="file__io_8c_source.html">file_io.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="file__io_8c_source.html#l00155">155</a> of file <a class="el" href="file__io_8c_source.html">file_io.c</a>.</p>
 
 </div>
 </div>
-<a id="af9cde92beef473f9a14226f13ada5ff5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af9cde92beef473f9a14226f13ada5ff5">&#9670;&nbsp;</a></span>create_entry_file()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t create_entry_file </td>
-          <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>file_name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="asm_8h.html#a6fdea67b8cc6a06cd82937c880f619b8">link_object_t</a> *&#160;</td>
-          <td class="paramname"><em>link_table</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint16_t&#160;</td>
-          <td class="paramname"><em>link_table_len</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>creates an ascii entry file from the link table </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">file_name</td><td>file name of the source file </td></tr>
-    <tr><td class="paramname">link_table</td><td>link table </td></tr>
-    <tr><td class="paramname">link_table_len</td><td>length of the link table </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>number of errors </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="file__io_8c_source.html#l00129">129</a> of file <a class="el" href="file__io_8c_source.html">file_io.c</a>.</p>
-
-</div>
-</div>
-<a id="abcb29f75dbc88f68d02198e34e0f0657"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abcb29f75dbc88f68d02198e34e0f0657">&#9670;&nbsp;</a></span>create_extern_file()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t create_extern_file </td>
-          <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>file_name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="asm_8h.html#a6fdea67b8cc6a06cd82937c880f619b8">link_object_t</a> *&#160;</td>
-          <td class="paramname"><em>extern_table</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint16_t&#160;</td>
-          <td class="paramname"><em>extern_table_len</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>creates an ascii extern file from the extern table </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">file_name</td><td>file name of the source file </td></tr>
-    <tr><td class="paramname">extern_table</td><td>extern table </td></tr>
-    <tr><td class="paramname">extern_table_len</td><td>length of the extern table </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>number of errors </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="file__io_8c_source.html#l00177">177</a> of file <a class="el" href="file__io_8c_source.html">file_io.c</a>.</p>
-
-</div>
-</div>
-<a id="a59bbda7fbcd80eca1bb64a1416fa9f41"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59bbda7fbcd80eca1bb64a1416fa9f41">&#9670;&nbsp;</a></span>create_object_file()</h2>
+<a id="ac93fe1f91d6539a2c58c68c7dac8eb6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac93fe1f91d6539a2c58c68c7dac8eb6a">&#9670;&nbsp;</a></span>create_object_file()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -274,7 +174,31 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">uint16_t&#160;</td>
-          <td class="paramname"><em>data_len</em>&#160;</td>
+          <td class="paramname"><em>data_len</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="asm_8h.html#a6fdea67b8cc6a06cd82937c880f619b8">link_object_t</a> *&#160;</td>
+          <td class="paramname"><em>link_table</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>link_table_len</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="asm_8h.html#a6fdea67b8cc6a06cd82937c880f619b8">link_object_t</a> *&#160;</td>
+          <td class="paramname"><em>extern_table</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>extern_table_len</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -284,19 +208,23 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>creates an ascii base16 object file from the object code </p>
+<p>creates an ascii base16 object file </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">file_name</td><td>file name of the source file </td></tr>
+    <tr><td class="paramname">file_name</td><td>name of the source file </td></tr>
     <tr><td class="paramname">objectc</td><td>object code </td></tr>
     <tr><td class="paramname">objectc_len</td><td>length of the object code </td></tr>
     <tr><td class="paramname">data_len</td><td>length of the data image </td></tr>
+    <tr><td class="paramname">link_table</td><td>link table </td></tr>
+    <tr><td class="paramname">link_table_len</td><td>length of the link table </td></tr>
+    <tr><td class="paramname">extern_table</td><td>extern table </td></tr>
+    <tr><td class="paramname">extern_table_len</td><td>length of the extern table </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>number of errors </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="file__io_8c_source.html#l00082">82</a> of file <a class="el" href="file__io_8c_source.html">file_io.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="file__io_8c_source.html#l00086">86</a> of file <a class="el" href="file__io_8c_source.html">file_io.c</a>.</p>
 
 </div>
 </div>

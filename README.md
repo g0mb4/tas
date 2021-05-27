@@ -3,9 +3,9 @@ Toy Two Pass Assembler
 The project is based on Yonatan Zilpa's excersie. A brief explanation can be found [here](https://www.magmath.com/english/programming/c_programming_language/projects/two_pass_assembler.php).
 The majority of the following is just a direct copy of that site.
 Some differences:
-+ I'm using hexadecimal (base 16) numeric system insted of octal.
++ I'm using hexadecimal (base 16) numeric system instead of octal.
 + .entry MAIN needed to be defined explicitly.
-+ There wont be any generated .ent/.ext files, if they are not needed.
++ The generated object code file uses a different format (it includes the entries and the externals).
 
 Documentation can be found [here](https://g0mb4.github.io/tas/).
 
@@ -15,9 +15,9 @@ Our computer architecture consists from CPU (Central Processing Unit), registers
 ## Registers
 Our computer machine includes the following list of registers:
 + Eight general registers (**r0**, **r1**, **r2**, **r3**, **r4**, **r5**, **r6**, **r7**)
-+ One Program Counter register (**PC**).
-+ One Stack Pointer register (**SP**).
-+ One Status register (**PSW** - Program Status Word) which has two flags: **carry flag** and **zero flag**.
++ One Program Counter register (**pc**).
++ One Stack Pointer register (**sp**).
++ One Status register (**psw** - Program Status Word) which has two flags: **carry flag** and **zero flag**.
 
 All registers are 16 bits in size.
 The two first bits of the PSW register are C and Z in correspondence
@@ -408,13 +408,19 @@ After the linker program is done the program can be loaded to memory and is read
 The object file written by the assembler provides informations about machine's memory. The first instruction is to be inserted to memory address 0, the second instruction is to be inserted to be inserted to memory address 2,3 or 4 (depending on the length of the first instruction) and so fourth until the translation of the last instruction. The next memory address, after the last translated instruction, contains the data that were built by the '.data' and '.string' instructions, their order of appearance in memory depends on their precedence of appearance in the source file (first instruction occupies first free memory in a rising order).
 
 ## The object code file (.oc)
-The object file is composed out of lines of text. The first line contains (in octal) the length of the code and the length of data, both are in terms of memory words. Those two numbers must be separated by white space. Each of the next lines provides information on the content of memory address (in octal form) starting from memory address 0. In addition, for each memory address, occupied by instruction (not data), there appear additional information for the linker. This additional information could be one of the following three characters: 'e' 'a' or 'r'. The character 'a' designates the fact that the content of the memory address is absolute and does not depend on where the file is to be loaded (the assembler assumes it to start from memory address 0). The character 'r' designates the fact that memory address is relocatable and should be added with the appropriate offset, in regards to where the file is to be loaded. The offset is the first memory address from which the first instruction of the program is to be loaded. The letter 'd' designates the fact that the content of the file depends on external variable, the linker program is to take care on the insertion of the appropriate value.
+The object file is composed out of lines of text and contains 3 sections: code, entries, externals. 
 
-## The entries file (.ent)
-The entries file is composed out of lines of text. Each line contains the entry name and value, as it was computed for this file.
+### code
+The code section starts with '.cbegin' and ends with '.cend'.
+The first line contains (in hex) the length of the code and the length of data, both are in terms of memory words. Those two numbers must be separated by white space. Each of the next lines provides information on the content of memory address (in hex form) starting from memory address 0. In addition, for each memory address, occupied by instruction (not data), there appear additional information for the linker. This additional information could be one of the following three characters: 'e' 'a' or 'r'. The character 'a' designates the fact that the content of the memory address is absolute and does not depend on where the file is to be loaded (the assembler assumes it to start from memory address 0). The character 'r' designates the fact that memory address is relocatable and should be added with the appropriate offset, in regards to where the file is to be loaded. The offset is the first memory address from which the first instruction of the program is to be loaded. The letter 'd' designates the fact that the content of the file depends on external variable, the linker program is to take care on the insertion of the appropriate value.
 
-## The externals file (.ext)
-The externals file is composed out of lines of text. Each line contains the name and memory address of the external variable.
+### entries
+The entries section starts with '.lbegin' and ends with '.lend'.
+The entries section is composed out of lines of text. Each line contains the entry name and value, as it was computed for this file.
+
+### externals
+The entries section starts with '.ebegin' and ends with '.eend'.
+The externals section is composed out of lines of text. Each line contains the name and memory address of the external variable.
 
 ## Binary file (.bin)
 The binary file contains the object code in binary (non-text) format. It can't be created, if the source code contains .extern directives.
@@ -422,6 +428,7 @@ The binary file contains the object code in binary (non-text) format. It can't b
 ## Example files
 ### test
 Prints the string "abcdef".
+
 *test.as*
 ```
 ; test.as
@@ -441,6 +448,7 @@ LEN:	.data	6			; length of the string
 ```
 *test.oc*
 ```
+.cbegin
 d 8
 0000 0221 a
 0001 0014 r
@@ -462,14 +470,18 @@ d 8
 0011 0065  
 0012 0066  
 0013 0000  
-0014 0006
-```
-*test.ent*
-```
+0014 0006  
+.cend
+.lbegin
 MAIN 0000
+.lend
+.ebegin
+.eend
 ```
+
 ### ps
 The main routine of the program of reversing string "abcdef".
+
 *ps.as*
 ```
 ; ps.as
@@ -498,14 +510,15 @@ LEN:		.data 0
 ```
 *ps.oc*
 ```
+.cbegin
 14 a
 0000 6208 a
 0001 0015 r
 0002 0014 r
 0003 d008 a
-0004 0000 e
+0004 ffff e
 0005 d008 a
-0006 0000 e
+0006 ffff e
 0007 0608 a
 0008 000d a
 0009 001c r
@@ -515,9 +528,9 @@ LEN:		.data 0
 000d 8008 a
 000e 001c r
 000f d008 a
-0010 0000 e
+0010 ffff e
 0011 d008 a
-0012 0000 e
+0012 ffff e
 0013 f000 a
 0014 0000  
 0015 0061  
@@ -529,18 +542,17 @@ LEN:		.data 0
 001b 0000  
 001c 0000  
 001d 0000  
-```
-*ps.ent*
-```
+.cend
+.lbegin
 STRADD 0014
 MAIN 0000
-```
-*ps.ext*
-```
+.lend
+.ebegin
 COUNT 0004
 PRTSTR 0006
 REVERSE 0010
 PRTSTR 0012
+.eend
 ```
 
 # Usage of tas

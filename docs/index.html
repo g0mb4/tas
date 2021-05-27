@@ -67,9 +67,9 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>The project is based on Yonatan Zilpa's excersie. A brief explanation can be found <a href="https://www.magmath.com/english/programming/c_programming_language/projects/two_pass_assembler.php">here</a>. The majority of the following is just a direct copy of that site. Some differences:</p><ul>
-<li>I'm using hexadecimal (base 16) numeric system insted of octal.</li>
+<li>I'm using hexadecimal (base 16) numeric system instead of octal.</li>
 <li>.entry MAIN needed to be defined explicitly.</li>
-<li>There wont be any generated .ent/.ext files, if they are not needed.</li>
+<li>The generated object code file uses a different format (it includes the entries and the externals).</li>
 </ul>
 <p>Documentation can be found <a href="https://g0mb4.github.io/tas/">here</a>.</p>
 <h1>"Hardware"</h1>
@@ -77,9 +77,9 @@ $(function() {
 <h2>Registers</h2>
 <p>Our computer machine includes the following list of registers:</p><ul>
 <li>Eight general registers (<b>r0</b>, <b>r1</b>, <b>r2</b>, <b>r3</b>, <b>r4</b>, <b>r5</b>, <b>r6</b>, <b>r7</b>)</li>
-<li>One Program Counter register (<b>PC</b>).</li>
-<li>One Stack Pointer register (<b>SP</b>).</li>
-<li>One Status register (<b>PSW</b> - Program Status Word) which has two flags: <b>carry flag</b> and <b>zero flag</b>.</li>
+<li>One Program Counter register (<b>pc</b>).</li>
+<li>One Stack Pointer register (<b>sp</b>).</li>
+<li>One Status register (<b>psw</b> - Program Status Word) which has two flags: <b>carry flag</b> and <b>zero flag</b>.</li>
 </ul>
 <p>All registers are 16 bits in size. The two first bits of the PSW register are C and Z in correspondence The size of memory is 2000 words (each word is 16 bits in size). Characters are coded in ASCII.</p>
 <h1>Instructions</h1>
@@ -547,16 +547,19 @@ The '.data' directive statement directs the assembler to allocate space in its d
 <h1>The format of output files</h1>
 <p>The object file written by the assembler provides informations about machine's memory. The first instruction is to be inserted to memory address 0, the second instruction is to be inserted to be inserted to memory address 2,3 or 4 (depending on the length of the first instruction) and so fourth until the translation of the last instruction. The next memory address, after the last translated instruction, contains the data that were built by the '.data' and '.string' instructions, their order of appearance in memory depends on their precedence of appearance in the source file (first instruction occupies first free memory in a rising order).</p>
 <h2>The object code file (.oc)</h2>
-<p>The object file is composed out of lines of text. The first line contains (in octal) the length of the code and the length of data, both are in terms of memory words. Those two numbers must be separated by white space. Each of the next lines provides information on the content of memory address (in octal form) starting from memory address 0. In addition, for each memory address, occupied by instruction (not data), there appear additional information for the linker. This additional information could be one of the following three characters: 'e' 'a' or 'r'. The character 'a' designates the fact that the content of the memory address is absolute and does not depend on where the file is to be loaded (the assembler assumes it to start from memory address 0). The character 'r' designates the fact that memory address is relocatable and should be added with the appropriate offset, in regards to where the file is to be loaded. The offset is the first memory address from which the first instruction of the program is to be loaded. The letter 'd' designates the fact that the content of the file depends on external variable, the linker program is to take care on the insertion of the appropriate value.</p>
-<h2>The entries file (.ent)</h2>
-<p>The entries file is composed out of lines of text. Each line contains the entry name and value, as it was computed for this file.</p>
-<h2>The externals file (.ext)</h2>
-<p>The externals file is composed out of lines of text. Each line contains the name and memory address of the external variable.</p>
+<p>The object file is composed out of lines of text and contains 3 sections: code, entries, externals.</p>
+<h3>code</h3>
+<p>The code section starts with '.cbegin' and ends with '.cend'. The first line contains (in hex) the length of the code and the length of data, both are in terms of memory words. Those two numbers must be separated by white space. Each of the next lines provides information on the content of memory address (in hex form) starting from memory address 0. In addition, for each memory address, occupied by instruction (not data), there appear additional information for the linker. This additional information could be one of the following three characters: 'e' 'a' or 'r'. The character 'a' designates the fact that the content of the memory address is absolute and does not depend on where the file is to be loaded (the assembler assumes it to start from memory address 0). The character 'r' designates the fact that memory address is relocatable and should be added with the appropriate offset, in regards to where the file is to be loaded. The offset is the first memory address from which the first instruction of the program is to be loaded. The letter 'd' designates the fact that the content of the file depends on external variable, the linker program is to take care on the insertion of the appropriate value.</p>
+<h3>entries</h3>
+<p>The entries section starts with '.lbegin' and ends with '.lend'. The entries section is composed out of lines of text. Each line contains the entry name and value, as it was computed for this file.</p>
+<h3>externals</h3>
+<p>The entries section starts with '.ebegin' and ends with '.eend'. The externals section is composed out of lines of text. Each line contains the name and memory address of the external variable.</p>
 <h2>Binary file (.bin)</h2>
 <p>The binary file contains the object code in binary (non-text) format. It can't be created, if the source code contains .extern directives.</p>
 <h2>Example files</h2>
 <h3>test</h3>
-<p>Prints the string "abcdef". <em>test.as</em> </p><div class="fragment"><div class="line">; test.as</div>
+<p>Prints the string "abcdef".</p>
+<p><em>test.as</em> </p><div class="fragment"><div class="line">; test.as</div>
 <div class="line">; Prints the string &quot;abcdef&quot;.</div>
 <div class="line"> </div>
 <div class="line">        .entry MAIN     ; file contains the definition of MAIN</div>
@@ -570,7 +573,8 @@ The '.data' directive statement directs the assembler to allocate space in its d
 <div class="line">END:    hlt             ; end of the program</div>
 <div class="line">STR:    .string  &quot;abcdef&quot;   ; string to print</div>
 <div class="line">LEN:    .data   6           ; length of the string</div>
-</div><!-- fragment --><p><em>test.oc</em> </p><div class="fragment"><div class="line">d 8</div>
+</div><!-- fragment --><p><em>test.oc</em> </p><div class="fragment"><div class="line">.cbegin</div>
+<div class="line">d 8</div>
 <div class="line">0000 0221 a</div>
 <div class="line">0001 0014 r</div>
 <div class="line">0002 6222 a</div>
@@ -591,10 +595,16 @@ The '.data' directive statement directs the assembler to allocate space in its d
 <div class="line">0011 0065  </div>
 <div class="line">0012 0066  </div>
 <div class="line">0013 0000  </div>
-<div class="line">0014 0006</div>
-</div><!-- fragment --><p><em>test.ent</em> </p><div class="fragment"><div class="line">MAIN 0000</div>
+<div class="line">0014 0006  </div>
+<div class="line">.cend</div>
+<div class="line">.lbegin</div>
+<div class="line">MAIN 0000</div>
+<div class="line">.lend</div>
+<div class="line">.ebegin</div>
+<div class="line">.eend</div>
 </div><!-- fragment --><h3>ps</h3>
-<p>The main routine of the program of reversing string "abcdef". <em>ps.as</em> </p><div class="fragment"><div class="line">; ps.as</div>
+<p>The main routine of the program of reversing string "abcdef".</p>
+<p><em>ps.as</em> </p><div class="fragment"><div class="line">; ps.as</div>
 <div class="line">; Includes main routine of reversing string &quot;abcdef&quot;</div>
 <div class="line"> </div>
 <div class="line">MAIN:   lea STR, STRADD</div>
@@ -617,14 +627,15 @@ The '.data' directive statement directs the assembler to allocate space in its d
 <div class="line">STR:        .string &quot;abcdef&quot;</div>
 <div class="line">LASTCHAR:   .data 0</div>
 <div class="line">LEN:        .data 0</div>
-</div><!-- fragment --><p><em>ps.oc</em> </p><div class="fragment"><div class="line">14 a</div>
+</div><!-- fragment --><p><em>ps.oc</em> </p><div class="fragment"><div class="line">.cbegin</div>
+<div class="line">14 a</div>
 <div class="line">0000 6208 a</div>
 <div class="line">0001 0015 r</div>
 <div class="line">0002 0014 r</div>
 <div class="line">0003 d008 a</div>
-<div class="line">0004 0000 e</div>
+<div class="line">0004 ffff e</div>
 <div class="line">0005 d008 a</div>
-<div class="line">0006 0000 e</div>
+<div class="line">0006 ffff e</div>
 <div class="line">0007 0608 a</div>
 <div class="line">0008 000d a</div>
 <div class="line">0009 001c r</div>
@@ -634,9 +645,9 @@ The '.data' directive statement directs the assembler to allocate space in its d
 <div class="line">000d 8008 a</div>
 <div class="line">000e 001c r</div>
 <div class="line">000f d008 a</div>
-<div class="line">0010 0000 e</div>
+<div class="line">0010 ffff e</div>
 <div class="line">0011 d008 a</div>
-<div class="line">0012 0000 e</div>
+<div class="line">0012 ffff e</div>
 <div class="line">0013 f000 a</div>
 <div class="line">0014 0000  </div>
 <div class="line">0015 0061  </div>
@@ -648,12 +659,17 @@ The '.data' directive statement directs the assembler to allocate space in its d
 <div class="line">001b 0000  </div>
 <div class="line">001c 0000  </div>
 <div class="line">001d 0000  </div>
-</div><!-- fragment --><p><em>ps.ent</em> </p><div class="fragment"><div class="line">STRADD 0014</div>
+<div class="line">.cend</div>
+<div class="line">.lbegin</div>
+<div class="line">STRADD 0014</div>
 <div class="line">MAIN 0000</div>
-</div><!-- fragment --><p><em>ps.ext</em> </p><div class="fragment"><div class="line">COUNT 0004</div>
+<div class="line">.lend</div>
+<div class="line">.ebegin</div>
+<div class="line">COUNT 0004</div>
 <div class="line">PRTSTR 0006</div>
 <div class="line">REVERSE 0010</div>
 <div class="line">PRTSTR 0012</div>
+<div class="line">.eend</div>
 </div><!-- fragment --><h1>Usage of tas</h1>
 <div class="fragment"><div class="line">tas &lt;options&gt; source-file</div>
 </div><!-- fragment --><p>where the options are: </p><div class="fragment"><div class="line">-l : prints debugging lists after each pass</div>
