@@ -175,10 +175,9 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="asm_8h.html#a992dd69fddcc0028aad3eecb662e705eaceab93c18bce42ce4a2de2f8b9082df7">INSTANT</a> = 0, 
 <a class="el" href="asm_8h.html#a992dd69fddcc0028aad3eecb662e705ea1ea328a644e627283a35716a54108248">DIRECT</a>, 
 <a class="el" href="asm_8h.html#a992dd69fddcc0028aad3eecb662e705eaa70fc5026d3a310a836fa57ac51d8a4e">INDIRECT</a>, 
-<a class="el" href="asm_8h.html#a992dd69fddcc0028aad3eecb662e705eac8ee683c19bb6a988eccfbaf0f584c66">RELATIVE</a>, 
+<a class="el" href="asm_8h.html#a992dd69fddcc0028aad3eecb662e705ea0f7626d791991911ab8f77bacd0268f1">DIRECT_REGISTER</a>, 
 <br />
-&#160;&#160;<a class="el" href="asm_8h.html#a992dd69fddcc0028aad3eecb662e705ea0f7626d791991911ab8f77bacd0268f1">DIRECT_REGISTER</a>, 
-<a class="el" href="asm_8h.html#a992dd69fddcc0028aad3eecb662e705eaba02b36f85a930a25c574330e24258dc">INDIRECT_REGISTER</a>
+&#160;&#160;<a class="el" href="asm_8h.html#a992dd69fddcc0028aad3eecb662e705eaba02b36f85a930a25c574330e24258dc">INDIRECT_REGISTER</a>
 <br />
  }</td></tr>
 <tr class="memdesc:a992dd69fddcc0028aad3eecb662e705e"><td class="mdescLeft">&#160;</td><td class="mdescRight">possible addressing modes  <a href="asm_8h.html#a992dd69fddcc0028aad3eecb662e705e">More...</a><br /></td></tr>
@@ -285,9 +284,6 @@ Functions</h2></td></tr>
 <tr class="memitem:aa843624b0dedac8bc88d7899f7406d32"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="asm_8h.html#aa843624b0dedac8bc88d7899f7406d32">second_get_symbol_value</a> (char *symbol, int start_index, bool *ext)</td></tr>
 <tr class="memdesc:aa843624b0dedac8bc88d7899f7406d32"><td class="mdescLeft">&#160;</td><td class="mdescRight">gets the value (address) of a symbol from the table  <a href="asm_8h.html#aa843624b0dedac8bc88d7899f7406d32">More...</a><br /></td></tr>
 <tr class="separator:aa843624b0dedac8bc88d7899f7406d32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abcee4382121d98939004e2050c15a7d5"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="asm_8h.html#abcee4382121d98939004e2050c15a7d5">second_get_symbol_value_relative</a> (char *symbol, uint16_t current, bool *ext)</td></tr>
-<tr class="memdesc:abcee4382121d98939004e2050c15a7d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">gets the relative value (address) of a symbol from the table  <a href="asm_8h.html#abcee4382121d98939004e2050c15a7d5">More...</a><br /></td></tr>
-<tr class="separator:abcee4382121d98939004e2050c15a7d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc94873add038d2d2aa5f700a4c24cc4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="asm_8h.html#acc94873add038d2d2aa5f700a4c24cc4">second_create_words</a> (<a class="el" href="asm_8h.html#a65a813e03535896c10de2b3b2b32f0f8">operation_t</a> *op, char *src, char *dest, uint16_t *word1, uint16_t *word2, bool *ext1, bool *ext2)</td></tr>
 <tr class="memdesc:acc94873add038d2d2aa5f700a4c24cc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">creates the additional word(s) for the operations, if needed  <a href="asm_8h.html#acc94873add038d2d2aa5f700a4c24cc4">More...</a><br /></td></tr>
 <tr class="separator:acc94873add038d2d2aa5f700a4c24cc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -476,8 +472,6 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="a992dd69fddcc0028aad3eecb662e705ea1ea328a644e627283a35716a54108248"></a>DIRECT&#160;</td><td class="fielddoc"><p>direct (mov x, r2) </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a992dd69fddcc0028aad3eecb662e705eaa70fc5026d3a310a836fa57ac51d8a4e"></a>INDIRECT&#160;</td><td class="fielddoc"><p>indirect (mov @x, r2) </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a992dd69fddcc0028aad3eecb662e705eac8ee683c19bb6a988eccfbaf0f584c66"></a>RELATIVE&#160;</td><td class="fielddoc"><p>relative (mov *x, r2) </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a992dd69fddcc0028aad3eecb662e705ea0f7626d791991911ab8f77bacd0268f1"></a>DIRECT_REGISTER&#160;</td><td class="fielddoc"><p>direct register (mov r1, r2) </p>
 </td></tr>
@@ -1289,7 +1283,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>addressing or NULL </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="parser_8c_source.html#l00313">313</a> of file <a class="el" href="parser_8c_source.html">parser.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="parser_8c_source.html#l00312">312</a> of file <a class="el" href="parser_8c_source.html">parser.c</a>.</p>
 
 </div>
 </div>
@@ -1499,7 +1493,7 @@ start_index is there, because we want to apply the same function to "r1" and "@r
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>16-bit machine word </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="parser_8c_source.html#l00351">351</a> of file <a class="el" href="parser_8c_source.html">parser.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="parser_8c_source.html#l00346">346</a> of file <a class="el" href="parser_8c_source.html">parser.c</a>.</p>
 
 </div>
 </div>
@@ -1583,7 +1577,7 @@ start_index is there, because we want to apply the same function to "r1" and "@r
 </div><div class="memdoc">
 
 <p>checks if the input sting is a valid label name </p>
-<p>regex equivalent: ^(?:r[0-7])$(<em>SKIP)(*F)|^[A-Za-z][A-Za-z0-9]</em>$</p>
+<p>regex equivalent: ^(?:r[0-7])|^[A-Za-z][A-Za-z0-9]*$</p>
 <dl class="section note"><dt>Note</dt><dd>start_index is there, because we want to apply the same function to "LABEL" and "@LABEL" </dd>
 <dd>
 end_offset is there, because we want to apply the same function to "LABEL" and "LABEL:"</dd></dl>
@@ -1709,7 +1703,7 @@ end_offset is there, because we want to apply the same function to "LABEL" and "
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="second__pass_8c_source.html#l00298">298</a> of file <a class="el" href="second__pass_8c_source.html">second_pass.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="second__pass_8c_source.html#l00297">297</a> of file <a class="el" href="second__pass_8c_source.html">second_pass.c</a>.</p>
 
 </div>
 </div>
@@ -1829,7 +1823,7 @@ end_offset is there, because we want to apply the same function to "LABEL" and "
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="second__pass_8c_source.html#l00471">471</a> of file <a class="el" href="second__pass_8c_source.html">second_pass.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="second__pass_8c_source.html#l00467">467</a> of file <a class="el" href="second__pass_8c_source.html">second_pass.c</a>.</p>
 
 </div>
 </div>
@@ -1877,54 +1871,7 @@ end_offset is there, because we want to apply the same function to "LABEL" and "
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>value of the symbol </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="second__pass_8c_source.html#l00502">502</a> of file <a class="el" href="second__pass_8c_source.html">second_pass.c</a>.</p>
-
-</div>
-</div>
-<a id="abcee4382121d98939004e2050c15a7d5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abcee4382121d98939004e2050c15a7d5">&#9670;&nbsp;</a></span>second_get_symbol_value_relative()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t second_get_symbol_value_relative </td>
-          <td>(</td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>symbol</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint16_t&#160;</td>
-          <td class="paramname"><em>current</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool *&#160;</td>
-          <td class="paramname"><em>ext</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>gets the relative value (address) of a symbol from the table </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">symbol</td><td>string containing the name of the symbol </td></tr>
-    <tr><td class="paramname">current</td><td>current location in the object code </td></tr>
-    <tr><td class="paramname">ext</td><td>set if symbol si external </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>value of the symbol </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="second__pass_8c_source.html#l00546">546</a> of file <a class="el" href="second__pass_8c_source.html">second_pass.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="second__pass_8c_source.html#l00498">498</a> of file <a class="el" href="second__pass_8c_source.html">second_pass.c</a>.</p>
 
 </div>
 </div>
@@ -1964,7 +1911,7 @@ end_offset is there, because we want to apply the same function to "LABEL" and "
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>16-bit machine word </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="second__pass_8c_source.html#l00439">439</a> of file <a class="el" href="second__pass_8c_source.html">second_pass.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="second__pass_8c_source.html#l00437">437</a> of file <a class="el" href="second__pass_8c_source.html">second_pass.c</a>.</p>
 
 </div>
 </div>
@@ -2176,7 +2123,7 @@ end_offset is there, because we want to apply the same function to "LABEL" and "
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="second__pass_8c_source.html#l00351">351</a> of file <a class="el" href="second__pass_8c_source.html">second_pass.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="second__pass_8c_source.html#l00349">349</a> of file <a class="el" href="second__pass_8c_source.html">second_pass.c</a>.</p>
 
 </div>
 </div>

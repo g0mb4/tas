@@ -72,9 +72,8 @@ There are six types of addressing modes in our assembly language, some of these 
 | 0 | Instant addressing | zero (not in use) | yes | The numeric value of the operand is determined by the numeric value of the additional word. | The operand is a number preceded by the '#' sign. | ``` mov #-1,r2 ``` |
 | 1 | Direct addressing | zero (not in use) | yes |	The additional word contains memory address. The numeric value of the operand is the value of this address. | The operand is a label, either declared or expected to be declared later in the file.	| ``` mov x,r2 ``` |
 | 2 | Indirect addressing | zero (not in use) | yes | The numeric value of the additional word contains memory address. The value of this address is also a memory address. The value of the second address is the numeric value of the operand. | Indirect addressing is indicated by the '@' sign which appeared just before the label. The label is declared in the same way as in the direct addressing mode. | ``` mov @x,r2 ``` |
-| 3 | Relative addressing | zero (not in use) | yes | The additional word contains an integer number (positive or negative) indicating the distance in words from the current command to the address of the operand. | The operand is a label, defined as in the case of direct addressing mode, preceded by the '*' sign. | ``` mov *x,r2 ``` |
-| 4 | Direct register addressing | n (positive integer) | no | Register rn contains the value of the operand. | The operand is a legal register name. | ``` mov r1,r2 ``` |
-| 5 | Indirect register addressing | n (positive integer)) | no | Register rn contains information on memory address. This memory address contains the operand. | The operand is a legal register name indicated by the '@' sign. | ``` mov @r1,r2 ``` |
+| 3 | Direct register addressing | n (positive integer) | no | Register rn contains the value of the operand. | The operand is a legal register name. | ``` mov r1,r2 ``` |
+| 4 | Indirect register addressing | n (positive integer)) | no | Register rn contains information on memory address. This memory address contains the operand. | The operand is a legal register name indicated by the '@' sign. | ``` mov @r1,r2 ``` |
 
 ## Machine Instruction Characterization
 Machine instruction may be classified into three different classes (according to the number of operands appeared in each instruction).
@@ -254,17 +253,16 @@ is an example for legal string.
 # Two Pass Assembler
 When the assembler is starting to translate code it needs to carry two major assignments. Its first assignment is to identify and translate the operation code and its second assignment is to determine addresses for all data and variables appeared in the source file(s). For instance, when the assembler reads the following code:
 ```
-                 .entry MAIN
-        MAIN:    mov    LEN, r1
-        	     lea    STR, r2
-        LOOP:    jnz    END
-        	     prn    @r2
-        	     sub    #1, r1
-        	     inc    r2
-        	     jnc    *LOOP
-        END:     hlt
-        STR:     .string "abcdef"
-        LEN:     .data 6
+.entry MAIN
+MAIN:   mov LENGTH, r1
+	    lea STR, r2
+LOOP:   prn @r2
+        inc r2
+        sub #1, r1
+        jnz LOOP
+END:    hlt
+STR:    .string "abcdef"
+LENGTH: .data 6
 ```
 
 it has to replace the operation names mov, lea, jnz, prn, sub, inc, jnc, hlt with their equivalent binary codes, in addition, the assembler has to replace the symbols STR, LEN, MAIN, LOOP, END with their appropriate addresses that have been allocated for the directive statements.
@@ -273,27 +271,25 @@ Assuming that the code in example I has being translated by the assembler and ha
 | Label         | Address | Command         | Operand(s)        | Machine Code |
 | ------------- | ------- | --------------- | ----------------- | ------------ |
 |               |         | ``` .entry ```  |  ``` MAIN ```     |              |
-| ``` MAIN: ``` | 0000    | ``` mov ```     |  ``` LEN, r1 ```  | 0221         |
-|               | 0001    |                 |                   | 0014         |
-|               | 0002    | ``` lea ```     |  ``` STR, r2 ```  | 6222         |
-|               | 0003    |                 |                   | 000d         |
-| ``` LOOP: ``` | 0004    | ``` jnz ```     |  ``` END ```      | 9008         |
-|               | 0005    |                 |                   | 000c         |
-|               | 0006    | ``` prn ```     |  ``` @r2 ```      | c02a         |
-|               | 0007    | ``` sub ```     |  ``` #1, r1 ```   | 3021         |
-|               | 0008    |                 |                   | 0001         |
-|               | 0009    | ``` inc ```     |  ``` r2 ```       | 7022         |
-|               | 000a    | ``` jnc ```     |  ``` *LOOP ```    | a018         |
-|               | 000b    |                 |                   | fffa         |
-| ``` END: ```  | 000c    | ``` hlt ```     |                   | f000         |
-| ``` STR: ```  | 000d    | ``` .string ``` |  ``` "abcdef" ``` | 0061         |
-|               | 000e    |                 |                   | 0062         |
-|               | 000f    |                 |                   | 0063         |
-|               | 0010    |                 |                   | 0064         |
-|               | 0011    |                 |                   | 0065         |
-|               | 0012    |                 |                   | 0066         |
-|               | 0013    |                 |                   | 0000         |
-| ``` LEN: ```  | 0014    | ``` .data ```   |  ``` 6 ```        | 0006         |
+| ``` MAIN: ``` | 0000    | ``` mov ```     |  ``` LEN, r1 ```  | 0219         |
+|               | 0001    |                 |                   | 0012         |
+|               | 0002    | ``` lea ```     |  ``` STR, r2 ```  | 621a         |
+|               | 0003    |                 |                   | 000b         |
+| ``` LOOP: ``` | 0004    | ``` prn ```     |  ``` @r2 ```      | c022         |
+|               | 0005    | ``` inc ```     |  ``` r2 ```       | 701a         |
+|               | 0006    | ``` sub ```     |  ``` #1, r1 ```   | 3019         |
+|               | 0007    |                 |                   | 0001         |
+|               | 0008    | ``` jnz ```     |  ``` LOOP ```     | 9008         |
+|               | 0009    |                 |                   | 0004         |
+| ``` END: ```  | 000a    | ``` hlt ```     |                   | f000         |
+| ``` STR: ```  | 000b    | ``` .string ``` |  ``` "abcdef" ``` | 0061         |
+|               | 000c    |                 |                   | 0062         |
+|               | 000d    |                 |                   | 0063         |
+|               | 000e    |                 |                   | 0064         |
+|               | 000f    |                 |                   | 0065         |
+|               | 0010    |                 |                   | 0066         |
+|               | 0011    |                 |                   | 0000         |
+| ``` LEN: ```  | 0012    | ``` .data ```   |  ``` 6 ```        | 0006         |
 
 If the assembler maintains a table of all the operation names and their corresponding binary codes, then all operation names can be easily converted. Whenever the assembler reads an operation name it can simply use the table to find its equivalent binary code. In order to carry the same conversion for the addresses of symbols the assembler has to build similar table.
 For instance, in example I, prior to reading the source file(s) the assembler has no way to know that the LOOP symbol relates to address 0004.
@@ -311,7 +307,7 @@ The table of symbols:
 | ---- | ----- | ----------- |
 | MAIN | 0000  | instruction |
 | LOOP | 0004  | instruction |
-| END  | 000c  | instruction |
+| END  | 000a  | instruction |
 | STR  | 0000  | data        |
 | LEN  | 0007  | data        |
 
@@ -338,19 +334,17 @@ Instruction image:
 
 | Address | Value |
 | ------- | ----- |
-| 0000    | 0221  |
+| 0000    | 0219  | 
 | 0001    | ????  |
-| 0002    | 6222  |
+| 0002    | 621a  |
 | 0003    | ????  |
-| 0004    | 9008  |
-| 0005    | ????  |
-| 0006    | c02a  |
-| 0007    | 3021  |
-| 0008    | ????  |
-| 0009    | 7022  |
-| 000a    | a018  |
-| 000b    | ????  |
-| 000c    | f000  |
+| 0004    | c022  |
+| 0005    | 701a  |
+| 0006    | 3019  |
+| 0007    | ????  |
+| 0008    | 9008  |
+| 0009    | ????  |
+| 000a    | f000  |
 
 ## Second pass
 Applying the second pass on the code of example I yields the following final results:
@@ -359,9 +353,9 @@ Applying the second pass on the code of example I yields the following final res
 | ---- | ----- | ----------- |
 | MAIN | 0000  | object code |
 | LOOP | 0004  | object code |
-| END  | 000c  | object code |
-| STR  | 000d  | object code |
-| LEN  | 0014  | object code |
+| END  | 000a  | object code |
+| STR  | 000b  | object code |
+| LEN  | 0012  | object code |
 
 List of entries:
 
@@ -373,27 +367,25 @@ Object code:
 
 | Address | Machine Word |
 | ------- | ------------ |
-| 0000    | 0221         |
-| 0001    | 0014         |
-| 0002    | 6222         |
-| 0003    | 000d         |
-| 0004    | 9008         |
-| 0005    | 000c         |
-| 0006    | c02a         |
-| 0007    | 3021         |
-| 0008    | 0001         |
-| 0009    | 7022         |
-| 000a    | a018         |
-| 000b    | fffa         |
-| 000c    | f000         |
-| 000d    | 0061         |
-| 000e    | 0062         |
-| 000f    | 0063         |
-| 0010    | 0064         |
-| 0011    | 0065         |
-| 0012    | 0066         |
-| 0013    | 0000         |
-| 0014    | 0006         |
+| 0000    | 0219         |
+| 0001    | 0012         |
+| 0002    | 621a         |
+| 0003    | 000b         |
+| 0004    | c022         |
+| 0005    | 701a         |
+| 0006    | 3019         |
+| 0007    | 0001         |
+| 0008    | 9008         |
+| 0009    | 0004         |
+| 000a    | f000         |
+| 000b    | 0061         |  
+| 000c    | 0062         |  
+| 000d    | 0063         |  
+| 000e    | 0064         |  
+| 000f    | 0065         |  
+| 0010    | 0066         |  
+| 0011    | 0000         |  
+| 0012    | 0006         |
 
 When the assembler program is done an object code is generated this object code is to be sent to a linker program. The purpose of the linker program is described as follows:
 
@@ -434,124 +426,45 @@ Prints the string "abcdef".
 ; test.as
 ; Prints the string "abcdef".
 
-		.entry MAIN		; file contains the definition of MAIN
-MAIN:	mov	 LEN, r1	; move LEN(6) to r1
-		lea	 STR, r2	; load the address of STR to r2
-LOOP:	jnz	 END		; if not zero, jump to END
-		prn	 @r2		; print the character at the memory location that r2 holds
-		sub	 #1, r1		; r1 = r1 - 1
-		inc	 r2			; r2 = r2 + 1
-		jnc	 *LOOP		; jump to LOOP of carry flag is not set (sub sets it)
-END:	hlt				; end of the program
-STR:	.string	 "abcdef"	; string to print
-LEN:	.data	6			; length of the string
+        .entry MAIN      ; file contains the definition of MAIN
+MAIN:   mov LEN, r1	     ; move LEN(=6) to r1
+        lea STR, r2	     ; load the address of STR to r2
+LOOP:   prn @r2          ; print the character at the memory location that r2 holds
+        inc r2           ; r2 = r2 + 1
+        sub #1, r1       ; r1 = r1 - 1
+        jnz LOOP         ; jump to LOOP if the zero flag is not set (sub sets it)
+END:    hlt              ; end of the program
+STR:    .string "abcdef" ; string to print
+LEN:    .data 6          ; length of the string
 ```
 *test.oc*
 ```
 .cbegin
-d 8
-0000 0221 a
-0001 0014 r
-0002 6222 a
-0003 000d r
-0004 9008 a
-0005 000c r
-0006 c02a a
-0007 3021 a
-0008 0001 a
-0009 7022 a
-000a a018 a
-000b fffa a
-000c f000 a
-000d 0061  
-000e 0062  
-000f 0063  
-0010 0064  
-0011 0065  
-0012 0066  
-0013 0000  
-0014 0006  
+b 8
+0000 0219 a
+0001 0012 r
+0002 621a a
+0003 000b r
+0004 c022 a
+0005 701a a
+0006 3019 a
+0007 0001 a
+0008 9008 a
+0009 0004 r
+000a f000 a
+000b 0061  
+000c 0062  
+000d 0063  
+000e 0064  
+000f 0065  
+0010 0066  
+0011 0000  
+0012 0006  
 .cend
 .lbegin
 MAIN 0000
 .lend
 .ebegin
-.eend
-```
-
-### ps
-The main routine of the program of reversing string "abcdef".
-
-*ps.as*
-```
-; ps.as
-; Includes main routine of reversing string "abcdef"
-
-MAIN:	lea STR, STRADD
-        jsr	COUNT
-        jsr	PRTSTR
-        mov	*STRADD, LASTCHAR
-        add	LEN, LASTCHAR
-        dec	LASTCHAR
-        jsr	REVERSE
-        jsr	PRTSTR
-        hlt
-
-.entry	STRADD
-.entry	MAIN
-.extern REVERSE
-.extern PRTSTR
-.extern COUNT
-
-STRADD:	  	.data 0
-STR:		.string "abcdef"
-LASTCHAR: 	.data 0
-LEN:		.data 0
-```
-*ps.oc*
-```
-.cbegin
-14 a
-0000 6208 a
-0001 0015 r
-0002 0014 r
-0003 d008 a
-0004 ffff e
-0005 d008 a
-0006 ffff e
-0007 0608 a
-0008 000d a
-0009 001c r
-000a 2208 a
-000b 001d r
-000c 001c r
-000d 8008 a
-000e 001c r
-000f d008 a
-0010 ffff e
-0011 d008 a
-0012 ffff e
-0013 f000 a
-0014 0000  
-0015 0061  
-0016 0062  
-0017 0063  
-0018 0064  
-0019 0065  
-001a 0066  
-001b 0000  
-001c 0000  
-001d 0000  
-.cend
-.lbegin
-STRADD 0014
-MAIN 0000
-.lend
-.ebegin
-COUNT 0004
-PRTSTR 0006
-REVERSE 0010
-PRTSTR 0012
 .eend
 ```
 

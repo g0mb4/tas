@@ -153,11 +153,9 @@ $(function() {
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">2 </td><td class="markdownTableBodyNone">Indirect addressing </td><td class="markdownTableBodyNone">zero (not in use) </td><td class="markdownTableBodyNone">yes </td><td class="markdownTableBodyNone">The numeric value of the additional word contains memory address. The value of this address is also a memory address. The value of the second address is the numeric value of the operand. </td><td class="markdownTableBodyNone">Indirect addressing is indicated by the '@' sign which appeared just before the label. The label is declared in the same way as in the direct addressing mode. </td><td class="markdownTableBodyNone"><code>mov @x,r2</code>  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">3 </td><td class="markdownTableBodyNone">Relative addressing </td><td class="markdownTableBodyNone">zero (not in use) </td><td class="markdownTableBodyNone">yes </td><td class="markdownTableBodyNone">The additional word contains an integer number (positive or negative) indicating the distance in words from the current command to the address of the operand. </td><td class="markdownTableBodyNone">The operand is a label, defined as in the case of direct addressing mode, preceded by the '*' sign. </td><td class="markdownTableBodyNone"><code>mov *x,r2</code>  </td></tr>
+<td class="markdownTableBodyNone">3 </td><td class="markdownTableBodyNone">Direct register addressing </td><td class="markdownTableBodyNone">n (positive integer) </td><td class="markdownTableBodyNone">no </td><td class="markdownTableBodyNone">Register rn contains the value of the operand. </td><td class="markdownTableBodyNone">The operand is a legal register name. </td><td class="markdownTableBodyNone"><code>mov r1,r2</code>  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">4 </td><td class="markdownTableBodyNone">Direct register addressing </td><td class="markdownTableBodyNone">n (positive integer) </td><td class="markdownTableBodyNone">no </td><td class="markdownTableBodyNone">Register rn contains the value of the operand. </td><td class="markdownTableBodyNone">The operand is a legal register name. </td><td class="markdownTableBodyNone"><code>mov r1,r2</code>  </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">5 </td><td class="markdownTableBodyNone">Indirect register addressing </td><td class="markdownTableBodyNone">n (positive integer)) </td><td class="markdownTableBodyNone">no </td><td class="markdownTableBodyNone">Register rn contains information on memory address. This memory address contains the operand. </td><td class="markdownTableBodyNone">The operand is a legal register name indicated by the '@' sign. </td><td class="markdownTableBodyNone"><code>mov @r1,r2</code>  </td></tr>
+<td class="markdownTableBodyNone">4 </td><td class="markdownTableBodyNone">Indirect register addressing </td><td class="markdownTableBodyNone">n (positive integer)) </td><td class="markdownTableBodyNone">no </td><td class="markdownTableBodyNone">Register rn contains information on memory address. This memory address contains the operand. </td><td class="markdownTableBodyNone">The operand is a legal register name indicated by the '@' sign. </td><td class="markdownTableBodyNone"><code>mov @r1,r2</code>  </td></tr>
 </table>
 <h2>Machine Instruction Characterization</h2>
 <p>Machine instruction may be classified into three different classes (according to the number of operands appeared in each instruction).</p>
@@ -329,17 +327,16 @@ The '.data' directive statement directs the assembler to allocate space in its d
 <p>String is a sequence of visible ASCII characters surrounded by double quotation marks. The quotation marks are not part of the string. The string </p><div class="fragment"><div class="line">&quot;Hello World&quot;</div>
 </div><!-- fragment --><p>is an example for legal string.</p>
 <h1>Two Pass Assembler</h1>
-<p>When the assembler is starting to translate code it needs to carry two major assignments. Its first assignment is to identify and translate the operation code and its second assignment is to determine addresses for all data and variables appeared in the source file(s). For instance, when the assembler reads the following code: </p><div class="fragment"><div class="line">         .entry MAIN</div>
-<div class="line">MAIN:    mov    LEN, r1</div>
-<div class="line">         lea    STR, r2</div>
-<div class="line">LOOP:    jnz    END</div>
-<div class="line">         prn    @r2</div>
-<div class="line">         sub    #1, r1</div>
-<div class="line">         inc    r2</div>
-<div class="line">         jnc    *LOOP</div>
-<div class="line">END:     hlt</div>
-<div class="line">STR:     .string &quot;abcdef&quot;</div>
-<div class="line">LEN:     .data 6</div>
+<p>When the assembler is starting to translate code it needs to carry two major assignments. Its first assignment is to identify and translate the operation code and its second assignment is to determine addresses for all data and variables appeared in the source file(s). For instance, when the assembler reads the following code: </p><div class="fragment"><div class="line">.entry MAIN</div>
+<div class="line">MAIN:   mov LENGTH, r1</div>
+<div class="line">        lea STR, r2</div>
+<div class="line">LOOP:   prn @r2</div>
+<div class="line">        inc r2</div>
+<div class="line">        sub #1, r1</div>
+<div class="line">        jnz LOOP</div>
+<div class="line">END:    hlt</div>
+<div class="line">STR:    .string &quot;abcdef&quot;</div>
+<div class="line">LENGTH: .data 6</div>
 </div><!-- fragment --><p>it has to replace the operation names mov, lea, jnz, prn, sub, inc, jnc, hlt with their equivalent binary codes, in addition, the assembler has to replace the symbols STR, LEN, MAIN, LOOP, END with their appropriate addresses that have been allocated for the directive statements. Assuming that the code in example I has being translated by the assembler and has been stored (operations and directives) in a memory block that starts from address 0000, then this translation can be described as follow:</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -347,47 +344,43 @@ The '.data' directive statement directs the assembler to allocate space in its d
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"><code>.entry</code> </td><td class="markdownTableBodyNone"><code>MAIN</code> </td><td class="markdownTableBodyNone"></td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code>MAIN:</code> </td><td class="markdownTableBodyNone">0000 </td><td class="markdownTableBodyNone"><code>mov</code> </td><td class="markdownTableBodyNone"><code>LEN, r1</code> </td><td class="markdownTableBodyNone">0221  </td></tr>
+<td class="markdownTableBodyNone"><code>MAIN:</code> </td><td class="markdownTableBodyNone">0000 </td><td class="markdownTableBodyNone"><code>mov</code> </td><td class="markdownTableBodyNone"><code>LEN, r1</code> </td><td class="markdownTableBodyNone">0219  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0001 </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0014  </td></tr>
+<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0001 </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0012  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0002 </td><td class="markdownTableBodyNone"><code>lea</code> </td><td class="markdownTableBodyNone"><code>STR, r2</code> </td><td class="markdownTableBodyNone">6222  </td></tr>
+<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0002 </td><td class="markdownTableBodyNone"><code>lea</code> </td><td class="markdownTableBodyNone"><code>STR, r2</code> </td><td class="markdownTableBodyNone">621a  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0003 </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">000d  </td></tr>
+<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0003 </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">000b  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code>LOOP:</code> </td><td class="markdownTableBodyNone">0004 </td><td class="markdownTableBodyNone"><code>jnz</code> </td><td class="markdownTableBodyNone"><code>END</code> </td><td class="markdownTableBodyNone">9008  </td></tr>
+<td class="markdownTableBodyNone"><code>LOOP:</code> </td><td class="markdownTableBodyNone">0004 </td><td class="markdownTableBodyNone"><code>prn</code> </td><td class="markdownTableBodyNone"><code>@r2</code> </td><td class="markdownTableBodyNone">c022  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0005 </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">000c  </td></tr>
+<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0005 </td><td class="markdownTableBodyNone"><code>inc</code> </td><td class="markdownTableBodyNone"><code>r2</code> </td><td class="markdownTableBodyNone">701a  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0006 </td><td class="markdownTableBodyNone"><code>prn</code> </td><td class="markdownTableBodyNone"><code>@r2</code> </td><td class="markdownTableBodyNone">c02a  </td></tr>
+<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0006 </td><td class="markdownTableBodyNone"><code>sub</code> </td><td class="markdownTableBodyNone"><code>#1, r1</code> </td><td class="markdownTableBodyNone">3019  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0007 </td><td class="markdownTableBodyNone"><code>sub</code> </td><td class="markdownTableBodyNone"><code>#1, r1</code> </td><td class="markdownTableBodyNone">3021  </td></tr>
+<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0007 </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0001  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0008 </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0001  </td></tr>
+<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0008 </td><td class="markdownTableBodyNone"><code>jnz</code> </td><td class="markdownTableBodyNone"><code>LOOP</code> </td><td class="markdownTableBodyNone">9008  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0009 </td><td class="markdownTableBodyNone"><code>inc</code> </td><td class="markdownTableBodyNone"><code>r2</code> </td><td class="markdownTableBodyNone">7022  </td></tr>
+<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0009 </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0004  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">000a </td><td class="markdownTableBodyNone"><code>jnc</code> </td><td class="markdownTableBodyNone"><code>*LOOP</code> </td><td class="markdownTableBodyNone">a018  </td></tr>
+<td class="markdownTableBodyNone"><code>END:</code> </td><td class="markdownTableBodyNone">000a </td><td class="markdownTableBodyNone"><code>hlt</code> </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">f000  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">000b </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">fffa  </td></tr>
+<td class="markdownTableBodyNone"><code>STR:</code> </td><td class="markdownTableBodyNone">000b </td><td class="markdownTableBodyNone"><code>.string</code> </td><td class="markdownTableBodyNone"><code>"abcdef"</code> </td><td class="markdownTableBodyNone">0061  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code>END:</code> </td><td class="markdownTableBodyNone">000c </td><td class="markdownTableBodyNone"><code>hlt</code> </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">f000  </td></tr>
+<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">000c </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0062  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>STR:</code> </td><td class="markdownTableBodyNone">000d </td><td class="markdownTableBodyNone"><code>.string</code> </td><td class="markdownTableBodyNone"><code>"abcdef"</code> </td><td class="markdownTableBodyNone">0061  </td></tr>
+<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">000d </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0063  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">000e </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0062  </td></tr>
+<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">000e </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0064  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">000f </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0063  </td></tr>
+<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">000f </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0065  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0010 </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0064  </td></tr>
+<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0010 </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0066  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0011 </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0065  </td></tr>
+<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0011 </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0000  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0012 </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0066  </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0013 </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">0000  </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code>LEN:</code> </td><td class="markdownTableBodyNone">0014 </td><td class="markdownTableBodyNone"><code>.data</code> </td><td class="markdownTableBodyNone"><code>6</code> </td><td class="markdownTableBodyNone">0006  </td></tr>
+<td class="markdownTableBodyNone"><code>LEN:</code> </td><td class="markdownTableBodyNone">0012 </td><td class="markdownTableBodyNone"><code>.data</code> </td><td class="markdownTableBodyNone"><code>6</code> </td><td class="markdownTableBodyNone">0006  </td></tr>
 </table>
 <p>If the assembler maintains a table of all the operation names and their corresponding binary codes, then all operation names can be easily converted. Whenever the assembler reads an operation name it can simply use the table to find its equivalent binary code. In order to carry the same conversion for the addresses of symbols the assembler has to build similar table. For instance, in example I, prior to reading the source file(s) the assembler has no way to know that the LOOP symbol relates to address 0004. Thus, in regards to all symbols that have been defined by the programmer, the assembler has to accomplish two separate tasks. The first task is to build a table of all symbols and their related numeric values, and the second is to replace all the symbols, appeared in the source file(s) with the numeric values of the address fields. This two assignments can be achieved by performing two separate scans (passes) on the source file(s). In the first pass the assembler builds a table of symbols, this table correspond address to each symbol. In the second pass the assembler translate the source file(s) into binary machine code. Notice that the two passes are done by the assembler, during translation (in the assembly time), before the linking process. After the translation process, the program may be linked and load to memory for execution.</p>
 <h2>First pass</h2>
@@ -401,7 +394,7 @@ The '.data' directive statement directs the assembler to allocate space in its d
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">LOOP </td><td class="markdownTableBodyNone">0004 </td><td class="markdownTableBodyNone">instruction  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">END </td><td class="markdownTableBodyNone">000c </td><td class="markdownTableBodyNone">instruction  </td></tr>
+<td class="markdownTableBodyNone">END </td><td class="markdownTableBodyNone">000a </td><td class="markdownTableBodyNone">instruction  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">STR </td><td class="markdownTableBodyNone">0000 </td><td class="markdownTableBodyNone">data  </td></tr>
 <tr class="markdownTableRowOdd">
@@ -440,31 +433,27 @@ The '.data' directive statement directs the assembler to allocate space in its d
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Address </th><th class="markdownTableHeadNone">Value  </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">0000 </td><td class="markdownTableBodyNone">0221  </td></tr>
+<td class="markdownTableBodyNone">0000 </td><td class="markdownTableBodyNone">0219  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">0001 </td><td class="markdownTableBodyNone">????  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">0002 </td><td class="markdownTableBodyNone">6222  </td></tr>
+<td class="markdownTableBodyNone">0002 </td><td class="markdownTableBodyNone">621a  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">0003 </td><td class="markdownTableBodyNone">????  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">0004 </td><td class="markdownTableBodyNone">9008  </td></tr>
+<td class="markdownTableBodyNone">0004 </td><td class="markdownTableBodyNone">c022  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">0005 </td><td class="markdownTableBodyNone">????  </td></tr>
+<td class="markdownTableBodyNone">0005 </td><td class="markdownTableBodyNone">701a  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">0006 </td><td class="markdownTableBodyNone">c02a  </td></tr>
+<td class="markdownTableBodyNone">0006 </td><td class="markdownTableBodyNone">3019  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">0007 </td><td class="markdownTableBodyNone">3021  </td></tr>
+<td class="markdownTableBodyNone">0007 </td><td class="markdownTableBodyNone">????  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">0008 </td><td class="markdownTableBodyNone">????  </td></tr>
+<td class="markdownTableBodyNone">0008 </td><td class="markdownTableBodyNone">9008  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">0009 </td><td class="markdownTableBodyNone">7022  </td></tr>
+<td class="markdownTableBodyNone">0009 </td><td class="markdownTableBodyNone">????  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">000a </td><td class="markdownTableBodyNone">a018  </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">000b </td><td class="markdownTableBodyNone">????  </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">000c </td><td class="markdownTableBodyNone">f000  </td></tr>
+<td class="markdownTableBodyNone">000a </td><td class="markdownTableBodyNone">f000  </td></tr>
 </table>
 <h2>Second pass</h2>
 <p>Applying the second pass on the code of example I yields the following final results:</p>
@@ -476,11 +465,11 @@ The '.data' directive statement directs the assembler to allocate space in its d
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">LOOP </td><td class="markdownTableBodyNone">0004 </td><td class="markdownTableBodyNone">object code  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">END </td><td class="markdownTableBodyNone">000c </td><td class="markdownTableBodyNone">object code  </td></tr>
+<td class="markdownTableBodyNone">END </td><td class="markdownTableBodyNone">000a </td><td class="markdownTableBodyNone">object code  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">STR </td><td class="markdownTableBodyNone">000d </td><td class="markdownTableBodyNone">object code  </td></tr>
+<td class="markdownTableBodyNone">STR </td><td class="markdownTableBodyNone">000b </td><td class="markdownTableBodyNone">object code  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">LEN </td><td class="markdownTableBodyNone">0014 </td><td class="markdownTableBodyNone">object code  </td></tr>
+<td class="markdownTableBodyNone">LEN </td><td class="markdownTableBodyNone">0012 </td><td class="markdownTableBodyNone">object code  </td></tr>
 </table>
 <p>List of entries:</p>
 <table class="markdownTable">
@@ -494,47 +483,43 @@ The '.data' directive statement directs the assembler to allocate space in its d
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Address </th><th class="markdownTableHeadNone">Machine Word  </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">0000 </td><td class="markdownTableBodyNone">0221  </td></tr>
+<td class="markdownTableBodyNone">0000 </td><td class="markdownTableBodyNone">0219  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">0001 </td><td class="markdownTableBodyNone">0014  </td></tr>
+<td class="markdownTableBodyNone">0001 </td><td class="markdownTableBodyNone">0012  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">0002 </td><td class="markdownTableBodyNone">6222  </td></tr>
+<td class="markdownTableBodyNone">0002 </td><td class="markdownTableBodyNone">621a  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">0003 </td><td class="markdownTableBodyNone">000d  </td></tr>
+<td class="markdownTableBodyNone">0003 </td><td class="markdownTableBodyNone">000b  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">0004 </td><td class="markdownTableBodyNone">9008  </td></tr>
+<td class="markdownTableBodyNone">0004 </td><td class="markdownTableBodyNone">c022  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">0005 </td><td class="markdownTableBodyNone">000c  </td></tr>
+<td class="markdownTableBodyNone">0005 </td><td class="markdownTableBodyNone">701a  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">0006 </td><td class="markdownTableBodyNone">c02a  </td></tr>
+<td class="markdownTableBodyNone">0006 </td><td class="markdownTableBodyNone">3019  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">0007 </td><td class="markdownTableBodyNone">3021  </td></tr>
+<td class="markdownTableBodyNone">0007 </td><td class="markdownTableBodyNone">0001  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">0008 </td><td class="markdownTableBodyNone">0001  </td></tr>
+<td class="markdownTableBodyNone">0008 </td><td class="markdownTableBodyNone">9008  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">0009 </td><td class="markdownTableBodyNone">7022  </td></tr>
+<td class="markdownTableBodyNone">0009 </td><td class="markdownTableBodyNone">0004  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">000a </td><td class="markdownTableBodyNone">a018  </td></tr>
+<td class="markdownTableBodyNone">000a </td><td class="markdownTableBodyNone">f000  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">000b </td><td class="markdownTableBodyNone">fffa  </td></tr>
+<td class="markdownTableBodyNone">000b </td><td class="markdownTableBodyNone">0061  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">000c </td><td class="markdownTableBodyNone">f000  </td></tr>
+<td class="markdownTableBodyNone">000c </td><td class="markdownTableBodyNone">0062  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">000d </td><td class="markdownTableBodyNone">0061  </td></tr>
+<td class="markdownTableBodyNone">000d </td><td class="markdownTableBodyNone">0063  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">000e </td><td class="markdownTableBodyNone">0062  </td></tr>
+<td class="markdownTableBodyNone">000e </td><td class="markdownTableBodyNone">0064  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">000f </td><td class="markdownTableBodyNone">0063  </td></tr>
+<td class="markdownTableBodyNone">000f </td><td class="markdownTableBodyNone">0065  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">0010 </td><td class="markdownTableBodyNone">0064  </td></tr>
+<td class="markdownTableBodyNone">0010 </td><td class="markdownTableBodyNone">0066  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">0011 </td><td class="markdownTableBodyNone">0065  </td></tr>
+<td class="markdownTableBodyNone">0011 </td><td class="markdownTableBodyNone">0000  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">0012 </td><td class="markdownTableBodyNone">0066  </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">0013 </td><td class="markdownTableBodyNone">0000  </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">0014 </td><td class="markdownTableBodyNone">0006  </td></tr>
+<td class="markdownTableBodyNone">0012 </td><td class="markdownTableBodyNone">0006  </td></tr>
 </table>
 <p>When the assembler program is done an object code is generated this object code is to be sent to a linker program. The purpose of the linker program is described as follows:</p>
 <ol type="1">
@@ -562,113 +547,42 @@ The '.data' directive statement directs the assembler to allocate space in its d
 <p><em>test.as</em> </p><div class="fragment"><div class="line">; test.as</div>
 <div class="line">; Prints the string &quot;abcdef&quot;.</div>
 <div class="line"> </div>
-<div class="line">        .entry MAIN     ; file contains the definition of MAIN</div>
-<div class="line">MAIN:   mov  LEN, r1    ; move LEN(6) to r1</div>
-<div class="line">        lea  STR, r2    ; load the address of STR to r2</div>
-<div class="line">LOOP:   jnz  END        ; if not zero, jump to END</div>
-<div class="line">        prn  @r2        ; print the character at the memory location that r2 holds</div>
-<div class="line">        sub  #1, r1     ; r1 = r1 - 1</div>
-<div class="line">        inc  r2         ; r2 = r2 + 1</div>
-<div class="line">        jnc  *LOOP      ; jump to LOOP of carry flag is not set (sub sets it)</div>
-<div class="line">END:    hlt             ; end of the program</div>
-<div class="line">STR:    .string  &quot;abcdef&quot;   ; string to print</div>
-<div class="line">LEN:    .data   6           ; length of the string</div>
+<div class="line">        .entry MAIN      ; file contains the definition of MAIN</div>
+<div class="line">MAIN:   mov LEN, r1      ; move LEN(=6) to r1</div>
+<div class="line">        lea STR, r2      ; load the address of STR to r2</div>
+<div class="line">LOOP:   prn @r2          ; print the character at the memory location that r2 holds</div>
+<div class="line">        inc r2           ; r2 = r2 + 1</div>
+<div class="line">        sub #1, r1       ; r1 = r1 - 1</div>
+<div class="line">        jnz LOOP         ; jump to LOOP if the zero flag is not set (sub sets it)</div>
+<div class="line">END:    hlt              ; end of the program</div>
+<div class="line">STR:    .string &quot;abcdef&quot; ; string to print</div>
+<div class="line">LEN:    .data 6          ; length of the string</div>
 </div><!-- fragment --><p><em>test.oc</em> </p><div class="fragment"><div class="line">.cbegin</div>
-<div class="line">d 8</div>
-<div class="line">0000 0221 a</div>
-<div class="line">0001 0014 r</div>
-<div class="line">0002 6222 a</div>
-<div class="line">0003 000d r</div>
-<div class="line">0004 9008 a</div>
-<div class="line">0005 000c r</div>
-<div class="line">0006 c02a a</div>
-<div class="line">0007 3021 a</div>
-<div class="line">0008 0001 a</div>
-<div class="line">0009 7022 a</div>
-<div class="line">000a a018 a</div>
-<div class="line">000b fffa a</div>
-<div class="line">000c f000 a</div>
-<div class="line">000d 0061  </div>
-<div class="line">000e 0062  </div>
-<div class="line">000f 0063  </div>
-<div class="line">0010 0064  </div>
-<div class="line">0011 0065  </div>
-<div class="line">0012 0066  </div>
-<div class="line">0013 0000  </div>
-<div class="line">0014 0006  </div>
+<div class="line">b 8</div>
+<div class="line">0000 0219 a</div>
+<div class="line">0001 0012 r</div>
+<div class="line">0002 621a a</div>
+<div class="line">0003 000b r</div>
+<div class="line">0004 c022 a</div>
+<div class="line">0005 701a a</div>
+<div class="line">0006 3019 a</div>
+<div class="line">0007 0001 a</div>
+<div class="line">0008 9008 a</div>
+<div class="line">0009 0004 r</div>
+<div class="line">000a f000 a</div>
+<div class="line">000b 0061  </div>
+<div class="line">000c 0062  </div>
+<div class="line">000d 0063  </div>
+<div class="line">000e 0064  </div>
+<div class="line">000f 0065  </div>
+<div class="line">0010 0066  </div>
+<div class="line">0011 0000  </div>
+<div class="line">0012 0006  </div>
 <div class="line">.cend</div>
 <div class="line">.lbegin</div>
 <div class="line">MAIN 0000</div>
 <div class="line">.lend</div>
 <div class="line">.ebegin</div>
-<div class="line">.eend</div>
-</div><!-- fragment --><h3>ps</h3>
-<p>The main routine of the program of reversing string "abcdef".</p>
-<p><em>ps.as</em> </p><div class="fragment"><div class="line">; ps.as</div>
-<div class="line">; Includes main routine of reversing string &quot;abcdef&quot;</div>
-<div class="line"> </div>
-<div class="line">MAIN:   lea STR, STRADD</div>
-<div class="line">        jsr COUNT</div>
-<div class="line">        jsr PRTSTR</div>
-<div class="line">        mov *STRADD, LASTCHAR</div>
-<div class="line">        add LEN, LASTCHAR</div>
-<div class="line">        dec LASTCHAR</div>
-<div class="line">        jsr REVERSE</div>
-<div class="line">        jsr PRTSTR</div>
-<div class="line">        hlt</div>
-<div class="line"> </div>
-<div class="line">.entry  STRADD</div>
-<div class="line">.entry  MAIN</div>
-<div class="line">.extern REVERSE</div>
-<div class="line">.extern PRTSTR</div>
-<div class="line">.extern COUNT</div>
-<div class="line"> </div>
-<div class="line">STRADD:     .data 0</div>
-<div class="line">STR:        .string &quot;abcdef&quot;</div>
-<div class="line">LASTCHAR:   .data 0</div>
-<div class="line">LEN:        .data 0</div>
-</div><!-- fragment --><p><em>ps.oc</em> </p><div class="fragment"><div class="line">.cbegin</div>
-<div class="line">14 a</div>
-<div class="line">0000 6208 a</div>
-<div class="line">0001 0015 r</div>
-<div class="line">0002 0014 r</div>
-<div class="line">0003 d008 a</div>
-<div class="line">0004 ffff e</div>
-<div class="line">0005 d008 a</div>
-<div class="line">0006 ffff e</div>
-<div class="line">0007 0608 a</div>
-<div class="line">0008 000d a</div>
-<div class="line">0009 001c r</div>
-<div class="line">000a 2208 a</div>
-<div class="line">000b 001d r</div>
-<div class="line">000c 001c r</div>
-<div class="line">000d 8008 a</div>
-<div class="line">000e 001c r</div>
-<div class="line">000f d008 a</div>
-<div class="line">0010 ffff e</div>
-<div class="line">0011 d008 a</div>
-<div class="line">0012 ffff e</div>
-<div class="line">0013 f000 a</div>
-<div class="line">0014 0000  </div>
-<div class="line">0015 0061  </div>
-<div class="line">0016 0062  </div>
-<div class="line">0017 0063  </div>
-<div class="line">0018 0064  </div>
-<div class="line">0019 0065  </div>
-<div class="line">001a 0066  </div>
-<div class="line">001b 0000  </div>
-<div class="line">001c 0000  </div>
-<div class="line">001d 0000  </div>
-<div class="line">.cend</div>
-<div class="line">.lbegin</div>
-<div class="line">STRADD 0014</div>
-<div class="line">MAIN 0000</div>
-<div class="line">.lend</div>
-<div class="line">.ebegin</div>
-<div class="line">COUNT 0004</div>
-<div class="line">PRTSTR 0006</div>
-<div class="line">REVERSE 0010</div>
-<div class="line">PRTSTR 0012</div>
 <div class="line">.eend</div>
 </div><!-- fragment --><h1>Usage of tas</h1>
 <div class="fragment"><div class="line">tas &lt;options&gt; source-file</div>

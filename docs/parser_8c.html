@@ -118,9 +118,9 @@ Variables</h2></td></tr>
 <tr class="memitem:ad7961be830b50fd204937fd15b5c0335"><td class="memItemLeft" align="right" valign="top"><a class="el" href="asm_8h.html#a65a813e03535896c10de2b3b2b32f0f8">operation_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parser_8c.html#ad7961be830b50fd204937fd15b5c0335">operations</a> [16]</td></tr>
 <tr class="memdesc:ad7961be830b50fd204937fd15b5c0335"><td class="mdescLeft">&#160;</td><td class="mdescRight">array of operations  <a href="parser_8c.html#ad7961be830b50fd204937fd15b5c0335">More...</a><br /></td></tr>
 <tr class="separator:ad7961be830b50fd204937fd15b5c0335"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9834b91a593de6d61d36368e971c8b19"><td class="memItemLeft" align="right" valign="top"><a class="el" href="asm_8h.html#a883857f8e27a14d647e4dc8f70c4b078">addressing_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parser_8c.html#a9834b91a593de6d61d36368e971c8b19">addressings</a> [6]</td></tr>
-<tr class="memdesc:a9834b91a593de6d61d36368e971c8b19"><td class="mdescLeft">&#160;</td><td class="mdescRight">array of addressing modes  <a href="parser_8c.html#a9834b91a593de6d61d36368e971c8b19">More...</a><br /></td></tr>
-<tr class="separator:a9834b91a593de6d61d36368e971c8b19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c4fa4d8eb1d7c6a36d53591b5fe119b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="asm_8h.html#a883857f8e27a14d647e4dc8f70c4b078">addressing_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parser_8c.html#a0c4fa4d8eb1d7c6a36d53591b5fe119b">addressings</a> [5]</td></tr>
+<tr class="memdesc:a0c4fa4d8eb1d7c6a36d53591b5fe119b"><td class="mdescLeft">&#160;</td><td class="mdescRight">array of addressing modes  <a href="parser_8c.html#a0c4fa4d8eb1d7c6a36d53591b5fe119b">More...</a><br /></td></tr>
+<tr class="separator:a0c4fa4d8eb1d7c6a36d53591b5fe119b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>parsing functions </p>
@@ -183,7 +183,7 @@ Variables</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>addressing or NULL </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="parser_8c_source.html#l00313">313</a> of file <a class="el" href="parser_8c_source.html">parser.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="parser_8c_source.html#l00312">312</a> of file <a class="el" href="parser_8c_source.html">parser.c</a>.</p>
 
 </div>
 </div>
@@ -331,7 +331,7 @@ start_index is there, because we want to apply the same function to "r1" and "@r
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>16-bit machine word </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="parser_8c_source.html#l00351">351</a> of file <a class="el" href="parser_8c_source.html">parser.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="parser_8c_source.html#l00346">346</a> of file <a class="el" href="parser_8c_source.html">parser.c</a>.</p>
 
 </div>
 </div>
@@ -415,7 +415,7 @@ start_index is there, because we want to apply the same function to "r1" and "@r
 </div><div class="memdoc">
 
 <p>checks if the input sting is a valid label name </p>
-<p>regex equivalent: ^(?:r[0-7])$(<em>SKIP)(*F)|^[A-Za-z][A-Za-z0-9]</em>$</p>
+<p>regex equivalent: ^(?:r[0-7])|^[A-Za-z][A-Za-z0-9]*$</p>
 <dl class="section note"><dt>Note</dt><dd>start_index is there, because we want to apply the same function to "LABEL" and "@LABEL" </dd>
 <dd>
 end_offset is there, because we want to apply the same function to "LABEL" and "LABEL:"</dd></dl>
@@ -518,14 +518,14 @@ end_offset is there, because we want to apply the same function to "LABEL" and "
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="a9834b91a593de6d61d36368e971c8b19"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9834b91a593de6d61d36368e971c8b19">&#9670;&nbsp;</a></span>addressings</h2>
+<a id="a0c4fa4d8eb1d7c6a36d53591b5fe119b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c4fa4d8eb1d7c6a36d53591b5fe119b">&#9670;&nbsp;</a></span>addressings</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="asm_8h.html#a883857f8e27a14d647e4dc8f70c4b078">addressing_t</a> addressings[6]</td>
+          <td class="memname"><a class="el" href="asm_8h.html#a883857f8e27a14d647e4dc8f70c4b078">addressing_t</a> addressings[5]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -535,7 +535,7 @@ end_offset is there, because we want to apply the same function to "LABEL" and "
 <p>columns: mode, additional word</p>
 <dl class="section note"><dt>Note</dt><dd>the mode of the addressing mode is the same as its index in the array </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="opcodes_8c_source.html#l00040">40</a> of file <a class="el" href="opcodes_8c_source.html">opcodes.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="opcodes_8c_source.html#l00032">32</a> of file <a class="el" href="opcodes_8c_source.html">opcodes.c</a>.</p>
 
 </div>
 </div>
