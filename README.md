@@ -130,20 +130,20 @@ The following table contains information on legal addressing mode for the source
 
 | Operator  | Legal Addressing Modes for the Source Operand | Legal Addressing Modes for the Destination Operand |
 | --------- | --------------------------------------------- | -------------------------------------------------- |
-| ```mov``` | 0,1,2,3,4,5	                                | 1,2,3,4,5                                          |
-| ```cmp``` | 0,1,2,3,4,5	                                | 0,1,2,3,4,5                                        |
-| ```add``` | 0,1,2,3,4,5	                                | 1,2,3,4,5                                          |
-| ```sub``` | 0,1,2,3,4,5	                                | 1,2,3,4,5                                          |
-| ```mul``` | 0,1,2,3,4,5	                                | 1,2,3,4,5                                          |
-| ```div``` | 0,1,2,3,4,5	                                | 1,2,3,4,5                                          |
-| ```lea``` | 1	                                            | 1,2,3,4,5                                          |
-| ```inc``` | No source operand	                            | 1,2,3,4,5                                          |
-| ```dec``` | No source operand	                            | 1,2,3,4,5                                          |
-| ```jnz``` | No source operand	                            | 1,2,3,5                                            |
-| ```jnc``` | No source operand	                            | 1,2,3,5                                            |
-| ```shl``` | 1,2,3,4,5	                                    | 0,1,2,3,4,5                                        |
-| ```prn``` | No source operand	                            | 0,1,2,3,4,5                                        |
-| ```jsr``` | No source operand	                            | 1,2,3,5                                            |
+| ```mov``` | 0,1,2,3,4	                                | 1,2,3,4                                          |
+| ```cmp``` | 0,1,2,3,4	                                | 0,1,2,3,4                                        |
+| ```add``` | 0,1,2,3,4	                                | 1,2,3,4                                          |
+| ```sub``` | 0,1,2,3,4	                                | 1,2,3,4                                          |
+| ```mul``` | 0,1,2,3,4	                                | 1,2,3,4                                          |
+| ```div``` | 0,1,2,3,4	                                | 1,2,3,4                                          |
+| ```lea``` | 1	                                            | 1,2,3,4                                          |
+| ```inc``` | No source operand	                            | 1,2,3,4                                          |
+| ```dec``` | No source operand	                            | 1,2,3,4                                          |
+| ```jnz``` | No source operand	                            | 1,2,4                                            |
+| ```jnc``` | No source operand	                            | 1,2,4                                            |
+| ```shl``` | 1,2,3,4	                                    | 0,1,2,3,4                                        |
+| ```prn``` | No source operand	                            | 0,1,2,3,4                                        |
+| ```jsr``` | No source operand	                            | 1,2,4                                            |
 | ```rts``` | No source operand	                            | No source operand                                  |
 | ```hlt``` | No source operand	                            | No source operand                                  |
 
