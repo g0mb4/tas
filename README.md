@@ -5,6 +5,7 @@ The majority of the following is just a direct copy of that site.
 Some differences:
 + I'm using hexadecimal (base 16) numeric system instead of octal.
 + .entry MAIN needed to be defined explicitly.
++ No relative addressing.
 + The generated object code file uses a different format (it includes the entries and the externals).
 
 Documentation can be found [here](https://g0mb4.github.io/tas/).
