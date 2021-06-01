@@ -11,7 +11,7 @@ Some differences:
 Documentation can be found [here](https://g0mb4.github.io/tas/).
 
 # "Hardware"
-Our computer architecture consists from CPU (Central Processing Unit), registers and Random Access Memory RAM, where part of the memory is being used as a stack. The size of each word in memory is 16 bits. Arithmetics is to be carried by the '2's complement' method. Our computer machine can only handle integers (Positives or negatives), it doesn't handle real numbers.
+Our computer architecture consists from Central Processing Unit (CPU), registers and Random Access Memory (RAM), where part of the memory is being used as a stack. The size of each word in memory is 16 bits. Arithmetics is to be carried by the '2's complement' method. Our computer machine can only handle integers (Positives or negatives), it doesn't handle real numbers.
 
 ## Registers
 Our computer machine includes the following list of registers:
@@ -24,6 +24,10 @@ All registers are 16 bits in size.
 The two first bits of the PSW register are C and Z in correspondence
 The size of memory is 2000 words (each word is 16 bits in size).
 Characters are coded in ASCII.
+The stack is in the end of the main memory, starts at memory address 1999 (07cf hex)(in words) and it can grow downwards. The stack size is 32 words.
+
+## Initialization
+On startup the all regsiters have a value of zero, including the flags. The contnets of the memory is also zero.
 
 # Instructions
 In our computer machine, instruction is a word (16 bits in size) that carries information about the operator and operands. Although instruction is a string of 16 bits, it can be divided into fields. The following table provides further information about the instruction. The bits are in decimal number system.
@@ -146,6 +150,28 @@ The following table contains information on legal addressing mode for the source
 | ```jsr``` | No source operand	                            | 1,2,4                                            |
 | ```rts``` | No source operand	                            | No source operand                                  |
 | ```hlt``` | No source operand	                            | No source operand                                  |
+
+## Flags
+The following table contains information on the flags modified by the instructions.
+
+| Operator     | Zero Flag Modified | Carry Flag Modified |
+| ------------ | ------------------ | ------------------- |
+|  ``` mov ``` | No           	    | No                  |
+|  ``` cmp ``` | Yes            	| Yes                 |
+|  ``` add ``` | Yes            	| Yes                 |
+|  ``` sub ``` | Yes            	| Yes                 |
+|  ``` mul ``` | Yes            	| Yes                 |
+|  ``` div ``` | No             	| No                  |
+|  ``` lea ``` | No             	| No                  |
+|  ``` inc ``` | Yes            	| No                  |
+|  ``` dec ``` | Yes            	| No                  |
+|  ``` jnz ``` | No            	    | No                  |
+|  ``` jnc ``` | No            	    | No                  |
+|  ``` shl ``` | Yes            	| Yes                 |
+|  ``` prn ``` | No            	    | No                  |
+|  ``` jsr ``` | No            	    | No                  |
+|  ``` rts ``` | No            	    | No                  |
+|  ``` hlt ``` | No            	    | No                  |
 
 # Statements
 Our assembly language is consisted of statements separated by the new line character '\\n'. When we look into a file it appeared to be made out of lines of statements, each statement appeared in its own line.

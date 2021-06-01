@@ -74,7 +74,7 @@ $(function() {
 </ul>
 <p>Documentation can be found <a href="https://g0mb4.github.io/tas/">here</a>.</p>
 <h1>"Hardware"</h1>
-<p>Our computer architecture consists from CPU (Central Processing Unit), registers and Random Access Memory RAM, where part of the memory is being used as a stack. The size of each word in memory is 16 bits. Arithmetics is to be carried by the '2's complement' method. Our computer machine can only handle integers (Positives or negatives), it doesn't handle real numbers.</p>
+<p>Our computer architecture consists from Central Processing Unit (CPU), registers and Random Access Memory (RAM), where part of the memory is being used as a stack. The size of each word in memory is 16 bits. Arithmetics is to be carried by the '2's complement' method. Our computer machine can only handle integers (Positives or negatives), it doesn't handle real numbers.</p>
 <h2>Registers</h2>
 <p>Our computer machine includes the following list of registers:</p><ul>
 <li>Eight general registers (<b>r0</b>, <b>r1</b>, <b>r2</b>, <b>r3</b>, <b>r4</b>, <b>r5</b>, <b>r6</b>, <b>r7</b>)</li>
@@ -82,7 +82,9 @@ $(function() {
 <li>One Stack Pointer register (<b>sp</b>).</li>
 <li>One Status register (<b>psw</b> - Program Status Word) which has two flags: <b>carry flag</b> and <b>zero flag</b>.</li>
 </ul>
-<p>All registers are 16 bits in size. The two first bits of the PSW register are C and Z in correspondence The size of memory is 2000 words (each word is 16 bits in size). Characters are coded in ASCII.</p>
+<p>All registers are 16 bits in size. The two first bits of the PSW register are C and Z in correspondence The size of memory is 2000 words (each word is 16 bits in size). Characters are coded in ASCII. The stack is in the end of the main memory, starts at memory address 1999 (07cf hex)(in words) and it can grow downwards. The stack size is 32 words.</p>
+<h2>Initialization</h2>
+<p>On startup the all regsiters have a value of zero, including the flags. The contnets of the memory is also zero.</p>
 <h1>Instructions</h1>
 <p>In our computer machine, instruction is a word (16 bits in size) that carries information about the operator and operands. Although instruction is a string of 16 bits, it can be divided into fields. The following table provides further information about the instruction. The bits are in decimal number system.</p>
 <table class="markdownTable">
@@ -253,6 +255,44 @@ $(function() {
 <td class="markdownTableBodyNone"><code>rts</code> </td><td class="markdownTableBodyNone">No source operand </td><td class="markdownTableBodyNone">No source operand  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><code>hlt</code> </td><td class="markdownTableBodyNone">No source operand </td><td class="markdownTableBodyNone">No source operand  </td></tr>
+</table>
+<h2>Flags</h2>
+<p>The following table contains information on the flags modified by the instructions.</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Operator </th><th class="markdownTableHeadNone">Zero Flag Modified </th><th class="markdownTableHeadNone">Carry Flag Modified  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>mov</code> </td><td class="markdownTableBodyNone">No </td><td class="markdownTableBodyNone">No  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><code>cmp</code> </td><td class="markdownTableBodyNone">Yes </td><td class="markdownTableBodyNone">Yes  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>add</code> </td><td class="markdownTableBodyNone">Yes </td><td class="markdownTableBodyNone">Yes  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><code>sub</code> </td><td class="markdownTableBodyNone">Yes </td><td class="markdownTableBodyNone">Yes  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>mul</code> </td><td class="markdownTableBodyNone">Yes </td><td class="markdownTableBodyNone">Yes  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><code>div</code> </td><td class="markdownTableBodyNone">No </td><td class="markdownTableBodyNone">No  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>lea</code> </td><td class="markdownTableBodyNone">No </td><td class="markdownTableBodyNone">No  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><code>inc</code> </td><td class="markdownTableBodyNone">Yes </td><td class="markdownTableBodyNone">No  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>dec</code> </td><td class="markdownTableBodyNone">Yes </td><td class="markdownTableBodyNone">No  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><code>jnz</code> </td><td class="markdownTableBodyNone">No </td><td class="markdownTableBodyNone">No  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>jnc</code> </td><td class="markdownTableBodyNone">No </td><td class="markdownTableBodyNone">No  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><code>shl</code> </td><td class="markdownTableBodyNone">Yes </td><td class="markdownTableBodyNone">Yes  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>prn</code> </td><td class="markdownTableBodyNone">No </td><td class="markdownTableBodyNone">No  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><code>jsr</code> </td><td class="markdownTableBodyNone">No </td><td class="markdownTableBodyNone">No  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>rts</code> </td><td class="markdownTableBodyNone">No </td><td class="markdownTableBodyNone">No  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><code>hlt</code> </td><td class="markdownTableBodyNone">No </td><td class="markdownTableBodyNone">No  </td></tr>
 </table>
 <h1>Statements</h1>
 <p>Our assembly language is consisted of statements separated by the new line character '\n'. When we look into a file it appeared to be made out of lines of statements, each statement appeared in its own line. Our assembly language has four types of statements. These statements described in the following table.</p>
