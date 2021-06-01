@@ -72,8 +72,7 @@ typedef enum column_e {
 typedef enum addressing_mode_e {
     INSTANT = 0, /*!< instant (mov #-1, r2) */
     DIRECT, /*!< direct (mov x, r2) */
-    INDIRECT, /*!< indirect (mov @@x, r2) */
-    RELATIVE, /*!< relative (mov *x, r2) */
+    INDIRECT, /*!< indirect (mov @x, r2) */
     DIRECT_REGISTER, /*!< direct register (mov r1, r2) */
     INDIRECT_REGISTER /*!< indirect register (mov @@r1, r2) */
 } addressing_mode_t;
@@ -191,8 +190,6 @@ void second_process_label(char * line);
 void second_process_operation(char * line, int column_index);
 
 uint16_t second_get_symbol_value(char * symbol, int start_index, bool * ext);
-uint16_t second_get_symbol_value_relative(char * symbol, uint16_t current,
-                                          bool * ext);
 
 void second_create_words(operation_t * op, char * src, char * dest,
                          uint16_t * word1, uint16_t * word2, bool * ext1,

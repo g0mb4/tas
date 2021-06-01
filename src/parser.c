@@ -6,7 +6,7 @@
 #include "asm.h"
 
 extern operation_t operations[16]; /*!< \brief array of operations */
-extern addressing_t addressings[6]; /*!< \brief array of addressing modes */
+extern addressing_t addressings[5]; /*!< \brief array of addressing modes */
 
 /*!
  * \brief checks if the input sting is a valid numeric literal
@@ -50,7 +50,7 @@ bool is_valid_numeric_literal(char * str, int start_index) {
 /*!
  * \brief checks if the input sting is a valid label name
  *
- * regex equivalent: ^(?:r[0-7])$(*SKIP)(*F)|^[A-Za-z][A-Za-z0-9]*$
+ * regex equivalent: ^(?:r[0-7])|^[A-Za-z][A-Za-z0-9]*$
  * 
  * \note start_index is there, because we want to apply the same function to "LABEL" and "@LABEL"
  * \note end_offset is there, because we want to apply the same function to "LABEL" and "LABEL:"
@@ -292,7 +292,6 @@ operation_t * get_operation(char * mnemonic) {
     /* operations is an array defined in opcodes.c
 	   so we don't have to copy the value, just get the address of the struct
 	   this way we dont have to worry about freeing */
-
     for (i = 0; i < 16; i++) {
         if (strcmp(operations[i].mnemonic, mnemonic) == 0) {
             return &operations[i];
@@ -318,13 +317,9 @@ addressing_t * get_addressing(char * operand) {
     /* addressings is an array defined in opcodes.c
 	   so we don't have to copy the value, just get the address of the struct
        this way we dont have to worry about freeing */
-
     if (operand[0] == '#') {
         return is_valid_numeric_literal(operand, 1) ? &addressings[INSTANT]
                                                     : NULL;
-    } else if (operand[0] == '*') {
-        return is_valid_label_name(operand, 1, 0) ? &addressings[RELATIVE]
-                                                  : NULL;
     } else if (operand[0] == '@') {
         if (is_valid_label_name(operand, 1, 0)) {
             return &addressings[INDIRECT];

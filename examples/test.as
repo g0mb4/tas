@@ -1,14 +1,12 @@
-; test.as
-; looong lineeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+; test.as - prints "abcdef" to the display
 
 .entry MAIN
 MAIN:	mov	 LENGTH, r1
 		lea	 STR, r2
-LOOP:	jnz	 END
-		prn	 @r2
-		sub	 #1, r1
+LOOP:	prn	 @r2
 		inc	 r2
-		jnc	 *LOOP
+		sub	 #1, r1
+		jnz  LOOP
 END:	hlt
 STR:	.string	 "abcdef"
 LENGTH:	.data	6

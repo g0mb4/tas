@@ -274,7 +274,6 @@ void second_add_object_word(char * operand, uint16_t word, bool ext) {
     /* check if addressing mode requires the additional word */
     switch (addr_mode->mode) {
     case INSTANT:
-    case RELATIVE:
         type = 'a'; /* absolute */
         ADD_OBJECT_WORD(word, type); /* add the word to the object code */
         break;
@@ -309,7 +308,6 @@ void second_add_external(char * operand) {
     case INDIRECT:
         start_index = 1; /* @LABEL */
         break;
-    case RELATIVE:
     case INSTANT:
     case DIRECT_REGISTER:
     case INDIRECT_REGISTER:
@@ -447,8 +445,6 @@ uint16_t second_get_word(char * operand, bool * ext) {
         return second_get_symbol_value(operand, 0, ext); /* LABEL */
     case INDIRECT:
         return second_get_symbol_value(operand, 1, ext); /* @LABEL */
-    case RELATIVE:
-        return second_get_symbol_value_relative(operand, object_code_ctr, ext);
     /* code could not reach this point */
     case DIRECT_REGISTER:
     case INDIRECT_REGISTER:
@@ -533,37 +529,4 @@ uint16_t second_get_symbol_value(char * symbol, int start_index, bool * ext) {
     free(real_symbol);
     ERROR_F("symbol is not defined and not external: %s", real_symbol);
     return 0xFFFF;
-}
-
-/*!
- * \brief gets the relative value (address) of a symbol from the table
- *
- * \param symbol		string containing the name of the symbol
- * \param current		current location in the object code
- * \param ext			set if symbol si external
- * \return				value of the symbol
- */
-uint16_t second_get_symbol_value_relative(char * symbol, uint16_t current,
-                                          bool * ext) {
-    uint16_t sym_addr = second_get_symbol_value(symbol, 1, ext); /* *LABEL */
-
-    int diff = sym_addr - current; /* compute difference */
-    bool negative = false;
-    uint16_t ret = 0;
-
-    /* check if negative */
-    if (diff < 0) {
-        negative = true;
-        diff *= -1;
-    }
-
-    ret = (uint16_t)diff;
-
-    /* if negative, create 2's complement */
-    if (negative == true) {
-        ret = ~ret; /* 1's complement */
-        ret += 1; /* 2's complement */
-    }
-
-    return ret;
 }
