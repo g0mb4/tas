@@ -22,12 +22,16 @@ Our computer machine includes the following list of registers:
 
 All registers are 16 bits in size.
 The two first bits of the PSW register are C and Z in correspondence
-The size of memory is 2000 words (each word is 16 bits in size).
 Characters are coded in ASCII.
-The stack is in the end of the main memory, starts at memory address 1999 (07cf hex)(in words) and it can grow downwards. The stack size is 32 words.
+
+## Memory
+The size of memory is 2000 words (each word is 16 bits in size).
+
+## Stack
+The stack is in the end of the main memory, starts at memory address 1999 (07cf hex)(in words) and it can grow downwards. The size of the stack is 16 words.
 
 ## Initialization
-On startup the all regsiters have a value of zero, including the flags. The contnets of the memory is also zero.
+On startup the all regsiters have a value of zero, including the flags. The contents of the memory is also zero.
 
 # Instructions
 In our computer machine, instruction is a word (16 bits in size) that carries information about the operator and operands. Although instruction is a string of 16 bits, it can be divided into fields. The following table provides further information about the instruction. The bits are in decimal number system.

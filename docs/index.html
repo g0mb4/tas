@@ -82,9 +82,13 @@ $(function() {
 <li>One Stack Pointer register (<b>sp</b>).</li>
 <li>One Status register (<b>psw</b> - Program Status Word) which has two flags: <b>carry flag</b> and <b>zero flag</b>.</li>
 </ul>
-<p>All registers are 16 bits in size. The two first bits of the PSW register are C and Z in correspondence The size of memory is 2000 words (each word is 16 bits in size). Characters are coded in ASCII. The stack is in the end of the main memory, starts at memory address 1999 (07cf hex)(in words) and it can grow downwards. The stack size is 32 words.</p>
+<p>All registers are 16 bits in size. The two first bits of the PSW register are C and Z in correspondence Characters are coded in ASCII.</p>
+<h2>Memory</h2>
+<p>The size of memory is 2000 words (each word is 16 bits in size).</p>
+<h2>Stack</h2>
+<p>The stack is in the end of the main memory, starts at memory address 1999 (07cf hex)(in words) and it can grow downwards. The size of the stack is 16 words.</p>
 <h2>Initialization</h2>
-<p>On startup the all regsiters have a value of zero, including the flags. The contnets of the memory is also zero.</p>
+<p>On startup the all regsiters have a value of zero, including the flags. The contents of the memory is also zero.</p>
 <h1>Instructions</h1>
 <p>In our computer machine, instruction is a word (16 bits in size) that carries information about the operator and operands. Although instruction is a string of 16 bits, it can be divided into fields. The following table provides further information about the instruction. The bits are in decimal number system.</p>
 <table class="markdownTable">

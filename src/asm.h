@@ -72,7 +72,7 @@ typedef enum column_e {
 typedef enum addressing_mode_e {
     INSTANT = 0, /*!< instant (mov #-1, r2) */
     DIRECT, /*!< direct (mov x, r2) */
-    INDIRECT, /*!< indirect (mov @x, r2) */
+    INDIRECT, /*!< indirect (mov @@x, r2) */
     DIRECT_REGISTER, /*!< direct register (mov r1, r2) */
     INDIRECT_REGISTER /*!< indirect register (mov @@r1, r2) */
 } addressing_mode_t;
