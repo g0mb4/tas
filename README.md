@@ -3,12 +3,14 @@ Toy Two Pass Assembler
 The project is based on Yonatan Zilpa's excersie. A brief explanation can be found [here](https://www.magmath.com/english/programming/c_programming_language/projects/two_pass_assembler.php).
 The majority of the following is just a direct copy of that site.
 Some differences:
-+ I'm using hexadecimal (base 16) numeric system instead of octal.
++ Hexadecimal (base 16) numeric system is used instead of octal.
 + .entry MAIN needed to be defined explicitly.
 + No relative addressing.
 + The generated object code file uses a different format (it includes the entries and the externals).
 
 Documentation can be found [here](https://g0mb4.github.io/tas/).
+
+A working virtual machine is created for this project, in orded to run the assembled programs. The machine can be found here: [tvm](https://github.com/g0mb4/tvm). 
 
 # "Hardware"
 Our computer architecture consists from Central Processing Unit (CPU), registers and Random Access Memory (RAM), where part of the memory is being used as a stack. The size of each word in memory is 16 bits. Arithmetics is to be carried by the '2's complement' method. Our computer machine can only handle integers (Positives or negatives), it doesn't handle real numbers.

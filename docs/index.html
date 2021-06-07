@@ -67,12 +67,13 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>The project is based on Yonatan Zilpa's excersie. A brief explanation can be found <a href="https://www.magmath.com/english/programming/c_programming_language/projects/two_pass_assembler.php">here</a>. The majority of the following is just a direct copy of that site. Some differences:</p><ul>
-<li>I'm using hexadecimal (base 16) numeric system instead of octal.</li>
+<li>Hexadecimal (base 16) numeric system is used instead of octal.</li>
 <li>.entry MAIN needed to be defined explicitly.</li>
 <li>No relative addressing.</li>
 <li>The generated object code file uses a different format (it includes the entries and the externals).</li>
 </ul>
 <p>Documentation can be found <a href="https://g0mb4.github.io/tas/">here</a>.</p>
+<p>A working virtual machine is created for this project, in orded to run the assembled programs. The machine can be found here: <a href="https://github.com/g0mb4/tvm">tvm</a>.</p>
 <h1>"Hardware"</h1>
 <p>Our computer architecture consists from Central Processing Unit (CPU), registers and Random Access Memory (RAM), where part of the memory is being used as a stack. The size of each word in memory is 16 bits. Arithmetics is to be carried by the '2's complement' method. Our computer machine can only handle integers (Positives or negatives), it doesn't handle real numbers.</p>
 <h2>Registers</h2>
