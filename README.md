@@ -99,9 +99,9 @@ The following table provides further explanation on the operational aspects of t
 | 0 | ``` mov ``` | Copies the value of the source operand (the first operand) to the destination operand (the second operand).	|  ``` mov A, r1 ``` | Copy the value of A to register r1. |
 | 1	| ``` cmp ``` |	Compare between two operands. The cmp operator subtracts the destination operand from the source operand, without saving the subtraction result, it then updates the zero flag, flag z, in the status register, PSW. | ``` cpm A, r1 ``` | If the values of A and r1 are equal, then the zero flag A, in the status register PSW, is turned on. Else the zero flag is turned off. |
 | 2 | ``` add ``` |	The destination operand is assigned with the value of the source operand plus the value of the destination operand. | ``` add A, r0 ``` | Register r0 gets the sum of r0 and A. |
-| 3	| ``` sub ``` |	The destination operand is assigned with the value of the source operand minus the value of the destination operand. |  ``` sub #3, r1 ``` | Register r1 is assigned with the value of r1 minus 3. |
+| 3	| ``` sub ``` |	The destination operand is assigned with the value of the destination operand minus the value of the source operand. |  ``` sub #3, r1 ``` | Register r1 is assigned with the value of r1 minus 3. |
 | 4 | ``` mul ``` | Destination operand assigned with the value of the source operand times the value of destination operand |  ``` mul A, r2 ``` | Register r2 assigned with A times r2. |
-| 5 | ``` div ``` |	Destination operand is assigned with the value of destination operand divided by the source operand (destination divided by source) | ``` div A, r2 ``` | Register r2 assigned with r2/A. |
+| 5 | ``` div ``` |	Destination operand is assigned with the value of destination operand divided by the source operand. | ``` div A, r2 ``` | Register r2 assigned with r2/A. |
 | 6 | ``` lea ``` |	Acronym for 'load effective address'. This operation loads memory address, marked with the label appeared in the first operand to the destination operand. |  ``` lea ABC, r1  ``` | The memory address of label ABC is assigned to register r1. |
 | b | ``` shl ``` | Shift bits to the left in the source operand. The number of shifts is determined by the value of the destination operand. |  ``` shl r1, #1 ``` | Register r1 is shifted 1 bit to the left.
 
