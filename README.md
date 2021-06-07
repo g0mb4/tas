@@ -161,7 +161,7 @@ The following table contains information on the flags modified by the instructio
 | Operator     | Zero Flag Modified | Carry Flag Modified |
 | ------------ | ------------------ | ------------------- |
 |  ``` mov ``` | No           	    | No                  |
-|  ``` cmp ``` | Yes            	| Yes                 |
+|  ``` cmp ``` | Yes            	| No                  |
 |  ``` add ``` | Yes            	| Yes                 |
 |  ``` sub ``` | Yes            	| Yes                 |
 |  ``` mul ``` | Yes            	| Yes                 |
