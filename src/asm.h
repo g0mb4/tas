@@ -3,15 +3,15 @@
  * \brief definitions for the whole project
  */
 
-#ifndef __ASM_H__
-#define __ASM_H__
+#ifndef ASM_H
+#define ASM_H
 
 /* standard headers */
+#include <stdarg.h> /* for variable arguments in error()/warning() */
+#include <stdbool.h> /* for bool */
+#include <stdint.h> /* for uint8_t, uint16_t, ... */
 #include <stdio.h> /* for displaying and file operations */
 #include <stdlib.h> /* for malloc(),free() */
-#include <stdint.h> /* for uint8_t, uint16_t, ... */
-#include <stdbool.h> /* for bool */
-#include <stdarg.h> /* for variable arguments in error()/warning() */
 #include <string.h> /* for strcpy(), len(), tok() ... */
 
 /*!
