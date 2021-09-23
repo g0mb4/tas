@@ -19,7 +19,7 @@
  * 
  * \note this is the theoretical maximum size
  */
-#define TABLE_SIZE  2000    
+#define TABLE_SIZE 2000
 
 /*!
  * \brief error reporting
@@ -92,8 +92,7 @@ typedef struct operation_s {
     uint8_t opcode; /*!< \brief operation code */
     uint8_t operands; /*!< \brief number of operands */
     char src_legal[7]; /*!< \brief legal addressing modes for the source operand*/
-    char dest_legal
-        [7]; /*!< \brief legal addressing modes for the destination operand*/
+    char dest_legal[7]; /*!< \brief legal addressing modes for the destination operand*/
 } operation_t;
 
 /*!
