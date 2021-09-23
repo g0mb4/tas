@@ -104,9 +104,7 @@ int main(int argc, char * argv[]) {
     }
 
     /* do the second pass */
-    errors = second_pass(file_name, g_symbol_table, &g_symbol_table_size, g_data_image, &g_data_image_size,
-                         g_object_code, &g_object_code_size, g_link_table, &g_link_table_size,
-                         g_external_table, &g_external_table_size);
+    errors = second_pass(file_name);
 
     /* if pass was succesfull */
     if (errors == 0) {

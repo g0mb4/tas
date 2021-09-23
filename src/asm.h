@@ -185,12 +185,7 @@ void first_process_extern(char * line, int column_index);
 uint16_t first_create_instruction(operation_t * op, char * src, char * dest);
 
 /* second_pass.c */
-uint16_t second_pass(const char * file_name, symbol_t * symt,
-                     uint16_t * symt_ctr, uint16_t * datai,
-                     uint16_t * datai_ctr, object_code_t * objectc,
-                     uint16_t * objectc_ctr, link_object_t * linko,
-                     uint16_t * linko_ctr, link_object_t * exts,
-                     uint16_t * exts_ctr);
+uint16_t second_pass(const char * file_name);
 void second_update_tables(void);
 void second_process_line(char * line, int column_index);
 void second_process_label(char * line);

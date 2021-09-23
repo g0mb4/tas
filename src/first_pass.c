@@ -112,16 +112,16 @@ uint16_t first_pass(const char * file_name) {
     FILE * fp;
     char line[256];
 
-    fp = fopen(file_name, "r");
-    if (fp == NULL) {
-        fprintf(stderr, "unable to open '%s'\n", file_name);
-        return 1;
-    }
-
     /* initialise the variables */
     file_base_name = get_file_base_name(file_name);
     line_number = 1;
     errors = 0;
+
+    fp = fopen(file_name, "r");
+    if (fp == NULL) {
+        ERROR_F("unable to open '%s'", file_name);
+        goto exit;
+    }
 
     while (fgets(line, sizeof(line), fp) != NULL) {
         if (strlen(line) > 80) {
@@ -149,6 +149,7 @@ uint16_t first_pass(const char * file_name) {
 
     fclose(fp);
 
+exit:
     return errors;
 }
 
