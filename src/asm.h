@@ -15,6 +15,13 @@
 #include <string.h> /* for strcpy(), len(), tok() ... */
 
 /*!
+ * \brief maximum size of any table
+ * 
+ * \note this is the theoretical maximum size
+ */
+#define TABLE_SIZE  2000    
+
+/*!
  * \brief error reporting
  * 
  * \note file_base_name, line_number and errors must be defined in the file, where this macro is ussed

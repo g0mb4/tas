@@ -9,19 +9,19 @@
 #include "asm.h"
 
 /* tables */
-object_code_t object_code[1000]; /*!< \brief object code */
+object_code_t object_code[TABLE_SIZE]; /*!< \brief object code */
 uint16_t object_ctr = 0; /*!< \brief size of the object code */
 
-uint16_t data_image[1000]; /*!< \brief data image */
+uint16_t data_image[TABLE_SIZE]; /*!< \brief data image */
 uint16_t data_ctr = 0; /*!< \brief size of the data image */
 
-symbol_t sym_table[1000]; /*!< \brief symbol table */
+symbol_t sym_table[TABLE_SIZE]; /*!< \brief symbol table */
 uint16_t sym_ctr = 0; /*!< \brief size of the symbol table */
 
-link_object_t link_table[1000]; /*!< \brief linker table */
+link_object_t link_table[TABLE_SIZE]; /*!< \brief linker table */
 uint16_t link_ctr = 0; /*!< \brief size of the linker table */
 
-link_object_t external_table[1000]; /*!< \brief table of externals */
+link_object_t external_table[TABLE_SIZE]; /*!< \brief table of externals */
 uint16_t external_ctr; /*!< \brief size of the table of externals */
 
 bool list_tables = false; /*!< \brief flag of table listing */
