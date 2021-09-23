@@ -48,7 +48,13 @@ static uint16_t s_object_code_first_size;
  * \brief icrease the obcject code counter, to keep track of position
  * 
  */
-#define ADD_DUMMY_OBJECT_CODE() s_object_code_size++;
+#define ADD_DUMMY_OBJECT_CODE()             \
+    if (g_object_code_size >= TABLE_SIZE) { \
+        ERROR("object code is full");       \
+    } else {                                \
+        s_object_code_size++;               \
+    }
+
 /*!
  * \brief adds an object word with type to the table
  * 
@@ -56,18 +62,26 @@ static uint16_t s_object_code_first_size;
  * \param t type
  */
 #define ADD_OBJECT_WORD(w, t)                    \
-    {                                            \
+    if (g_object_code_size >= TABLE_SIZE) {      \
+        ERROR("object code is full");            \
+    } else {                                     \
         object_code_t o;                         \
         o.value = (w);                           \
         o.type = (t);                            \
         g_object_code[s_object_code_size++] = o; \
     }
+
 /*!
  * \brief adds an external object to the external table
  * 
  * \param e external object
  */
-#define ADD_EXTERNAL(e) g_external_table[g_external_table_size++] = (e);
+#define ADD_EXTERNAL(e)                                  \
+    if (g_external_table_size >= TABLE_SIZE) {           \
+        ERROR("external table is full");                 \
+    } else {                                             \
+        g_external_table[g_external_table_size++] = (e); \
+    }
 
 /*!
  * \brief main function of the second pass 
@@ -181,8 +195,7 @@ void second_process_line(char * line, int column_index) {
 
     switch (col) {
     case LABEL:
-        second_process_label(
-            line); /* just because it can contain an operation */
+        second_process_label(line); /* just because it can contain an operation */
         break;
 
     case DIRECTIVE_ENTRY:
@@ -192,9 +205,7 @@ void second_process_line(char * line, int column_index) {
         /* had been dealt with during the first pass */
         break;
     case OPERATION:
-        second_process_operation(
-            line,
-            column_index); /* this is the main purpuse of the second pass */
+        second_process_operation(line, column_index); /* this is the main purpuse of the second pass */
         break;
 
     case UNKNOWN:
@@ -243,8 +254,7 @@ void second_process_label(char * line) {
  * \param ext		is it external
  */
 void second_add_object_word(char * operand, uint16_t word, bool ext) {
-    addressing_t * addr_mode =
-        get_addressing(operand); /* get addressing mode */
+    addressing_t * addr_mode = get_addressing(operand); /* get addressing mode */
     char type;
 
     /* check if addressing mode requires the additional word */
@@ -288,9 +298,7 @@ void second_add_external(char * operand) {
     case DIRECT_REGISTER:
     case INDIRECT_REGISTER:
     default:
-        ERROR_F("expected EXTERN LABEL with DIRECT|INDIRECT addressing, got: "
-                "%s",
-                operand);
+        ERROR_F("expected EXTERN LABEL with DIRECT|INDIRECT addressing, got: %s", operand);
         return;
     }
 
@@ -303,8 +311,7 @@ void second_add_external(char * operand) {
 
     obj.name = (char *)malloc(strlen(real_symbol) + 1);
     if (!obj.name) {
-        ERROR_F("unable ot allocate memory for external symbol: %s",
-                real_symbol);
+        ERROR_F("unable ot allocate memory for external symbol: %s", real_symbol);
     } else {
         strcpy(obj.name, real_symbol);
         obj.type = 'e';
@@ -323,10 +330,8 @@ void second_add_external(char * operand) {
  * \param column_index	column containing the operation, NOT the operands
  */
 void second_process_operation(char * line, int column_index) {
-    char * operation =
-        string_split(line, " ", column_index); /* get the operation */
-    char * operands =
-        string_split(line, " ", column_index + 1); /* get the operands */
+    char * operation = string_split(line, " ", column_index); /* get the operation */
+    char * operands = string_split(line, " ", column_index + 1); /* get the operands */
     char * operand1 = string_split(operands, ",", 0); /* get the 1st operand */
     char * operand2 = string_split(operands, ",", 1); /* get the 2nd operand */
 
@@ -347,42 +352,36 @@ void second_process_operation(char * line, int column_index) {
 
         /* operations with 1 operand */
         case 1:
-            second_create_words(op, NULL, operand1, NULL, &word1, NULL,
-                                &ext1); /* create the additional words */
+            second_create_words(op, NULL, operand1, NULL, &word1, NULL, &ext1); /* create the additional words */
 
             ADD_DUMMY_OBJECT_CODE(); /* step position */
 
             /* if operand is external */
             if (ext1) {
-                second_add_external(
-                    operand1); /* add it to the external table */
+                second_add_external(operand1); /* add it to the external table */
             }
-            second_add_object_word(operand1, word1,
-                                   ext1); /* add word to the object code */
+            second_add_object_word(operand1, word1, ext1); /* add word to the object code */
 
             break;
 
         case 2:
-            second_create_words(op, operand1, operand2, &word1, &word2, &ext1,
-                                &ext2); /* create the additional words */
+            second_create_words(op, operand1, operand2, &word1, &word2, &ext1, &ext2); /* create the additional words */
 
             ADD_DUMMY_OBJECT_CODE(); /* step position */
 
             /* if operand is external */
             if (ext1) {
-                second_add_external(
-                    operand1); /* add it to the external table */
+                second_add_external(operand1); /* add it to the external table */
             }
-            second_add_object_word(operand1, word1,
-                                   ext1); /* add word to the object code */
+
+            second_add_object_word(operand1, word1, ext1); /* add word to the object code */
 
             /* if operand is external */
             if (ext2) {
-                second_add_external(
-                    operand2); /* add it to the external table */
+                second_add_external(operand2); /* add it to the external table */
             }
-            second_add_object_word(operand2, word2,
-                                   ext2); /* add word to the object code */
+
+            second_add_object_word(operand2, word2, ext2); /* add word to the object code */
 
             break;
         }
@@ -450,8 +449,7 @@ void second_create_words(operation_t * op, char * src, char * dest,
         break;
     /* operations with 1 operand */
     case 1:
-        *word2 = second_get_word(
-            dest, ext2); /* only the destination operands are valid */
+        *word2 = second_get_word(dest, ext2); /* only the destination operands are valid */
         break;
     /* operations with 2 operands */
     case 2:
