@@ -41,13 +41,6 @@ const char * help = "toy two pass assembler by gmb\n\n"
                     "  -b : creates binary output file\n"
                     "  -h : shows this text\n";
 
-/* prototypes */
-void print_sym_table(void);
-void print_data_image(void);
-void print_object_code(void);
-void print_link_table(void);
-void print_extern_table(void);
-
 /*!
  * \brief entry point of the application
  * 
@@ -159,68 +152,4 @@ int main(int argc, char * argv[]) {
     }
 
     return 0;
-}
-
-/*!
- * \brief prints the symbol table
- */
-void print_sym_table(void) {
-    uint16_t i;
-
-    printf("\nTable of symbols (name address type):\n");
-    for (i = 0; i < g_symbol_table_size; i++) {
-        symbol_t * sym = &g_symbol_table[i];
-        printf("  %-10s %04x %c\n", sym->name, sym->value, sym->type);
-    }
-}
-
-/*!
- * \brief prints the link table
- */
-void print_link_table(void) {
-    uint16_t i;
-
-    printf("\nTable of link objects (name addr type):\n");
-    for (i = 0; i < g_link_table_size; i++) {
-        link_object_t * obj = &g_link_table[i];
-        printf("  %-10s %04x %c\n", obj->name, obj->value, obj->type);
-    }
-}
-
-/*!
- * \brief prints the extern table
- */
-void print_extern_table(void) {
-    uint16_t i;
-
-    printf("\nTable of externals (name address):\n");
-    for (i = 0; i < g_external_table_size; i++) {
-        link_object_t * obj = &g_external_table[i];
-        printf("  %-10s %04x\n", obj->name, obj->value);
-    }
-}
-
-/*!
- * \brief prints the data image
- */
-void print_data_image(void) {
-    uint16_t i;
-
-    printf("\nContent of the data image (address value):\n");
-    for (i = 0; i < g_data_image_size; i++) {
-        printf("  %04x %04x\n", i, g_data_image[i]);
-    }
-}
-
-/*!
- * \brief prints the object code
- */
-void print_object_code(void) {
-    uint16_t i;
-
-    printf("\nContent of the object code (address value type):\n");
-    for (i = 0; i < g_object_code_size; i++) {
-        object_code_t * o = &g_object_code[i];
-        printf("  %04x %04x %c\n", i, o->value, o->type);
-    }
 }

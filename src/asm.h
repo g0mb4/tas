@@ -166,6 +166,12 @@ uint16_t instruction_to_word(instruction_t instruction);
 uint16_t count_table_objects_type(char type, link_object_t * table, uint16_t len);
 uint16_t count_table_objects_name(char * name, link_object_t * table, uint16_t len);
 
+void print_sym_table(void);
+void print_data_image(void);
+void print_object_code(void);
+void print_link_table(void);
+void print_extern_table(void);
+
 /* first_pass.c */
 uint16_t first_pass(const char * file_name);
 void first_process_line(char * line, int column_index);
