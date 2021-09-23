@@ -120,7 +120,7 @@ uint16_t first_pass(const char * file_name) {
     fp = fopen(file_name, "r");
     if (fp == NULL) {
         ERROR_F("unable to open '%s'", file_name);
-        goto exit;
+        return 1;
     }
 
     while (fgets(line, sizeof(line), fp) != NULL) {
@@ -149,7 +149,6 @@ uint16_t first_pass(const char * file_name) {
 
     fclose(fp);
 
-exit:
     return errors;
 }
 

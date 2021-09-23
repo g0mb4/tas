@@ -103,7 +103,7 @@ uint16_t second_pass(const char * file_name) {
     fp = fopen(file_name, "r");
     if (fp == NULL) {
         ERROR_F("unable to open '%s'", file_name);
-        goto exit;
+        return 1;
     }
 
     /* update the tables */
@@ -134,7 +134,6 @@ uint16_t second_pass(const char * file_name) {
 
     g_object_code_size = s_object_code_size + g_data_image_size; /* object code and data image had been merged */
 
-exit:
     return errors;
 }
 
