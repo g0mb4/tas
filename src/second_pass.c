@@ -25,21 +25,21 @@ static uint32_t line_number; /* current line number of the source code */
 static char * file_base_name; /* name of the source file */
 static int errors; /* number of errors though second pass  */
 
-static symbol_t * sym_table = NULL;
-static uint16_t sym_tyble_ctr;
-
-static uint16_t * data_image = NULL;
-static uint16_t data_image_len;
-
-static object_code_t * object_code = NULL;
+extern object_code_t g_object_code[TABLE_SIZE];
 static uint16_t object_code_ctr;
 static uint32_t object_code_first_len;
 
-static link_object_t * link_table = NULL;
+extern uint16_t g_data_image[TABLE_SIZE];
+static uint16_t data_image_len;
+
+extern symbol_t g_symbol_table[TABLE_SIZE];
+static uint16_t sym_tyble_ctr;
+
+extern link_object_t g_link_table[TABLE_SIZE];
 static uint16_t link_table_ctr;
 
-static link_object_t * external_table = NULL;
-static uint16_t external_table_ctr;
+extern link_object_t g_external_table[TABLE_SIZE];
+extern uint16_t g_external_table_size;
 
 /*!
  * \brief icrease the obcject code counter, to keep track of position
@@ -52,19 +52,19 @@ static uint16_t external_table_ctr;
  * \param w	16-bit object word
  * \param t type
  */
-#define ADD_OBJECT_WORD(w, t)               \
-    {                                       \
-        object_code_t o;                    \
-        o.value = (w);                      \
-        o.type = (t);                       \
-        object_code[object_code_ctr++] = o; \
+#define ADD_OBJECT_WORD(w, t)                 \
+    {                                         \
+        object_code_t o;                      \
+        o.value = (w);                        \
+        o.type = (t);                         \
+        g_object_code[object_code_ctr++] = o; \
     }
 /*!
  * \brief adds an external object to the external table
  * 
  * \param e external object
  */
-#define ADD_EXTERNAL(e) external_table[external_table_ctr++] = (e);
+#define ADD_EXTERNAL(e) g_external_table[g_external_table_size++] = (e);
 
 /*!
  * \brief main function of the second pass 
@@ -91,11 +91,6 @@ uint16_t second_pass(const char * file_name, symbol_t * symt,
     FILE * fp;
     char line[128];
 
-    sym_table = symt;
-    link_table = linko;
-    data_image = datai;
-    object_code = objectc;
-    external_table = exts;
     object_code_first_len = *objectc_ctr;
     data_image_len = *datai_ctr;
     sym_tyble_ctr = *symt_ctr;
@@ -112,7 +107,6 @@ uint16_t second_pass(const char * file_name, symbol_t * symt,
     line_number = 1;
     errors = 0;
     object_code_ctr = 0;
-    external_table_ctr = 0;
 
     /* update the tables */
     second_update_tables();
@@ -143,7 +137,7 @@ uint16_t second_pass(const char * file_name, symbol_t * symt,
     /* update counter (length) values */
     *objectc_ctr = *objectc_ctr +
                    *datai_ctr; /* object code and data image had been merged */
-    *exts_ctr = external_table_ctr;
+    *exts_ctr = g_external_table_size;
 
     return errors;
 }
@@ -157,25 +151,25 @@ void second_update_tables(void) {
 
     /* update data locations */
     for (i = 0; i < sym_tyble_ctr; i++) {
-        if (sym_table[i].type == 'r') {
-            sym_table[i].value += object_code_first_len;
+        if (g_symbol_table[i].type == 'r') {
+            g_symbol_table[i].value += object_code_first_len;
         }
     }
 
     /* update extern/entry labels */
     for (i = 0; i < sym_tyble_ctr; i++) {
         for (j = 0; j < link_table_ctr; j++) {
-            if (strcmp(sym_table[i].name, link_table[j].name) == 0) {
-                switch (link_table[i].type) {
+            if (strcmp(g_symbol_table[i].name, g_link_table[j].name) == 0) {
+                switch (g_link_table[i].type) {
                 /* extern */
                 case 'e':
-                    sym_table[i].type = 'e';
-                    link_table[j].value = sym_table[i].value;
+                    g_symbol_table[i].type = 'e';
+                    g_link_table[j].value = g_symbol_table[i].value;
                     break;
 
                 /* entry */
                 case 'n':
-                    link_table[j].value = sym_table[i].value;
+                    g_link_table[j].value = g_symbol_table[i].value;
                     break;
                 }
             }
@@ -185,9 +179,9 @@ void second_update_tables(void) {
     /* append data to object code */
     for (i = 0, j = object_code_first_len; i < data_image_len; i++, j++) {
         object_code_t o;
-        o.value = data_image[i];
+        o.value = g_data_image[i];
         o.type = ' ';
-        object_code[j] = o;
+        g_object_code[j] = o;
     }
 }
 
@@ -508,7 +502,7 @@ uint16_t second_get_symbol_value(char * symbol, int start_index, bool * ext) {
 
     /* search in the symbol table */
     for (i = 0; i < sym_tyble_ctr; i++) {
-        symbol_t * sym = &sym_table[i];
+        symbol_t * sym = &g_symbol_table[i];
         if (strcmp(sym->name, real_symbol) == 0) {
             *ext = false; /* not an external symbol */
             return sym->value; /* get the value */
@@ -517,7 +511,7 @@ uint16_t second_get_symbol_value(char * symbol, int start_index, bool * ext) {
 
     /* search in the extern table */
     for (i = 0; i < link_table_ctr; i++) {
-        link_object_t * obj = &link_table[i];
+        link_object_t * obj = &g_link_table[i];
         if (strcmp(obj->name, real_symbol) == 0) {
             if (obj->type == 'e') {
                 *ext = true; /* external symbol*/
