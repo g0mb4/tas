@@ -92,9 +92,8 @@ int main(int argc, char * argv[]) {
     }
 
     /* do the first pass */
-    uint16_t errors =
-        first_pass(file_name, g_symbol_table, &g_symbol_table_size, g_data_image, &g_data_image_size,
-                   g_object_code, &g_object_code_size, g_link_table, &g_link_table_size);
+    uint16_t errors = first_pass(file_name);
+
     /* if pass was succesfull */
     if (errors == 0) {
         /* show partial results if flag is set */

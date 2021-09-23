@@ -163,16 +163,11 @@ addressing_t * get_addressing(char * operand);
 uint16_t instruction_to_word(instruction_t instruction);
 
 /* table_functions.c */
-uint16_t count_table_objects_type(char type, link_object_t * table,
-                                  uint16_t len);
-uint16_t count_table_objects_name(char * name, link_object_t * table,
-                                  uint16_t len);
+uint16_t count_table_objects_type(char type, link_object_t * table, uint16_t len);
+uint16_t count_table_objects_name(char * name, link_object_t * table, uint16_t len);
 
 /* first_pass.c */
-uint16_t first_pass(const char * file_name, symbol_t * symt,
-                    uint16_t * symt_ctr, uint16_t * datai, uint16_t * datai_ctr,
-                    object_code_t * objectc, uint16_t * objectc_ctr,
-                    link_object_t * linko, uint16_t * linko_ctr);
+uint16_t first_pass(const char * file_name);
 void first_process_line(char * line, int column_index);
 void first_process_label(char * line);
 void first_process_numbers(char * line, int column_index);

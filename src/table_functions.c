@@ -13,8 +13,7 @@
  * \param len		length of the table
  * \return			number of elements
  */
-uint16_t count_table_objects_type(char type, link_object_t * table,
-                                  uint16_t len) {
+uint16_t count_table_objects_type(char type, link_object_t * table, uint16_t len) {
     uint16_t i, ret = 0;
 
     for (i = 0; i < len; i++) {
@@ -34,8 +33,7 @@ uint16_t count_table_objects_type(char type, link_object_t * table,
  * \param len		length of the table
  * \return			number of elements
  */
-uint16_t count_table_objects_name(char * name, link_object_t * table,
-                                  uint16_t len) {
+uint16_t count_table_objects_name(char * name, link_object_t * table, uint16_t len) {
     uint16_t i, ret = 0;
 
     for (i = 0; i < len; i++) {

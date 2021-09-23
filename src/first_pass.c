@@ -21,84 +21,96 @@
 
 #include "asm.h"
 
+/* global variables */
+extern object_code_t g_object_code[TABLE_SIZE];
+extern uint16_t g_object_code_size;
+
+extern uint16_t g_data_image[TABLE_SIZE];
+extern uint16_t g_data_image_size;
+
+extern symbol_t g_symbol_table[TABLE_SIZE];
+extern uint16_t g_symbol_table_size;
+
+extern link_object_t g_link_table[TABLE_SIZE];
+extern uint16_t g_link_table_size;
+
 /* static variables, used "globally" trhough first pass */
 /* error macros need them */
 static uint32_t line_number; /* current line number of the source code */
 static char * file_base_name; /* name of the source file */
 static int errors; /* number of errors though first pass  */
 
-static symbol_t * sym_table = NULL;
-static uint16_t sym_tyble_ctr;
-
-static uint16_t * data_image = NULL;
-static uint16_t data_image_ctr;
-
-static object_code_t * object_code = NULL;
-static uint16_t object_code_ctr;
-
-static link_object_t * link_table = NULL;
-static uint16_t link_table_ctr;
-
 /*!
  * \brief adding symbol to the table
  * 
  * \param s	symbol to be added
  */
-#define ADD_SYM(s) sym_table[sym_tyble_ctr++] = (s)
+#define ADD_SYM(s)                                   \
+    if (g_symbol_table_size >= TABLE_SIZE) {         \
+        ERROR("symbol table is full");               \
+    } else {                                         \
+        g_symbol_table[g_symbol_table_size++] = (s); \
+    }
+
 /*!
 * \brief adding data to the data image
 * 
 * \param d 16-bit data word
 */
-#define ADD_DATA(d) data_image[data_image_ctr++] = (d)
+#define ADD_DATA(d)                              \
+    if (g_data_image_size >= TABLE_SIZE) {       \
+        ERROR("data image is full");             \
+    } else {                                     \
+        g_data_image[g_data_image_size++] = (d); \
+    }
+
 /*!
  * \brief adding instruction to the object code
  * 
  * \param i 16-bit machine word 
  */
-#define ADD_OBJECT_CODE(i) \
-    object_code_t o;       \
-    o.value = (i);         \
-    o.type = 'a';          \
-    object_code[object_code_ctr++] = o;
+#define ADD_OBJECT_CODE(i)                       \
+    if (g_object_code_size >= TABLE_SIZE) {      \
+        ERROR("object code is full");            \
+    } else {                                     \
+        object_code_t o;                         \
+        o.value = (i);                           \
+        o.type = 'a';                            \
+        g_object_code[g_object_code_size++] = o; \
+    }
+
 /*!
  * \brief adding placeholder data to the object code
  */
-#define ADD_DUMMY_WORD() \
-    object_code_t o;     \
-    o.value = 0xFFFF;    \
-    o.type = '?';        \
-    object_code[object_code_ctr++] = o;
+#define ADD_DUMMY_WORD()                         \
+    if (g_object_code_size >= TABLE_SIZE) {      \
+        ERROR("object code is full");            \
+    } else {                                     \
+        object_code_t o;                         \
+        o.value = 0xFFFF;                        \
+        o.type = '?';                            \
+        g_object_code[g_object_code_size++] = o; \
+    }
+
 /*!
   * \brief adding link object to its table
   */
-#define ADD_LINK_OBJECT(o) link_table[link_table_ctr++] = (o);
+#define ADD_LINK_OBJECT(o)                       \
+    if (g_link_table_size >= TABLE_SIZE) {       \
+        ERROR("link table is full");             \
+    } else {                                     \
+        g_link_table[g_link_table_size++] = (o); \
+    }
 
 /*!
  * \brief main function of the first pass
  * 
  * \param file_name		path of the source file
- * \param symt			symbol table
- * \param symt_ctr		counter of the symbol table
- * \param datai			data image
- * \param datai_ctr		counter of the data image
- * \param objectc		object codet table
- * \param objectc_ctr	counter of the object code table
- * \param linko			link objec table
- * \param linko_ctr		counter of the link objec table
  * \return				number of errors during first pass
  */
-uint16_t first_pass(const char * file_name, symbol_t * symt,
-                    uint16_t * symt_ctr, uint16_t * datai, uint16_t * datai_ctr,
-                    object_code_t * objectc, uint16_t * objectc_ctr,
-                    link_object_t * linko, uint16_t * linko_ctr) {
+uint16_t first_pass(const char * file_name) {
     FILE * fp;
     char line[256];
-
-    sym_table = symt;
-    link_table = linko;
-    data_image = datai;
-    object_code = objectc;
 
     fp = fopen(file_name, "r");
     if (fp == NULL) {
@@ -108,11 +120,6 @@ uint16_t first_pass(const char * file_name, symbol_t * symt,
 
     /* initialise the variables */
     file_base_name = get_file_base_name(file_name);
-    sym_tyble_ctr = 0;
-    data_image_ctr = 0;
-    object_code_ctr = 0;
-    link_table_ctr = 0;
-
     line_number = 1;
     errors = 0;
 
@@ -142,12 +149,6 @@ uint16_t first_pass(const char * file_name, symbol_t * symt,
 
     fclose(fp);
 
-    /* update counter (length) values */
-    *symt_ctr = sym_tyble_ctr;
-    *datai_ctr = data_image_ctr;
-    *objectc_ctr = object_code_ctr;
-    *linko_ctr = link_table_ctr;
-
     return errors;
 }
 
@@ -158,9 +159,7 @@ uint16_t first_pass(const char * file_name, symbol_t * symt,
  * \param column_index	starting column index
  */
 void first_process_line(char * line, int column_index) {
-    char * col_str = string_split(
-        line, " ",
-        column_index); /* split te line into columns, and get the desired one */
+    char * col_str = string_split(line, " ", column_index); /* split te line into columns, and get the desired one */
     column_t col = column_type(col_str); /* get the type of the column */
 
     /* process the column */
@@ -203,8 +202,7 @@ void first_process_line(char * line, int column_index) {
  * \param line	line starting with the label
  */
 void first_process_label(char * line) {
-    char * label = string_split(
-        line, " ", 0); /* get the label, first column of the line */
+    char * label = string_split(line, " ", 0); /* get the label, first column of the line */
     int len = (int)strlen(label);
 
     label[len - 1] = '\0'; /* remove ':' */
@@ -223,21 +221,19 @@ void first_process_label(char * line) {
         /* decide symbol type based on the next column */
         switch (col2) {
         case OPERATION:
-            sym.value =
-                object_code_ctr; /* current position in the object code */
+            sym.value = g_object_code_size; /* current position in the object code */
             sym.type = 'a'; /* absolute */
 
             /* add symbol, if it not defined earlier */
-            if (count_table_objects_name(label, sym_table, sym_tyble_ctr) > 0) {
+            if (count_table_objects_name(label, g_symbol_table, g_symbol_table_size) > 0) {
                 ERROR_F("symbol is already defined: %s", label);
             } else {
                 ADD_SYM(sym);
             }
 
-            first_process_line(
-                line,
-                1); /* recursively process the line, starting with the second column */
+            first_process_line(line, 1); /* recursively process the line, starting with the second column */
             break;
+
         case DIRECTIVE_ENTRY:
         case DIRECTIVE_EXTERN:
             WARN_F("label in front of a compiler directive: %s", line);
@@ -245,20 +241,19 @@ void first_process_label(char * line) {
 
         case DIRECTIVE_NUMBER:
         case DIRECTIVE_STRING:
-            sym.value = data_image_ctr; /* current position in the data image */
+            sym.value = g_data_image_size; /* current position in the data image */
             sym.type = 'r'; /* relocatable */
 
             /* add symbol, if it not defined earlier */
-            if (count_table_objects_name(label, sym_table, sym_tyble_ctr) > 0) {
+            if (count_table_objects_name(label, g_symbol_table, g_symbol_table_size) > 0) {
                 ERROR_F("symbol is already defined: %s", label);
             } else {
                 ADD_SYM(sym);
             }
 
-            first_process_line(
-                line,
-                1); /* recursively process the line, starting with the second column */
+            first_process_line(line, 1); /* recursively process the line, starting with the second column */
             break;
+
         default:
             ERROR_F("unknown label type: %s", col2_str);
             break;
@@ -375,8 +370,7 @@ void first_process_numbers(char * line, int column_index) {
         ADD_DATA(val); /* add the value to the data image */
 
         free(number);
-        number =
-            string_split(list, ",", ++i); /* get the next number in the list */
+        number = string_split(list, ",", ++i); /* get the next number in the list */
     }
     free(list);
 }
@@ -425,10 +419,8 @@ void first_process_string(char * line, int column_index) {
  * \param column_index	column containing the operation, NOT the operands
  */
 void first_process_operation(char * line, int column_index) {
-    char * operation =
-        string_split(line, " ", column_index); /* get the operation */
-    char * operands =
-        string_split(line, " ", column_index + 1); /* get the operands */
+    char * operation = string_split(line, " ", column_index); /* get the operation */
+    char * operands = string_split(line, " ", column_index + 1); /* get the operands */
     char * operand1 = string_split(operands, ",", 0); /* get the 1st operand */
     char * operand2 = string_split(operands, ",", 1); /* get the 2nd operand */
 
@@ -449,27 +441,22 @@ void first_process_operation(char * line, int column_index) {
             switch (op->operands) {
             /* operations with no operands */
             case 0: {
-                uint16_t inst = first_create_instruction(
-                    op, NULL, NULL); /* create instruction from operation */
+                uint16_t inst = first_create_instruction(op, NULL, NULL); /* create instruction from operation */
 
                 ADD_OBJECT_CODE(inst); /* add instruction to the object code */
             } break;
 
             /* operations with 1 operand */
             case 1: {
-                addressing_t * dest_mode = get_addressing(
-                    operand1); /* get the addressing mode of the operand */
+                addressing_t * dest_mode = get_addressing(operand1); /* get the addressing mode of the operand */
 
                 /* check if addressing is valid for this operation */
                 if (is_valid_addressing(op, dest_mode, 1) == false) {
                     ERROR_F("wrong destination addressing mode '%s'", operand1);
                 } else {
-                    uint16_t inst = first_create_instruction(
-                        op, NULL,
-                        operand1); /* create instruction from operation */
+                    uint16_t inst = first_create_instruction(op, NULL, operand1); /* create instruction from operation */
 
-                    ADD_OBJECT_CODE(
-                        inst); /* add instruction to the object code */
+                    ADD_OBJECT_CODE(inst); /* add instruction to the object code */
                     /* if addressing requires an additional word */
                     if (dest_mode->add_word) {
                         ADD_DUMMY_WORD(); /* add placeholder to the object code */
@@ -479,10 +466,8 @@ void first_process_operation(char * line, int column_index) {
 
             /* operations with 2 operands */
             case 2: {
-                addressing_t * src_mode = get_addressing(
-                    operand1); /* get the addressing mode of the 1st operand */
-                addressing_t * dest_mode = get_addressing(
-                    operand2); /* get the addressing mode of the 2nd operand */
+                addressing_t * src_mode = get_addressing(operand1); /* get the addressing mode of the 1st operand */
+                addressing_t * dest_mode = get_addressing(operand2); /* get the addressing mode of the 2nd operand */
 
                 /* check if 1st addressing is valid for this operation */
                 if (is_valid_addressing(op, src_mode, 0) == false) {
@@ -490,16 +475,13 @@ void first_process_operation(char * line, int column_index) {
                 } else {
                     /* check if 2nd addressing is valid for this operation */
                     if (is_valid_addressing(op, dest_mode, 1) == false) {
-                        ERROR_F("wrong destination addressing mode '%s",
-                                operand2);
+                        ERROR_F("wrong destination addressing mode '%s", operand2);
                         return;
                     } else {
-                        uint16_t inst = first_create_instruction(
-                            op, operand1,
-                            operand2); /* create instruction from operation */
+                        uint16_t inst = first_create_instruction(op, operand1, operand2); /* create instruction from operation */
 
-                        ADD_OBJECT_CODE(
-                            inst); /* add instruction to the object code */
+                        ADD_OBJECT_CODE(inst); /* add instruction to the object code */
+
                         /* if 1st addressing requires an additional word */
                         if (src_mode->add_word) {
                             ADD_DUMMY_WORD(); /* add placeholder to the object code */
@@ -554,6 +536,7 @@ uint16_t first_create_instruction(operation_t * op, char * src, char * dest) {
         inst.dest_reg = 0;
 
         break;
+
     /* operations with 1 operand */
     case 1: {
         /* if addressing is register addressing, need to fill the required fields */
@@ -576,6 +559,7 @@ uint16_t first_create_instruction(operation_t * op, char * src, char * dest) {
     }
 
     break;
+
     /* operations with 2 operands */
     case 2: {
         /* if addressing is register addressing, need to fill the required fields */
@@ -612,6 +596,5 @@ uint16_t first_create_instruction(operation_t * op, char * src, char * dest) {
     break;
     }
 
-    return instruction_to_word(
-        inst); /* create the 16-bit instruction word from struct */
+    return instruction_to_word(inst); /* create the 16-bit instruction word from struct */
 }
