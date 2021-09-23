@@ -10,7 +10,8 @@
  * 
  * columns: mnemonic, opcode, no_parameters, src_addressings, dest_addressings
  */
-operation_t operations[16] = {
+// clang-format off
+operation_t g_operations[16] = {
     /* mnemonic	, opcode	, no_parameters	, src_addressings	, dest_addressings */
     { "mov", 0x0, 2, "01234", "1234" }, { "cmp", 0x1, 2, "01234", "01234" },
     { "add", 0x2, 2, "01234", "1234" }, { "sub", 0x3, 2, "01234", "1234" },
@@ -21,6 +22,7 @@ operation_t operations[16] = {
     { "prn", 0xC, 1, "", "01234" },     { "jsr", 0xD, 1, "", "124" },
     { "rts", 0xE, 0, "", "" },          { "hlt", 0xF, 0, "", "" }
 };
+// clang-format on
 
 /*!
  * \brief definitions of addressing modes
@@ -29,11 +31,13 @@ operation_t operations[16] = {
  * 
  * \note the mode of the addressing mode is the same as its index in the array
  */
-addressing_t addressings[5] = {
+// clang-format off
+addressing_t g_addressings[5] = {
     /* mode				, additional word */
-    { INSTANT, 1 },
-    { DIRECT, 1 },
-    { INDIRECT, 1 },
-    { DIRECT_REGISTER, 0 },
-    { INDIRECT_REGISTER, 0 }
+    { INSTANT           , 1 },
+    { DIRECT            , 1 },
+    { INDIRECT          , 1 },
+    { DIRECT_REGISTER   , 0 },
+    { INDIRECT_REGISTER , 0 }
 };
+// clang-format on

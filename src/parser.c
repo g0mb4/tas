@@ -5,8 +5,8 @@
 
 #include "asm.h"
 
-extern operation_t operations[16]; /*!< \brief array of operations */
-extern addressing_t addressings[5]; /*!< \brief array of addressing modes */
+extern operation_t g_operations[16]; /*!< \brief array of operations */
+extern addressing_t g_addressings[5]; /*!< \brief array of addressing modes */
 
 /*!
  * \brief checks if the input sting is a valid numeric literal
@@ -269,7 +269,7 @@ column_t column_type(char * str) {
         }
     } else {
         for (i = 0; i < 16; i++) {
-            if (strcmp(operations[i].mnemonic, str) == 0) {
+            if (strcmp(g_operations[i].mnemonic, str) == 0) {
                 return OPERATION;
             }
         }
@@ -293,8 +293,8 @@ operation_t * get_operation(char * mnemonic) {
 	   so we don't have to copy the value, just get the address of the struct
 	   this way we dont have to worry about freeing */
     for (i = 0; i < 16; i++) {
-        if (strcmp(operations[i].mnemonic, mnemonic) == 0) {
-            return &operations[i];
+        if (strcmp(g_operations[i].mnemonic, mnemonic) == 0) {
+            return &g_operations[i];
         }
     }
 
@@ -318,20 +318,20 @@ addressing_t * get_addressing(char * operand) {
 	   so we don't have to copy the value, just get the address of the struct
        this way we dont have to worry about freeing */
     if (operand[0] == '#') {
-        return is_valid_numeric_literal(operand, 1) ? &addressings[INSTANT]
+        return is_valid_numeric_literal(operand, 1) ? &g_addressings[INSTANT]
                                                     : NULL;
     } else if (operand[0] == '@') {
         if (is_valid_label_name(operand, 1, 0)) {
-            return &addressings[INDIRECT];
+            return &g_addressings[INDIRECT];
         } else if (is_valid_register_name(operand, 1)) {
-            return &addressings[INDIRECT_REGISTER];
+            return &g_addressings[INDIRECT_REGISTER];
         } else {
             return NULL;
         }
     } else if (is_valid_label_name(operand, 0, 0)) {
-        return &addressings[DIRECT];
+        return &g_addressings[DIRECT];
     } else if (is_valid_register_name(operand, 0)) {
-        return &addressings[DIRECT_REGISTER];
+        return &g_addressings[DIRECT_REGISTER];
     } else {
         return NULL;
     }
