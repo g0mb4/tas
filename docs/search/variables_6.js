@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['mnemonic_203',['mnemonic',['../structoperation__s.html#ad6bfac7912ffe2a2f1a737024c7f88fb',1,'operation_s']]],
-  ['mode_204',['mode',['../structaddressing__s.html#adb70d5a46aa95562b00dc4fd65942f06',1,'addressing_s']]]
+  ['op_207',['op',['../structinstruction__s.html#a3fe410a28ee11b520d9dd574d2139f4b',1,'instruction_s']]],
+  ['opcode_208',['opcode',['../structoperation__s.html#a5c1b56e6bccc2a95dbddf1a08e56e87d',1,'operation_s']]],
+  ['operands_209',['operands',['../structoperation__s.html#a0ce64cde4fd32a2ebb6662c316036657',1,'operation_s']]]
 ];

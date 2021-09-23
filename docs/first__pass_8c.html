@@ -68,7 +68,8 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">first_pass.c File Reference</div>  </div>
 </div><!--header-->
@@ -82,10 +83,10 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:aeb1b9ca21bb4b3246cb7df541899cad5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="first__pass_8c.html#aeb1b9ca21bb4b3246cb7df541899cad5">ADD_SYM</a>(s)&#160;&#160;&#160;<a class="el" href="main_8c.html#ab71b608a0370eb3be751e4555b436eb0">sym_table</a>[sym_tyble_ctr++] = (s)</td></tr>
+<tr class="memitem:aeb1b9ca21bb4b3246cb7df541899cad5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="first__pass_8c.html#aeb1b9ca21bb4b3246cb7df541899cad5">ADD_SYM</a>(s)</td></tr>
 <tr class="memdesc:aeb1b9ca21bb4b3246cb7df541899cad5"><td class="mdescLeft">&#160;</td><td class="mdescRight">adding symbol to the table  <a href="first__pass_8c.html#aeb1b9ca21bb4b3246cb7df541899cad5">More...</a><br /></td></tr>
 <tr class="separator:aeb1b9ca21bb4b3246cb7df541899cad5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a41db21e5dc17319eb8e2c08a17374de0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="first__pass_8c.html#a41db21e5dc17319eb8e2c08a17374de0">ADD_DATA</a>(d)&#160;&#160;&#160;<a class="el" href="main_8c.html#ab0d4bec446cea2ab9a208e58d56c8a88">data_image</a>[data_image_ctr++] = (d)</td></tr>
+<tr class="memitem:a41db21e5dc17319eb8e2c08a17374de0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="first__pass_8c.html#a41db21e5dc17319eb8e2c08a17374de0">ADD_DATA</a>(d)</td></tr>
 <tr class="memdesc:a41db21e5dc17319eb8e2c08a17374de0"><td class="mdescLeft">&#160;</td><td class="mdescRight">adding data to the data image  <a href="first__pass_8c.html#a41db21e5dc17319eb8e2c08a17374de0">More...</a><br /></td></tr>
 <tr class="separator:a41db21e5dc17319eb8e2c08a17374de0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1f73f4f564c8d828a6c227e87702770"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="first__pass_8c.html#ad1f73f4f564c8d828a6c227e87702770">ADD_OBJECT_CODE</a>(i)</td></tr>
@@ -94,16 +95,15 @@ Macros</h2></td></tr>
 <tr class="memitem:a9ea1e474eddf357928f8d81bf969e9a5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="first__pass_8c.html#a9ea1e474eddf357928f8d81bf969e9a5">ADD_DUMMY_WORD</a>()</td></tr>
 <tr class="memdesc:a9ea1e474eddf357928f8d81bf969e9a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">adding placeholder data to the object code  <a href="first__pass_8c.html#a9ea1e474eddf357928f8d81bf969e9a5">More...</a><br /></td></tr>
 <tr class="separator:a9ea1e474eddf357928f8d81bf969e9a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8239a0ae1efda1efa25fa9c67baec63"><td class="memItemLeft" align="right" valign="top"><a id="ad8239a0ae1efda1efa25fa9c67baec63"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="first__pass_8c.html#ad8239a0ae1efda1efa25fa9c67baec63">ADD_LINK_OBJECT</a>(o)&#160;&#160;&#160;<a class="el" href="main_8c.html#a8a60227350abdd1c4ef45911f8e9e218">link_table</a>[link_table_ctr++] = (o);</td></tr>
-<tr class="memdesc:ad8239a0ae1efda1efa25fa9c67baec63"><td class="mdescLeft">&#160;</td><td class="mdescRight">adding link object to its table <br /></td></tr>
+<tr class="memitem:ad8239a0ae1efda1efa25fa9c67baec63"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="first__pass_8c.html#ad8239a0ae1efda1efa25fa9c67baec63">ADD_LINK_OBJECT</a>(o)</td></tr>
+<tr class="memdesc:ad8239a0ae1efda1efa25fa9c67baec63"><td class="mdescLeft">&#160;</td><td class="mdescRight">adding link object to its table  <a href="first__pass_8c.html#ad8239a0ae1efda1efa25fa9c67baec63">More...</a><br /></td></tr>
 <tr class="separator:ad8239a0ae1efda1efa25fa9c67baec63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a9043f7dfd70979872a4a6aae20c4f9b8"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="first__pass_8c.html#a9043f7dfd70979872a4a6aae20c4f9b8">first_pass</a> (const char *file_name, <a class="el" href="asm_8h.html#a3e86519c044ed50630db754846e1a8d0">symbol_t</a> *symt, uint16_t *symt_ctr, uint16_t *datai, uint16_t *datai_ctr, <a class="el" href="asm_8h.html#ad28fa48002f8afe82cd5fde4cf6ce1fc">object_code_t</a> *objectc, uint16_t *objectc_ctr, <a class="el" href="asm_8h.html#a6fdea67b8cc6a06cd82937c880f619b8">link_object_t</a> *linko, uint16_t *linko_ctr)</td></tr>
-<tr class="memdesc:a9043f7dfd70979872a4a6aae20c4f9b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">main function of the first pass  <a href="first__pass_8c.html#a9043f7dfd70979872a4a6aae20c4f9b8">More...</a><br /></td></tr>
-<tr class="separator:a9043f7dfd70979872a4a6aae20c4f9b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb1328fc39f22b898cdb2bd0a70a54f2"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="first__pass_8c.html#abb1328fc39f22b898cdb2bd0a70a54f2">first_pass</a> (const char *file_name)</td></tr>
+<tr class="memdesc:abb1328fc39f22b898cdb2bd0a70a54f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">main function of the first pass  <a href="first__pass_8c.html#abb1328fc39f22b898cdb2bd0a70a54f2">More...</a><br /></td></tr>
+<tr class="separator:abb1328fc39f22b898cdb2bd0a70a54f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f9d14daea9fa4b6b9ccc8bbbe2eb50d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="first__pass_8c.html#a4f9d14daea9fa4b6b9ccc8bbbe2eb50d">first_process_line</a> (char *line, int column_index)</td></tr>
 <tr class="memdesc:a4f9d14daea9fa4b6b9ccc8bbbe2eb50d"><td class="mdescLeft">&#160;</td><td class="mdescRight">process a line during the first pass  <a href="first__pass_8c.html#a4f9d14daea9fa4b6b9ccc8bbbe2eb50d">More...</a><br /></td></tr>
 <tr class="separator:a4f9d14daea9fa4b6b9ccc8bbbe2eb50d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,6 +128,41 @@ Functions</h2></td></tr>
 <tr class="memitem:a262f296eb5c0ff4a9f8940ebf1a7cf82"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="first__pass_8c.html#a262f296eb5c0ff4a9f8940ebf1a7cf82">first_create_instruction</a> (<a class="el" href="asm_8h.html#a65a813e03535896c10de2b3b2b32f0f8">operation_t</a> *op, char *src, char *dest)</td></tr>
 <tr class="memdesc:a262f296eb5c0ff4a9f8940ebf1a7cf82"><td class="mdescLeft">&#160;</td><td class="mdescRight">creates the 16-bit instruction word from the operation and the operand(s)  <a href="first__pass_8c.html#a262f296eb5c0ff4a9f8940ebf1a7cf82">More...</a><br /></td></tr>
 <tr class="separator:a262f296eb5c0ff4a9f8940ebf1a7cf82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ab7839dd9c2a422b2595a180c49f3026c"><td class="memItemLeft" align="right" valign="top"><a id="ab7839dd9c2a422b2595a180c49f3026c"></a>
+<a class="el" href="asm_8h.html#ad28fa48002f8afe82cd5fde4cf6ce1fc">object_code_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="first__pass_8c.html#ab7839dd9c2a422b2595a180c49f3026c">g_object_code</a> [<a class="el" href="asm_8h.html#a032503e76d6f69bc67e99e909c8125da">TABLE_SIZE</a>]</td></tr>
+<tr class="memdesc:ab7839dd9c2a422b2595a180c49f3026c"><td class="mdescLeft">&#160;</td><td class="mdescRight">object code <br /></td></tr>
+<tr class="separator:ab7839dd9c2a422b2595a180c49f3026c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f6e55b7e1b18b9911527ad784448b5c"><td class="memItemLeft" align="right" valign="top"><a id="a4f6e55b7e1b18b9911527ad784448b5c"></a>
+uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="first__pass_8c.html#a4f6e55b7e1b18b9911527ad784448b5c">g_object_code_size</a></td></tr>
+<tr class="memdesc:a4f6e55b7e1b18b9911527ad784448b5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">size of the object code <br /></td></tr>
+<tr class="separator:a4f6e55b7e1b18b9911527ad784448b5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e557f7d169ceece3fc9f209c9ec8b35"><td class="memItemLeft" align="right" valign="top"><a id="a2e557f7d169ceece3fc9f209c9ec8b35"></a>
+uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="first__pass_8c.html#a2e557f7d169ceece3fc9f209c9ec8b35">g_data_image</a> [<a class="el" href="asm_8h.html#a032503e76d6f69bc67e99e909c8125da">TABLE_SIZE</a>]</td></tr>
+<tr class="memdesc:a2e557f7d169ceece3fc9f209c9ec8b35"><td class="mdescLeft">&#160;</td><td class="mdescRight">data image <br /></td></tr>
+<tr class="separator:a2e557f7d169ceece3fc9f209c9ec8b35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01422b81291a42a235e14a4c2775c4d7"><td class="memItemLeft" align="right" valign="top"><a id="a01422b81291a42a235e14a4c2775c4d7"></a>
+uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="first__pass_8c.html#a01422b81291a42a235e14a4c2775c4d7">g_data_image_size</a></td></tr>
+<tr class="memdesc:a01422b81291a42a235e14a4c2775c4d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">size of the data image <br /></td></tr>
+<tr class="separator:a01422b81291a42a235e14a4c2775c4d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac567d33135c0b3621074f0e1116ea43"><td class="memItemLeft" align="right" valign="top"><a id="aac567d33135c0b3621074f0e1116ea43"></a>
+<a class="el" href="asm_8h.html#a3e86519c044ed50630db754846e1a8d0">symbol_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="first__pass_8c.html#aac567d33135c0b3621074f0e1116ea43">g_symbol_table</a> [<a class="el" href="asm_8h.html#a032503e76d6f69bc67e99e909c8125da">TABLE_SIZE</a>]</td></tr>
+<tr class="memdesc:aac567d33135c0b3621074f0e1116ea43"><td class="mdescLeft">&#160;</td><td class="mdescRight">symbol table <br /></td></tr>
+<tr class="separator:aac567d33135c0b3621074f0e1116ea43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2eeee9cf043803b5997a6cd644889ab0"><td class="memItemLeft" align="right" valign="top"><a id="a2eeee9cf043803b5997a6cd644889ab0"></a>
+uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="first__pass_8c.html#a2eeee9cf043803b5997a6cd644889ab0">g_symbol_table_size</a></td></tr>
+<tr class="memdesc:a2eeee9cf043803b5997a6cd644889ab0"><td class="mdescLeft">&#160;</td><td class="mdescRight">size of the symbol table <br /></td></tr>
+<tr class="separator:a2eeee9cf043803b5997a6cd644889ab0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a512b15d0b3e4b33e9d5ea5e7f3cf99cc"><td class="memItemLeft" align="right" valign="top"><a id="a512b15d0b3e4b33e9d5ea5e7f3cf99cc"></a>
+<a class="el" href="asm_8h.html#a6fdea67b8cc6a06cd82937c880f619b8">link_object_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="first__pass_8c.html#a512b15d0b3e4b33e9d5ea5e7f3cf99cc">g_link_table</a> [<a class="el" href="asm_8h.html#a032503e76d6f69bc67e99e909c8125da">TABLE_SIZE</a>]</td></tr>
+<tr class="memdesc:a512b15d0b3e4b33e9d5ea5e7f3cf99cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">linker table <br /></td></tr>
+<tr class="separator:a512b15d0b3e4b33e9d5ea5e7f3cf99cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d6e23c9de40902f1cd1388218c63510"><td class="memItemLeft" align="right" valign="top"><a id="a5d6e23c9de40902f1cd1388218c63510"></a>
+uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="first__pass_8c.html#a5d6e23c9de40902f1cd1388218c63510">g_link_table_size</a></td></tr>
+<tr class="memdesc:a5d6e23c9de40902f1cd1388218c63510"><td class="mdescLeft">&#160;</td><td class="mdescRight">size of the linker table <br /></td></tr>
+<tr class="separator:a5d6e23c9de40902f1cd1388218c63510"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>first pass of the assembling </p>
@@ -164,11 +199,16 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">d</td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="main_8c.html#ab0d4bec446cea2ab9a208e58d56c8a88">data_image</a>[data_image_ctr++] = (d)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="first__pass_8c.html#a01422b81291a42a235e14a4c2775c4d7">g_data_image_size</a> &gt;= <a class="code" href="asm_8h.html#a032503e76d6f69bc67e99e909c8125da">TABLE_SIZE</a>) {       \</div>
+<div class="line">        ERROR(<span class="stringliteral">&quot;data image is full&quot;</span>);             \</div>
+<div class="line">    } <span class="keywordflow">else</span> {                                     \</div>
+<div class="line">        g_data_image[<a class="code" href="first__pass_8c.html#a01422b81291a42a235e14a4c2775c4d7">g_data_image_size</a>++] = (d); \</div>
+<div class="line">    }</div>
+</div><!-- fragment -->
 <p>adding data to the data image </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -177,7 +217,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00053">53</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00060">60</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
 
 </div>
 </div>
@@ -195,14 +235,45 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <a class="code" href="structobject__code__s.html">object_code_t</a> o;     \</div>
-<div class="line">    o.<a class="code" href="structobject__code__s.html#a900b69af7d674b8db3bceae754b4955a">value</a> = 0xFFFF;    \</div>
-<div class="line">    o.type = <span class="charliteral">&#39;?&#39;</span>;        \</div>
-<div class="line">    object_code[object_code_ctr++] = o;</div>
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="first__pass_8c.html#a4f6e55b7e1b18b9911527ad784448b5c">g_object_code_size</a> &gt;= <a class="code" href="asm_8h.html#a032503e76d6f69bc67e99e909c8125da">TABLE_SIZE</a>) {      \</div>
+<div class="line">        ERROR(<span class="stringliteral">&quot;object code is full&quot;</span>);            \</div>
+<div class="line">    } <span class="keywordflow">else</span> {                                     \</div>
+<div class="line">        object_code_t o;                         \</div>
+<div class="line">        o.value = 0xFFFF;                        \</div>
+<div class="line">        o.type = <span class="charliteral">&#39;?&#39;</span>;                            \</div>
+<div class="line">        g_object_code[<a class="code" href="first__pass_8c.html#a4f6e55b7e1b18b9911527ad784448b5c">g_object_code_size</a>++] = o; \</div>
+<div class="line">    }</div>
 </div><!-- fragment -->
 <p>adding placeholder data to the object code </p>
 
-<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00067">67</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00085">85</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
+
+</div>
+</div>
+<a id="ad8239a0ae1efda1efa25fa9c67baec63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8239a0ae1efda1efa25fa9c67baec63">&#9670;&nbsp;</a></span>ADD_LINK_OBJECT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ADD_LINK_OBJECT</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">o</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="first__pass_8c.html#a5d6e23c9de40902f1cd1388218c63510">g_link_table_size</a> &gt;= <a class="code" href="asm_8h.html#a032503e76d6f69bc67e99e909c8125da">TABLE_SIZE</a>) {       \</div>
+<div class="line">        ERROR(<span class="stringliteral">&quot;link table is full&quot;</span>);             \</div>
+<div class="line">    } <span class="keywordflow">else</span> {                                     \</div>
+<div class="line">        g_link_table[<a class="code" href="first__pass_8c.html#a5d6e23c9de40902f1cd1388218c63510">g_link_table_size</a>++] = (o); \</div>
+<div class="line">    }</div>
+</div><!-- fragment -->
+<p>adding link object to its table </p>
+
+<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00098">98</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
 
 </div>
 </div>
@@ -221,10 +292,14 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <a class="code" href="structobject__code__s.html">object_code_t</a> o;       \</div>
-<div class="line">    o.<a class="code" href="structobject__code__s.html#a900b69af7d674b8db3bceae754b4955a">value</a> = (i);         \</div>
-<div class="line">    o.type = <span class="charliteral">&#39;a&#39;</span>;          \</div>
-<div class="line">    object_code[object_code_ctr++] = o;</div>
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="first__pass_8c.html#a4f6e55b7e1b18b9911527ad784448b5c">g_object_code_size</a> &gt;= <a class="code" href="asm_8h.html#a032503e76d6f69bc67e99e909c8125da">TABLE_SIZE</a>) {      \</div>
+<div class="line">        ERROR(<span class="stringliteral">&quot;object code is full&quot;</span>);            \</div>
+<div class="line">    } <span class="keywordflow">else</span> {                                     \</div>
+<div class="line">        object_code_t o;                         \</div>
+<div class="line">        o.value = (i);                           \</div>
+<div class="line">        o.type = <span class="charliteral">&#39;a&#39;</span>;                            \</div>
+<div class="line">        g_object_code[<a class="code" href="first__pass_8c.html#a4f6e55b7e1b18b9911527ad784448b5c">g_object_code_size</a>++] = o; \</div>
+<div class="line">    }</div>
 </div><!-- fragment -->
 <p>adding instruction to the object code </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -234,7 +309,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00059">59</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00072">72</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
 
 </div>
 </div>
@@ -249,11 +324,16 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">s</td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="main_8c.html#ab71b608a0370eb3be751e4555b436eb0">sym_table</a>[sym_tyble_ctr++] = (s)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">if</span> (<a class="code" href="first__pass_8c.html#a2eeee9cf043803b5997a6cd644889ab0">g_symbol_table_size</a> &gt;= <a class="code" href="asm_8h.html#a032503e76d6f69bc67e99e909c8125da">TABLE_SIZE</a>) {         \</div>
+<div class="line">        ERROR(<span class="stringliteral">&quot;symbol table is full&quot;</span>);               \</div>
+<div class="line">    } <span class="keywordflow">else</span> {                                         \</div>
+<div class="line">        g_symbol_table[<a class="code" href="first__pass_8c.html#a2eeee9cf043803b5997a6cd644889ab0">g_symbol_table_size</a>++] = (s); \</div>
+<div class="line">    }</div>
+</div><!-- fragment -->
 <p>adding symbol to the table </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -262,7 +342,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00047">47</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00048">48</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
 
 </div>
 </div>
@@ -310,12 +390,12 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>16-bit instruction word </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00542">542</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00524">524</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
 
 </div>
 </div>
-<a id="a9043f7dfd70979872a4a6aae20c4f9b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9043f7dfd70979872a4a6aae20c4f9b8">&#9670;&nbsp;</a></span>first_pass()</h2>
+<a id="abb1328fc39f22b898cdb2bd0a70a54f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb1328fc39f22b898cdb2bd0a70a54f2">&#9670;&nbsp;</a></span>first_pass()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -324,60 +404,8 @@ Functions</h2></td></tr>
           <td class="memname">uint16_t first_pass </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>file_name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>file_name</em></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="asm_8h.html#a3e86519c044ed50630db754846e1a8d0">symbol_t</a> *&#160;</td>
-          <td class="paramname"><em>symt</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint16_t *&#160;</td>
-          <td class="paramname"><em>symt_ctr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint16_t *&#160;</td>
-          <td class="paramname"><em>datai</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint16_t *&#160;</td>
-          <td class="paramname"><em>datai_ctr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="asm_8h.html#ad28fa48002f8afe82cd5fde4cf6ce1fc">object_code_t</a> *&#160;</td>
-          <td class="paramname"><em>objectc</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint16_t *&#160;</td>
-          <td class="paramname"><em>objectc_ctr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="asm_8h.html#a6fdea67b8cc6a06cd82937c880f619b8">link_object_t</a> *&#160;</td>
-          <td class="paramname"><em>linko</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint16_t *&#160;</td>
-          <td class="paramname"><em>linko_ctr</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -386,20 +414,12 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">file_name</td><td>path of the source file </td></tr>
-    <tr><td class="paramname">symt</td><td>symbol table </td></tr>
-    <tr><td class="paramname">symt_ctr</td><td>counter of the symbol table </td></tr>
-    <tr><td class="paramname">datai</td><td>data image </td></tr>
-    <tr><td class="paramname">datai_ctr</td><td>counter of the data image </td></tr>
-    <tr><td class="paramname">objectc</td><td>object codet table </td></tr>
-    <tr><td class="paramname">objectc_ctr</td><td>counter of the object code table </td></tr>
-    <tr><td class="paramname">linko</td><td>link objec table </td></tr>
-    <tr><td class="paramname">linko_ctr</td><td>counter of the link objec table </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>number of errors during first pass </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00091">91</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00111">111</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
 
 </div>
 </div>
@@ -439,7 +459,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00281">281</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00276">276</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
 
 </div>
 </div>
@@ -479,7 +499,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00317">317</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00312">312</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
 
 </div>
 </div>
@@ -507,7 +527,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00205">205</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00204">204</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
 
 </div>
 </div>
@@ -546,7 +566,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00160">160</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00161">161</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
 
 </div>
 </div>
@@ -586,7 +606,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00354">354</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00349">349</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
 
 </div>
 </div>
@@ -626,7 +646,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00427">427</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00421">421</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
 
 </div>
 </div>
@@ -666,13 +686,16 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00392">392</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00386">386</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
-<div class="ttc" id="astructobject__code__s_html"><div class="ttname"><a href="structobject__code__s.html">object_code_s</a></div><div class="ttdoc">object code entry</div><div class="ttdef"><b>Definition:</b> <a href="asm_8h_source.html#l00128">asm.h:128</a></div></div>
-<div class="ttc" id="astructobject__code__s_html_a900b69af7d674b8db3bceae754b4955a"><div class="ttname"><a href="structobject__code__s.html#a900b69af7d674b8db3bceae754b4955a">object_code_s::value</a></div><div class="ttdeci">uint16_t value</div><div class="ttdoc">16-bit machine word</div><div class="ttdef"><b>Definition:</b> <a href="asm_8h_source.html#l00129">asm.h:129</a></div></div>
+<div class="ttc" id="aasm_8h_html_a032503e76d6f69bc67e99e909c8125da"><div class="ttname"><a href="asm_8h.html#a032503e76d6f69bc67e99e909c8125da">TABLE_SIZE</a></div><div class="ttdeci">#define TABLE_SIZE</div><div class="ttdoc">maximum size of any table</div><div class="ttdef"><b>Definition:</b> <a href="asm_8h_source.html#l00022">asm.h:22</a></div></div>
+<div class="ttc" id="afirst__pass_8c_html_a4f6e55b7e1b18b9911527ad784448b5c"><div class="ttname"><a href="first__pass_8c.html#a4f6e55b7e1b18b9911527ad784448b5c">g_object_code_size</a></div><div class="ttdeci">uint16_t g_object_code_size</div><div class="ttdoc">size of the object code</div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00013">main.c:13</a></div></div>
+<div class="ttc" id="afirst__pass_8c_html_a01422b81291a42a235e14a4c2775c4d7"><div class="ttname"><a href="first__pass_8c.html#a01422b81291a42a235e14a4c2775c4d7">g_data_image_size</a></div><div class="ttdeci">uint16_t g_data_image_size</div><div class="ttdoc">size of the data image</div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00016">main.c:16</a></div></div>
+<div class="ttc" id="afirst__pass_8c_html_a2eeee9cf043803b5997a6cd644889ab0"><div class="ttname"><a href="first__pass_8c.html#a2eeee9cf043803b5997a6cd644889ab0">g_symbol_table_size</a></div><div class="ttdeci">uint16_t g_symbol_table_size</div><div class="ttdoc">size of the symbol table</div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00019">main.c:19</a></div></div>
+<div class="ttc" id="afirst__pass_8c_html_a5d6e23c9de40902f1cd1388218c63510"><div class="ttname"><a href="first__pass_8c.html#a5d6e23c9de40902f1cd1388218c63510">g_link_table_size</a></div><div class="ttdeci">uint16_t g_link_table_size</div><div class="ttdoc">size of the linker table</div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00022">main.c:22</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

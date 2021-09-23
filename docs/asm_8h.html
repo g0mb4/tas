@@ -79,11 +79,11 @@ $(function() {
 
 <p>definitions for the whole project  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
-<code>#include &lt;stdlib.h&gt;</code><br />
-<code>#include &lt;stdint.h&gt;</code><br />
+<div class="textblock"><code>#include &lt;stdarg.h&gt;</code><br />
 <code>#include &lt;stdbool.h&gt;</code><br />
-<code>#include &lt;stdarg.h&gt;</code><br />
+<code>#include &lt;stdint.h&gt;</code><br />
+<code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
 </div>
 <p><a href="asm_8h_source.html">Go to the source code of this file.</a></p>
@@ -108,6 +108,9 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:a032503e76d6f69bc67e99e909c8125da"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="asm_8h.html#a032503e76d6f69bc67e99e909c8125da">TABLE_SIZE</a>&#160;&#160;&#160;2000</td></tr>
+<tr class="memdesc:a032503e76d6f69bc67e99e909c8125da"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum size of any table  <a href="asm_8h.html#a032503e76d6f69bc67e99e909c8125da">More...</a><br /></td></tr>
+<tr class="separator:a032503e76d6f69bc67e99e909c8125da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa51128b0f8455abd52a95f24223151d0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="asm_8h.html#aa51128b0f8455abd52a95f24223151d0">ERROR</a>(s)&#160;&#160;&#160;<a class="el" href="error_8c.html#ab7226c50e6323483057eb9c8920ec3eb">error</a>(file_base_name, line_number, s), errors++</td></tr>
 <tr class="memdesc:aa51128b0f8455abd52a95f24223151d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">error reporting  <a href="asm_8h.html#aa51128b0f8455abd52a95f24223151d0">More...</a><br /></td></tr>
 <tr class="separator:aa51128b0f8455abd52a95f24223151d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -239,9 +242,29 @@ Functions</h2></td></tr>
 <tr class="memitem:aabf5a14170dd41fb10f3abffc0f91090"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="asm_8h.html#aabf5a14170dd41fb10f3abffc0f91090">count_table_objects_name</a> (char *name, <a class="el" href="asm_8h.html#a6fdea67b8cc6a06cd82937c880f619b8">link_object_t</a> *table, uint16_t len)</td></tr>
 <tr class="memdesc:aabf5a14170dd41fb10f3abffc0f91090"><td class="mdescLeft">&#160;</td><td class="mdescRight">counts a symbol/link_object based on its name in a table  <a href="asm_8h.html#aabf5a14170dd41fb10f3abffc0f91090">More...</a><br /></td></tr>
 <tr class="separator:aabf5a14170dd41fb10f3abffc0f91090"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9043f7dfd70979872a4a6aae20c4f9b8"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="asm_8h.html#a9043f7dfd70979872a4a6aae20c4f9b8">first_pass</a> (const char *file_name, <a class="el" href="asm_8h.html#a3e86519c044ed50630db754846e1a8d0">symbol_t</a> *symt, uint16_t *symt_ctr, uint16_t *datai, uint16_t *datai_ctr, <a class="el" href="asm_8h.html#ad28fa48002f8afe82cd5fde4cf6ce1fc">object_code_t</a> *objectc, uint16_t *objectc_ctr, <a class="el" href="asm_8h.html#a6fdea67b8cc6a06cd82937c880f619b8">link_object_t</a> *linko, uint16_t *linko_ctr)</td></tr>
-<tr class="memdesc:a9043f7dfd70979872a4a6aae20c4f9b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">main function of the first pass  <a href="asm_8h.html#a9043f7dfd70979872a4a6aae20c4f9b8">More...</a><br /></td></tr>
-<tr class="separator:a9043f7dfd70979872a4a6aae20c4f9b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1358a24117b7f51541b0ac5e260a73c2"><td class="memItemLeft" align="right" valign="top"><a id="a1358a24117b7f51541b0ac5e260a73c2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="asm_8h.html#a1358a24117b7f51541b0ac5e260a73c2">print_sym_table</a> (void)</td></tr>
+<tr class="memdesc:a1358a24117b7f51541b0ac5e260a73c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">prints the symbol table <br /></td></tr>
+<tr class="separator:a1358a24117b7f51541b0ac5e260a73c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a362c8136880258899c3068f2664cb7ab"><td class="memItemLeft" align="right" valign="top"><a id="a362c8136880258899c3068f2664cb7ab"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="asm_8h.html#a362c8136880258899c3068f2664cb7ab">print_data_image</a> (void)</td></tr>
+<tr class="memdesc:a362c8136880258899c3068f2664cb7ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">prints the data image <br /></td></tr>
+<tr class="separator:a362c8136880258899c3068f2664cb7ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8a79602fc6a3855717b8a947f53ece8"><td class="memItemLeft" align="right" valign="top"><a id="ab8a79602fc6a3855717b8a947f53ece8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="asm_8h.html#ab8a79602fc6a3855717b8a947f53ece8">print_object_code</a> (void)</td></tr>
+<tr class="memdesc:ab8a79602fc6a3855717b8a947f53ece8"><td class="mdescLeft">&#160;</td><td class="mdescRight">prints the object code <br /></td></tr>
+<tr class="separator:ab8a79602fc6a3855717b8a947f53ece8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c9b3986eddade9be3b3cb2b49ca09b1"><td class="memItemLeft" align="right" valign="top"><a id="a8c9b3986eddade9be3b3cb2b49ca09b1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="asm_8h.html#a8c9b3986eddade9be3b3cb2b49ca09b1">print_link_table</a> (void)</td></tr>
+<tr class="memdesc:a8c9b3986eddade9be3b3cb2b49ca09b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">prints the link table <br /></td></tr>
+<tr class="separator:a8c9b3986eddade9be3b3cb2b49ca09b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b114a7f165ce9f29561aaedfe122f19"><td class="memItemLeft" align="right" valign="top"><a id="a0b114a7f165ce9f29561aaedfe122f19"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="asm_8h.html#a0b114a7f165ce9f29561aaedfe122f19">print_extern_table</a> (void)</td></tr>
+<tr class="memdesc:a0b114a7f165ce9f29561aaedfe122f19"><td class="mdescLeft">&#160;</td><td class="mdescRight">prints the extern table <br /></td></tr>
+<tr class="separator:a0b114a7f165ce9f29561aaedfe122f19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb1328fc39f22b898cdb2bd0a70a54f2"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="asm_8h.html#abb1328fc39f22b898cdb2bd0a70a54f2">first_pass</a> (const char *file_name)</td></tr>
+<tr class="memdesc:abb1328fc39f22b898cdb2bd0a70a54f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">main function of the first pass  <a href="asm_8h.html#abb1328fc39f22b898cdb2bd0a70a54f2">More...</a><br /></td></tr>
+<tr class="separator:abb1328fc39f22b898cdb2bd0a70a54f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f9d14daea9fa4b6b9ccc8bbbe2eb50d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="asm_8h.html#a4f9d14daea9fa4b6b9ccc8bbbe2eb50d">first_process_line</a> (char *line, int column_index)</td></tr>
 <tr class="memdesc:a4f9d14daea9fa4b6b9ccc8bbbe2eb50d"><td class="mdescLeft">&#160;</td><td class="mdescRight">process a line during the first pass  <a href="asm_8h.html#a4f9d14daea9fa4b6b9ccc8bbbe2eb50d">More...</a><br /></td></tr>
 <tr class="separator:a4f9d14daea9fa4b6b9ccc8bbbe2eb50d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -302,7 +325,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a906db84c0d90d944f79c297102f8f008"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="asm_8h.html#a906db84c0d90d944f79c297102f8f008">get_file_name_no_ext</a> (const char *file)</td></tr>
 <tr class="memdesc:a906db84c0d90d944f79c297102f8f008"><td class="mdescLeft">&#160;</td><td class="mdescRight">gets the file name (containing the path) without extension  <a href="asm_8h.html#a906db84c0d90d944f79c297102f8f008">More...</a><br /></td></tr>
 <tr class="separator:a906db84c0d90d944f79c297102f8f008"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac93fe1f91d6539a2c58c68c7dac8eb6a"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="asm_8h.html#ac93fe1f91d6539a2c58c68c7dac8eb6a">create_object_file</a> (const char *file_name, <a class="el" href="asm_8h.html#ad28fa48002f8afe82cd5fde4cf6ce1fc">object_code_t</a> *objectc, uint16_t objectc_len, uint16_t data_len, <a class="el" href="asm_8h.html#a6fdea67b8cc6a06cd82937c880f619b8">link_object_t</a> *<a class="el" href="main_8c.html#a8a60227350abdd1c4ef45911f8e9e218">link_table</a>, uint16_t link_table_len, <a class="el" href="asm_8h.html#a6fdea67b8cc6a06cd82937c880f619b8">link_object_t</a> *extern_table, uint16_t extern_table_len)</td></tr>
+<tr class="memitem:ac93fe1f91d6539a2c58c68c7dac8eb6a"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="asm_8h.html#ac93fe1f91d6539a2c58c68c7dac8eb6a">create_object_file</a> (const char *file_name, <a class="el" href="asm_8h.html#ad28fa48002f8afe82cd5fde4cf6ce1fc">object_code_t</a> *objectc, uint16_t objectc_len, uint16_t data_len, <a class="el" href="asm_8h.html#a6fdea67b8cc6a06cd82937c880f619b8">link_object_t</a> *link_table, uint16_t link_table_len, <a class="el" href="asm_8h.html#a6fdea67b8cc6a06cd82937c880f619b8">link_object_t</a> *extern_table, uint16_t extern_table_len)</td></tr>
 <tr class="memdesc:ac93fe1f91d6539a2c58c68c7dac8eb6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">creates an ascii base16 object file  <a href="asm_8h.html#ac93fe1f91d6539a2c58c68c7dac8eb6a">More...</a><br /></td></tr>
 <tr class="separator:ac93fe1f91d6539a2c58c68c7dac8eb6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae2f91f7fdabe6801cac65cb33a787abb"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="asm_8h.html#ae2f91f7fdabe6801cac65cb33a787abb">create_binary_file</a> (const char *file_name, <a class="el" href="asm_8h.html#ad28fa48002f8afe82cd5fde4cf6ce1fc">object_code_t</a> *objectc, uint16_t objectc_len)</td></tr>
@@ -339,7 +362,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="asm_8h_source.html#l00024">24</a> of file <a class="el" href="asm_8h_source.html">asm.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="asm_8h_source.html#l00031">31</a> of file <a class="el" href="asm_8h_source.html">asm.h</a>.</p>
 
 </div>
 </div>
@@ -379,7 +402,26 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="asm_8h_source.html#l00034">34</a> of file <a class="el" href="asm_8h_source.html">asm.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="asm_8h_source.html#l00041">41</a> of file <a class="el" href="asm_8h_source.html">asm.h</a>.</p>
+
+</div>
+</div>
+<a id="a032503e76d6f69bc67e99e909c8125da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a032503e76d6f69bc67e99e909c8125da">&#9670;&nbsp;</a></span>TABLE_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TABLE_SIZE&#160;&#160;&#160;2000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>maximum size of any table </p>
+<dl class="section note"><dt>Note</dt><dd>this is the theoretical maximum size </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="asm_8h_source.html#l00022">22</a> of file <a class="el" href="asm_8h_source.html">asm.h</a>.</p>
 
 </div>
 </div>
@@ -408,7 +450,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="asm_8h_source.html#l00044">44</a> of file <a class="el" href="asm_8h_source.html">asm.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="asm_8h_source.html#l00051">51</a> of file <a class="el" href="asm_8h_source.html">asm.h</a>.</p>
 
 </div>
 </div>
@@ -448,7 +490,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="asm_8h_source.html#l00054">54</a> of file <a class="el" href="asm_8h_source.html">asm.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="asm_8h_source.html#l00061">61</a> of file <a class="el" href="asm_8h_source.html">asm.h</a>.</p>
 
 </div>
 </div>
@@ -479,7 +521,7 @@ Functions</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="asm_8h_source.html#l00072">72</a> of file <a class="el" href="asm_8h_source.html">asm.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="asm_8h_source.html#l00079">79</a> of file <a class="el" href="asm_8h_source.html">asm.h</a>.</p>
 
 </div>
 </div>
@@ -513,7 +555,7 @@ Functions</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="asm_8h_source.html#l00059">59</a> of file <a class="el" href="asm_8h_source.html">asm.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="asm_8h_source.html#l00066">66</a> of file <a class="el" href="asm_8h_source.html">asm.h</a>.</p>
 
 </div>
 </div>
@@ -621,7 +663,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>number of elements </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="table__functions_8c_source.html#l00037">37</a> of file <a class="el" href="table__functions_8c_source.html">table_functions.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="table__functions_8c_source.html#l00052">52</a> of file <a class="el" href="table__functions_8c_source.html">table_functions.c</a>.</p>
 
 </div>
 </div>
@@ -668,7 +710,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>number of elements </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="table__functions_8c_source.html#l00016">16</a> of file <a class="el" href="table__functions_8c_source.html">table_functions.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="table__functions_8c_source.html#l00032">32</a> of file <a class="el" href="table__functions_8c_source.html">table_functions.c</a>.</p>
 
 </div>
 </div>
@@ -715,7 +757,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>number of errors </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="file__io_8c_source.html#l00155">155</a> of file <a class="el" href="file__io_8c_source.html">file_io.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="file__io_8c_source.html#l00156">156</a> of file <a class="el" href="file__io_8c_source.html">file_io.c</a>.</p>
 
 </div>
 </div>
@@ -797,7 +839,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>number of errors </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="file__io_8c_source.html#l00086">86</a> of file <a class="el" href="file__io_8c_source.html">file_io.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="file__io_8c_source.html#l00087">87</a> of file <a class="el" href="file__io_8c_source.html">file_io.c</a>.</p>
 
 </div>
 </div>
@@ -897,12 +939,12 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>16-bit instruction word </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00542">542</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00524">524</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
 
 </div>
 </div>
-<a id="a9043f7dfd70979872a4a6aae20c4f9b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9043f7dfd70979872a4a6aae20c4f9b8">&#9670;&nbsp;</a></span>first_pass()</h2>
+<a id="abb1328fc39f22b898cdb2bd0a70a54f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb1328fc39f22b898cdb2bd0a70a54f2">&#9670;&nbsp;</a></span>first_pass()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -911,60 +953,8 @@ Functions</h2></td></tr>
           <td class="memname">uint16_t first_pass </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>file_name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>file_name</em></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="asm_8h.html#a3e86519c044ed50630db754846e1a8d0">symbol_t</a> *&#160;</td>
-          <td class="paramname"><em>symt</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint16_t *&#160;</td>
-          <td class="paramname"><em>symt_ctr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint16_t *&#160;</td>
-          <td class="paramname"><em>datai</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint16_t *&#160;</td>
-          <td class="paramname"><em>datai_ctr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="asm_8h.html#ad28fa48002f8afe82cd5fde4cf6ce1fc">object_code_t</a> *&#160;</td>
-          <td class="paramname"><em>objectc</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint16_t *&#160;</td>
-          <td class="paramname"><em>objectc_ctr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="asm_8h.html#a6fdea67b8cc6a06cd82937c880f619b8">link_object_t</a> *&#160;</td>
-          <td class="paramname"><em>linko</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint16_t *&#160;</td>
-          <td class="paramname"><em>linko_ctr</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -973,20 +963,12 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">file_name</td><td>path of the source file </td></tr>
-    <tr><td class="paramname">symt</td><td>symbol table </td></tr>
-    <tr><td class="paramname">symt_ctr</td><td>counter of the symbol table </td></tr>
-    <tr><td class="paramname">datai</td><td>data image </td></tr>
-    <tr><td class="paramname">datai_ctr</td><td>counter of the data image </td></tr>
-    <tr><td class="paramname">objectc</td><td>object codet table </td></tr>
-    <tr><td class="paramname">objectc_ctr</td><td>counter of the object code table </td></tr>
-    <tr><td class="paramname">linko</td><td>link objec table </td></tr>
-    <tr><td class="paramname">linko_ctr</td><td>counter of the link objec table </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>number of errors during first pass </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00091">91</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00111">111</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
 
 </div>
 </div>
@@ -1026,7 +1008,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00281">281</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00276">276</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
 
 </div>
 </div>
@@ -1066,7 +1048,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00317">317</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00312">312</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
 
 </div>
 </div>
@@ -1094,7 +1076,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00205">205</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00204">204</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
 
 </div>
 </div>
@@ -1133,7 +1115,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00160">160</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00161">161</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
 
 </div>
 </div>
@@ -1173,7 +1155,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00354">354</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00349">349</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
 
 </div>
 </div>
@@ -1213,7 +1195,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00427">427</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00421">421</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
 
 </div>
 </div>
@@ -1253,7 +1235,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00392">392</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="first__pass_8c_source.html#l00386">386</a> of file <a class="el" href="first__pass_8c_source.html">first_pass.c</a>.</p>
 
 </div>
 </div>
@@ -1345,7 +1327,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>path without extension or NULL </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="file__io_8c_source.html#l00042">42</a> of file <a class="el" href="file__io_8c_source.html">file_io.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="file__io_8c_source.html#l00043">43</a> of file <a class="el" href="file__io_8c_source.html">file_io.c</a>.</p>
 
 </div>
 </div>

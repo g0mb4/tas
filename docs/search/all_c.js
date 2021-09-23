@@ -1,15 +1,9 @@
 var searchData=
 [
-  ['object_5fcode_79',['object_code',['../main_8c.html#a93bcdb36cc5b4f5c26ff5ec6340a7009',1,'main.c']]],
-  ['object_5fcode_5fs_80',['object_code_s',['../structobject__code__s.html',1,'']]],
-  ['object_5fcode_5ft_81',['object_code_t',['../asm_8h.html#ad28fa48002f8afe82cd5fde4cf6ce1fc',1,'asm.h']]],
-  ['object_5fctr_82',['object_ctr',['../main_8c.html#a35a4ef42900235372e0763082cd17fe3',1,'main.c']]],
-  ['op_83',['op',['../structinstruction__s.html#a3fe410a28ee11b520d9dd574d2139f4b',1,'instruction_s']]],
-  ['opcode_84',['opcode',['../structoperation__s.html#a5c1b56e6bccc2a95dbddf1a08e56e87d',1,'operation_s']]],
-  ['opcodes_2ec_85',['opcodes.c',['../opcodes_8c.html',1,'']]],
-  ['operands_86',['operands',['../structoperation__s.html#a0ce64cde4fd32a2ebb6662c316036657',1,'operation_s']]],
-  ['operation_87',['OPERATION',['../asm_8h.html#aebfb0b6215044ac381faf1d97dfa79c8ae6c7d41b255eff353251fbec6fe839e4',1,'asm.h']]],
-  ['operation_5fs_88',['operation_s',['../structoperation__s.html',1,'']]],
-  ['operation_5ft_89',['operation_t',['../asm_8h.html#a65a813e03535896c10de2b3b2b32f0f8',1,'asm.h']]],
-  ['operations_90',['operations',['../opcodes_8c.html#ad7961be830b50fd204937fd15b5c0335',1,'operations():&#160;opcodes.c'],['../parser_8c.html#ad7961be830b50fd204937fd15b5c0335',1,'operations():&#160;opcodes.c']]]
+  ['parser_2ec_90',['parser.c',['../parser_8c.html',1,'']]],
+  ['print_5fdata_5fimage_91',['print_data_image',['../asm_8h.html#a362c8136880258899c3068f2664cb7ab',1,'print_data_image(void):&#160;table_functions.c'],['../table__functions_8c.html#a362c8136880258899c3068f2664cb7ab',1,'print_data_image(void):&#160;table_functions.c']]],
+  ['print_5fextern_5ftable_92',['print_extern_table',['../asm_8h.html#a0b114a7f165ce9f29561aaedfe122f19',1,'print_extern_table(void):&#160;table_functions.c'],['../table__functions_8c.html#a0b114a7f165ce9f29561aaedfe122f19',1,'print_extern_table(void):&#160;table_functions.c']]],
+  ['print_5flink_5ftable_93',['print_link_table',['../asm_8h.html#a8c9b3986eddade9be3b3cb2b49ca09b1',1,'print_link_table(void):&#160;table_functions.c'],['../table__functions_8c.html#a8c9b3986eddade9be3b3cb2b49ca09b1',1,'print_link_table(void):&#160;table_functions.c']]],
+  ['print_5fobject_5fcode_94',['print_object_code',['../asm_8h.html#ab8a79602fc6a3855717b8a947f53ece8',1,'print_object_code(void):&#160;table_functions.c'],['../table__functions_8c.html#ab8a79602fc6a3855717b8a947f53ece8',1,'print_object_code(void):&#160;table_functions.c']]],
+  ['print_5fsym_5ftable_95',['print_sym_table',['../asm_8h.html#a1358a24117b7f51541b0ac5e260a73c2',1,'print_sym_table(void):&#160;table_functions.c'],['../table__functions_8c.html#a1358a24117b7f51541b0ac5e260a73c2',1,'print_sym_table(void):&#160;table_functions.c']]]
 ];

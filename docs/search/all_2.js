@@ -1,11 +1,12 @@
 var searchData=
 [
-  ['clean_5fline_16',['clean_line',['../asm_8h.html#ac77285fcde3910655042a23822ebc5d6',1,'clean_line(const char *str):&#160;string_functions.c'],['../string__functions_8c.html#a3bcd44e4271addacf504cc635b522083',1,'clean_line(const char *line):&#160;string_functions.c']]],
-  ['column_5fe_17',['column_e',['../asm_8h.html#aebfb0b6215044ac381faf1d97dfa79c8',1,'asm.h']]],
-  ['column_5ft_18',['column_t',['../asm_8h.html#a98f8ba1f3eef411bc829dce0b9f858d5',1,'asm.h']]],
-  ['column_5ftype_19',['column_type',['../asm_8h.html#a462a95426d16ba2d514818fedc7fad13',1,'column_type(char *str):&#160;parser.c'],['../parser_8c.html#a462a95426d16ba2d514818fedc7fad13',1,'column_type(char *str):&#160;parser.c']]],
-  ['count_5ftable_5fobjects_5fname_20',['count_table_objects_name',['../asm_8h.html#aabf5a14170dd41fb10f3abffc0f91090',1,'count_table_objects_name(char *name, link_object_t *table, uint16_t len):&#160;table_functions.c'],['../table__functions_8c.html#aabf5a14170dd41fb10f3abffc0f91090',1,'count_table_objects_name(char *name, link_object_t *table, uint16_t len):&#160;table_functions.c']]],
-  ['count_5ftable_5fobjects_5ftype_21',['count_table_objects_type',['../asm_8h.html#aaba920cc5fa1da61751fef3c940343c9',1,'count_table_objects_type(char type, link_object_t *table, uint16_t len):&#160;table_functions.c'],['../table__functions_8c.html#aaba920cc5fa1da61751fef3c940343c9',1,'count_table_objects_type(char type, link_object_t *table, uint16_t len):&#160;table_functions.c']]],
-  ['create_5fbinary_5ffile_22',['create_binary_file',['../asm_8h.html#ae2f91f7fdabe6801cac65cb33a787abb',1,'create_binary_file(const char *file_name, object_code_t *objectc, uint16_t objectc_len):&#160;file_io.c'],['../file__io_8c.html#ae2f91f7fdabe6801cac65cb33a787abb',1,'create_binary_file(const char *file_name, object_code_t *objectc, uint16_t objectc_len):&#160;file_io.c']]],
-  ['create_5fobject_5ffile_23',['create_object_file',['../asm_8h.html#ac93fe1f91d6539a2c58c68c7dac8eb6a',1,'create_object_file(const char *file_name, object_code_t *objectc, uint16_t objectc_len, uint16_t data_len, link_object_t *link_table, uint16_t link_table_len, link_object_t *extern_table, uint16_t extern_table_len):&#160;file_io.c'],['../file__io_8c.html#ac93fe1f91d6539a2c58c68c7dac8eb6a',1,'create_object_file(const char *file_name, object_code_t *objectc, uint16_t objectc_len, uint16_t data_len, link_object_t *link_table, uint16_t link_table_len, link_object_t *extern_table, uint16_t extern_table_len):&#160;file_io.c']]]
+  ['dest_5faddr_22',['dest_addr',['../structinstruction__s.html#adf5509c278ba73a28efb7aef7fb49e8a',1,'instruction_s']]],
+  ['dest_5flegal_23',['dest_legal',['../structoperation__s.html#a3822467bff1a732968bff789040fe28c',1,'operation_s']]],
+  ['dest_5freg_24',['dest_reg',['../structinstruction__s.html#a3aa74fd11d74f6e6119af4c7ee911cf4',1,'instruction_s']]],
+  ['direct_25',['DIRECT',['../asm_8h.html#a992dd69fddcc0028aad3eecb662e705ea1ea328a644e627283a35716a54108248',1,'asm.h']]],
+  ['direct_5fregister_26',['DIRECT_REGISTER',['../asm_8h.html#a992dd69fddcc0028aad3eecb662e705ea0f7626d791991911ab8f77bacd0268f1',1,'asm.h']]],
+  ['directive_5fentry_27',['DIRECTIVE_ENTRY',['../asm_8h.html#aebfb0b6215044ac381faf1d97dfa79c8aa5863b54084ad0d44902a810a4d84ed5',1,'asm.h']]],
+  ['directive_5fextern_28',['DIRECTIVE_EXTERN',['../asm_8h.html#aebfb0b6215044ac381faf1d97dfa79c8acf712669411c4d938270880d9eb6dc5d',1,'asm.h']]],
+  ['directive_5fnumber_29',['DIRECTIVE_NUMBER',['../asm_8h.html#aebfb0b6215044ac381faf1d97dfa79c8a046dc6553e50686afeef4fe345eb49de',1,'asm.h']]],
+  ['directive_5fstring_30',['DIRECTIVE_STRING',['../asm_8h.html#aebfb0b6215044ac381faf1d97dfa79c8a47a7ce1894395d38f483d6dd3e0f4a26',1,'asm.h']]]
 ];

@@ -13,6 +13,5 @@ var searchData=
   ['addressing_5fmode_5ft_10',['addressing_mode_t',['../asm_8h.html#af46a44c253d48d4eb24da79b5a0acf06',1,'asm.h']]],
   ['addressing_5fs_11',['addressing_s',['../structaddressing__s.html',1,'']]],
   ['addressing_5ft_12',['addressing_t',['../asm_8h.html#a883857f8e27a14d647e4dc8f70c4b078',1,'asm.h']]],
-  ['addressings_13',['addressings',['../opcodes_8c.html#a0c4fa4d8eb1d7c6a36d53591b5fe119b',1,'addressings():&#160;opcodes.c'],['../parser_8c.html#a0c4fa4d8eb1d7c6a36d53591b5fe119b',1,'addressings():&#160;opcodes.c']]],
-  ['asm_2eh_14',['asm.h',['../asm_8h.html',1,'']]]
+  ['asm_2eh_13',['asm.h',['../asm_8h.html',1,'']]]
 ];

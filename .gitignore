@@ -2,3 +2,4 @@ build/
 examples/*.ent
 examples/*.oc
 examples/*.bin
+.vscode/

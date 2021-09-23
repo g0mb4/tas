@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['name_205',['name',['../structsymbol__s.html#a5ac083a645d964373f022d03df4849c8',1,'symbol_s']]],
-  ['no_5foutput_206',['no_output',['../main_8c.html#a06b0a582c3747f221e1922ce4420d52f',1,'main.c']]]
+  ['src_5faddr_210',['src_addr',['../structinstruction__s.html#adb2e7f6160cedef8d478a1e248d69564',1,'instruction_s']]],
+  ['src_5flegal_211',['src_legal',['../structoperation__s.html#a6a147cc91cebc01816279fd6c046785d',1,'operation_s']]],
+  ['src_5freg_212',['src_reg',['../structinstruction__s.html#a9162a9b86471c8b22cf638f60eeb4fa6',1,'instruction_s']]]
 ];
