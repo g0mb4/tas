@@ -137,16 +137,16 @@ $(function() {
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    FILE * fp;</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordtype">char</span> line[256];</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    fp = fopen(file_name, <span class="stringliteral">&quot;r&quot;</span>);</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordflow">if</span> (fp == NULL) {</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        fprintf(stderr, <span class="stringliteral">&quot;unable to open &#39;%s&#39;\n&quot;</span>, file_name);</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="keywordflow">return</span> 1;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    }</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="comment">/* initialise the variables */</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    file_base_name = <a class="code" href="asm_8h.html#a90bf6718595f49c79289547abeb57a44">get_file_base_name</a>(file_name);</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    line_number = 1;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    errors = 0;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="comment">/* initialise the variables */</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    file_base_name = <a class="code" href="asm_8h.html#a90bf6718595f49c79289547abeb57a44">get_file_base_name</a>(file_name);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    line_number = 1;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    errors = 0;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    fp = fopen(file_name, <span class="stringliteral">&quot;r&quot;</span>);</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordflow">if</span> (fp == NULL) {</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <a class="code" href="asm_8h.html#a4efb7580920d1f8d1b388efec4ea79ca">ERROR_F</a>(<span class="stringliteral">&quot;unable to open &#39;%s&#39;&quot;</span>, file_name);</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    }</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordflow">while</span> (fgets(line, <span class="keyword">sizeof</span>(line), fp) != NULL) {</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        <span class="keywordflow">if</span> (strlen(line) &gt; 80) {</div>
