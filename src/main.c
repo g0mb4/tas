@@ -130,18 +130,14 @@ int main(int argc, char * argv[]) {
                 return 4;
             }
 
-            errors = create_binary_file(file_name, g_object_code, g_object_code_size);
+            errors = create_binary_file(file_name);
             if (errors != 0) {
-                fprintf(stderr,
-                        "binary file creation failed with %u error(s)\n",
-                        errors);
+                fprintf(stderr, "binary file creation failed with %u error(s)\n", errors);
                 return 5;
             }
         } else {
             /* create object file from object code */
-            errors = create_object_file(file_name, g_object_code, g_object_code_size,
-                                        g_data_image_size, g_link_table, g_link_table_size,
-                                        g_external_table, g_external_table_size);
+            errors = create_object_file(file_name);
             if (errors != 0) {
                 fprintf(stderr, "object file creation failed with %u error(s)\n", errors);
                 return 4;

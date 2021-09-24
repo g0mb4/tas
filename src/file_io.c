@@ -5,6 +5,21 @@
 
 #include "asm.h"
 
+/* global variables */
+extern object_code_t g_object_code[TABLE_SIZE];
+extern uint16_t g_object_code_size;
+
+extern uint16_t g_data_image_size;
+
+extern symbol_t g_symbol_table[TABLE_SIZE];
+extern uint16_t g_symbol_table_size;
+
+extern link_object_t g_link_table[TABLE_SIZE];
+extern uint16_t g_link_table_size;
+
+extern link_object_t g_external_table[TABLE_SIZE];
+extern uint16_t g_external_table_size;
+
 /*!
  * \brief gets the base name from the path of the file
  * 
@@ -46,7 +61,7 @@ char * get_file_name_no_ext(const char * path) {
 
     if (path) {
         /* find the last dot */
-        for (i = 0; i < len; i++) {
+        for (i = 0; i < len; ++i) {
             if (path[i] == '.') {
                 dot_pos = i;
             }
@@ -75,20 +90,9 @@ char * get_file_name_no_ext(const char * path) {
  * \brief creates an ascii base16 object file
  * 
  * \param file_name		    name of the source file
- * \param objectc		    object code
- * \param objectc_len	    length of the object code
- * \param data_len		    length of the data image
- * \param link_table	    link table
- * \param link_table_len	length of the link table
- * \param extern_table		extern table
- * \param extern_table_len	length of the extern table
  * \return				    number of errors
  */
-uint16_t create_object_file(const char * file_name, object_code_t * objectc,
-                            uint16_t objectc_len, uint16_t data_len,
-                            link_object_t * link_table, uint16_t link_table_len,
-                            link_object_t * extern_table,
-                            uint16_t extern_table_len) {
+uint16_t create_object_file(const char * file_name) {
     char * file_name_no_ext = get_file_name_no_ext(file_name);
     FILE * fp = NULL;
     uint16_t i;
@@ -98,8 +102,8 @@ uint16_t create_object_file(const char * file_name, object_code_t * objectc,
         return 1;
     }
 
-    char * object_name =
-        (char *)malloc(strlen(file_name_no_ext) + 3 + 1); /* ".oc" + NULL */
+    char * object_name = (char *)malloc(strlen(file_name_no_ext) + 3 + 1); /* ".oc" + NULL */
+
     if (object_name) {
         strcpy(object_name, file_name_no_ext);
         strcat(object_name, ".oc");
@@ -109,16 +113,16 @@ uint16_t create_object_file(const char * file_name, object_code_t * objectc,
         if (fp) {
             fprintf(fp, ".cbegin\n");
             /* header: length_of_the_instructions length_of_the_data */
-            fprintf(fp, "%x %x\n", objectc_len - data_len, data_len);
-            for (i = 0; i < objectc_len; i++) {
-                object_code_t * o = &objectc[i];
+            fprintf(fp, "%x %x\n", g_object_code_size - g_data_image_size, g_data_image_size);
+            for (i = 0; i < g_object_code_size; ++i) {
+                object_code_t * o = &g_object_code[i];
                 /* object code: address machine_word type */
                 fprintf(fp, "%04x %04x %c\n", i, o->value, o->type);
             }
             fprintf(fp, ".cend\n");
             fprintf(fp, ".lbegin\n");
-            for (i = 0; i < link_table_len; i++) {
-                link_object_t * obj = &link_table[i];
+            for (i = 0; i < g_link_table_size; ++i) {
+                link_object_t * obj = &g_link_table[i];
 
                 if (obj->type == 'n') {
                     /* object code: name_of_the_entry address */
@@ -127,8 +131,8 @@ uint16_t create_object_file(const char * file_name, object_code_t * objectc,
             }
             fprintf(fp, ".lend\n");
             fprintf(fp, ".ebegin\n");
-            for (i = 0; i < extern_table_len; i++) {
-                link_object_t * obj = &extern_table[i];
+            for (i = 0; i < g_external_table_size; ++i) {
+                link_object_t * obj = &g_external_table[i];
                 /* object code: name_of_the_entry address */
                 fprintf(fp, "%s %04x\n", obj->name, obj->value);
             }
@@ -149,12 +153,9 @@ uint16_t create_object_file(const char * file_name, object_code_t * objectc,
  * \brief creates a binary file from the object code
  *
  * \param file_name		file name of the source file
- * \param objectc		object code
- * \param objectc_len	length of the object code
  * \return				number of errors
  */
-uint16_t create_binary_file(const char * file_name, object_code_t * objectc,
-                            uint16_t objectc_len) {
+uint16_t create_binary_file(const char * file_name) {
     char * file_name_no_ext = get_file_name_no_ext(file_name);
     FILE * fp = NULL;
     uint16_t i;
@@ -164,17 +165,17 @@ uint16_t create_binary_file(const char * file_name, object_code_t * objectc,
         return 1;
     }
 
-    char * object_name =
-        (char *)malloc(strlen(file_name_no_ext) + 4 + 1); /* ".bin" + NULL */
-    if (object_name) {
-        strcpy(object_name, file_name_no_ext);
-        strcat(object_name, ".bin");
+    char * binary_name = (char *)malloc(strlen(file_name_no_ext) + 4 + 1); /* ".bin" + NULL */
 
-        fp = fopen(object_name, "wb"); /* write binary */
+    if (binary_name) {
+        strcpy(binary_name, file_name_no_ext);
+        strcat(binary_name, ".bin");
+
+        fp = fopen(binary_name, "wb"); /* write binary */
 
         if (fp) {
-            for (i = 0; i < objectc_len; i++) {
-                object_code_t * o = &objectc[i];
+            for (i = 0; i < g_object_code_size; ++i) {
+                object_code_t * o = &g_object_code[i];
                 if (fwrite(&o->value, sizeof(uint16_t), 1, fp) != 1) {
                     errors++;
                     break;
@@ -188,6 +189,6 @@ uint16_t create_binary_file(const char * file_name, object_code_t * objectc,
         errors++;
     }
 
-    free(object_name);
+    free(binary_name);
     return errors;
 }
