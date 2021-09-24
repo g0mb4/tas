@@ -24,10 +24,9 @@ char * string_trim(const char * str, const char * chars) {
     bool found = true;
     int i, j, offset = 0;
 
-    for (i = 0; str[i] && i < len && found; i++) {
-        found =
-            false; /* not found a removeable character => first valid char */
-        for (j = 0; j < len_chars; j++) {
+    for (i = 0; str[i] && i < len && found; ++i) {
+        found = false; /* not found a removeable character => first valid char */
+        for (j = 0; j < len_chars; ++j) {
             if (str[i] == chars[j]) {
                 found = true;
                 offset++;
@@ -62,7 +61,7 @@ char * string_trim_end(const char * str, const char * chars) {
     for (i = len - 1; str[i] && i >= 0 && found; i--) {
         found =
             false; /* not found a removeable character => first valid char */
-        for (j = 0; j < len_chars; j++) {
+        for (j = 0; j < len_chars; ++j) {
             if (str[i] == chars[j]) {
                 found = true;
                 offset++;
@@ -151,7 +150,7 @@ char * clean_line(const char * line) {
     n = 1;
 
     if (ret) {
-        for (i = 1; trimmed[i] && i < len; i++) {
+        for (i = 1; trimmed[i] && i < len; ++i) {
             ch = trimmed[i];
 
             /* start of comment, not needed */

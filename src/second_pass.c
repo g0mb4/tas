@@ -145,15 +145,15 @@ void second_update_tables(void) {
     uint32_t i, j;
 
     /* update data locations */
-    for (i = 0; i < g_symbol_table_size; i++) {
+    for (i = 0; i < g_symbol_table_size; ++i) {
         if (g_symbol_table[i].type == 'r') {
             g_symbol_table[i].value += s_object_code_first_size;
         }
     }
 
     /* update extern/entry labels */
-    for (i = 0; i < g_symbol_table_size; i++) {
-        for (j = 0; j < g_link_table_size; j++) {
+    for (i = 0; i < g_symbol_table_size; ++i) {
+        for (j = 0; j < g_link_table_size; ++j) {
             if (strcmp(g_symbol_table[i].name, g_link_table[j].name) == 0) {
                 switch (g_link_table[i].type) {
                 /* extern */
@@ -172,7 +172,7 @@ void second_update_tables(void) {
     }
 
     /* append data to object code */
-    for (i = 0, j = s_object_code_first_size; i < g_data_image_size; i++, j++) {
+    for (i = 0, j = s_object_code_first_size; i < g_data_image_size; ++i, ++j) {
         object_code_t o;
         o.value = g_data_image[i];
         o.type = ' ';
@@ -480,7 +480,7 @@ uint16_t second_get_symbol_value(char * symbol, int start_index, bool * ext) {
     strcpy(real_symbol, symbol + start_index);
 
     /* search in the symbol table */
-    for (i = 0; i < g_symbol_table_size; i++) {
+    for (i = 0; i < g_symbol_table_size; ++i) {
         symbol_t * sym = &g_symbol_table[i];
         if (strcmp(sym->name, real_symbol) == 0) {
             *ext = false; /* not an external symbol */
@@ -489,7 +489,7 @@ uint16_t second_get_symbol_value(char * symbol, int start_index, bool * ext) {
     }
 
     /* search in the extern table */
-    for (i = 0; i < g_link_table_size; i++) {
+    for (i = 0; i < g_link_table_size; ++i) {
         link_object_t * obj = &g_link_table[i];
         if (strcmp(obj->name, real_symbol) == 0) {
             if (obj->type == 'e') {

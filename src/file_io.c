@@ -36,7 +36,7 @@ char * get_file_base_name(const char * path) {
 
     char * file_name = (char *)path;
     char * curr = (char *)path;
-    for (; *curr != '\0'; curr++) {
+    for (; *curr != '\0'; ++curr) {
         /* step the pointer at a director separator */
         if (*curr == '/' || *curr == '\\') {
             file_name = curr + 1;

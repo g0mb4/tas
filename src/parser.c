@@ -28,7 +28,7 @@ bool is_valid_numeric_literal(char * str, int start_index) {
     bool valid = false;
     char ch;
 
-    for (i = start_index; i < len; i++) {
+    for (i = start_index; i < len; ++i) {
         ch = str[i];
 
         /* first character can be [-+][0-9] */
@@ -74,7 +74,7 @@ bool is_valid_label_name(char * str, int start_index, int end_offset) {
         return false;
     }
 
-    for (i = start_index; i < len - end_offset; i++) {
+    for (i = start_index; i < len - end_offset; ++i) {
         ch = str[i];
 
         /* first character can be [A-Za-z] */
@@ -159,7 +159,7 @@ bool is_valid_addressing(operation_t * op, addressing_t * addr, bool dest) {
         }
     } else {
         /* allowed modes stored in a string eg. "0123" */
-        for (i = 0; i < strlen(legal_modes); i++) {
+        for (i = 0; i < strlen(legal_modes); ++i) {
             mode =
                 legal_modes[i] - '0'; /* extract the numeric value '0' -> 0 */
 
@@ -268,7 +268,7 @@ column_t column_type(char * str) {
             return UNKNOWN;
         }
     } else {
-        for (i = 0; i < 16; i++) {
+        for (i = 0; i < 16; ++i) {
             if (strcmp(g_operations[i].mnemonic, str) == 0) {
                 return OPERATION;
             }
@@ -292,7 +292,7 @@ operation_t * get_operation(char * mnemonic) {
     /* operations is an array defined in opcodes.c
 	   so we don't have to copy the value, just get the address of the struct
 	   this way we dont have to worry about freeing */
-    for (i = 0; i < 16; i++) {
+    for (i = 0; i < 16; ++i) {
         if (strcmp(g_operations[i].mnemonic, mnemonic) == 0) {
             return &g_operations[i];
         }
