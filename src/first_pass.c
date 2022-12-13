@@ -119,7 +119,7 @@ uint16_t first_pass(const char * file_name) {
 
     fp = fopen(file_name, "r");
     if (fp == NULL) {
-        ERROR_F("unable to open '%s'", file_name);
+        ERROR("unable to open '%s'", file_name);
         return 1;
     }
 
@@ -131,7 +131,7 @@ uint16_t first_pass(const char * file_name) {
         char * clean = clean_line(line);
 
         if (!clean) {
-            ERROR_F("unable to clean the line: %s", line);
+            ERROR("unable to clean the line: %s", line);
         } else {
             if (strlen(clean) == 0) {
                 /* empty line  */
@@ -190,7 +190,7 @@ void first_process_line(char * line, int column_index) {
 
     case UNKNOWN:
     default:
-        ERROR_F("unknown column type: %s", col_str);
+        ERROR("unknown column type: %s", col_str);
     }
 
     free(col_str);
@@ -210,7 +210,7 @@ void first_process_label(char * line) {
     sym.name = (char *)malloc(strlen(label));
 
     if (!sym.name) {
-        ERROR_F("unable to allocate memory for symbol '%s'", label);
+        ERROR("unable to allocate memory for symbol '%s'", label);
     } else {
         strcpy(sym.name, label);
 
@@ -226,7 +226,7 @@ void first_process_label(char * line) {
 
             /* add symbol, if it not defined earlier */
             if (count_table_objects_name(label, g_symbol_table, g_symbol_table_size) > 0) {
-                ERROR_F("symbol is already defined: %s", label);
+                ERROR("symbol is already defined: %s", label);
             } else {
                 ADD_SYM(sym);
             }
@@ -236,7 +236,7 @@ void first_process_label(char * line) {
 
         case DIRECTIVE_ENTRY:
         case DIRECTIVE_EXTERN:
-            WARN_F("label in front of a compiler directive: %s", line);
+            WARN("label in front of a compiler directive: %s", line);
             break;
 
         case DIRECTIVE_NUMBER:
@@ -246,7 +246,7 @@ void first_process_label(char * line) {
 
             /* add symbol, if it not defined earlier */
             if (count_table_objects_name(label, g_symbol_table, g_symbol_table_size) > 0) {
-                ERROR_F("symbol is already defined: %s", label);
+                ERROR("symbol is already defined: %s", label);
             } else {
                 ADD_SYM(sym);
             }
@@ -255,7 +255,7 @@ void first_process_label(char * line) {
             break;
 
         default:
-            ERROR_F("unknown label type: %s", col2_str);
+            ERROR("unknown label type: %s", col2_str);
             break;
         }
 
@@ -277,18 +277,18 @@ void first_process_entry(char * line, int column_index) {
     char * label = string_split(line, " ", column_index);
 
     if (!label) {
-        ERROR_F("expected LABEL: %s", line);
+        ERROR("expected LABEL: %s", line);
         return;
     }
 
     /* check if label is valid */
     if (is_valid_label_name(label, 0, 0) == false) {
-        ERROR_F("invalid LABEL: %s", label);
+        ERROR("invalid LABEL: %s", label);
     } else {
         link_object_t obj;
         obj.name = (char *)malloc(strlen(label) + 1);
         if (!obj.name) {
-            ERROR_F("unable to allocate memory for link object: %s", line);
+            ERROR("unable to allocate memory for link object: %s", line);
         } else {
             strcpy(obj.name, label); /* set the name */
             obj.value = 0xFFFF; /* it does not matter */
@@ -313,19 +313,19 @@ void first_process_extern(char * line, int column_index) {
     char * label = string_split(line, " ", column_index);
 
     if (!label) {
-        ERROR_F("expected LABEL: %s", line);
+        ERROR("expected LABEL: %s", line);
         return;
     }
 
     /* check if label is valid */
     if (is_valid_label_name(label, 0, 0) == false) {
-        ERROR_F("invalid LABEL: %s", label);
+        ERROR("invalid LABEL: %s", label);
     } else {
         link_object_t obj;
         obj.name = (char *)malloc(strlen(label) + 1);
 
         if (!obj.name) {
-            ERROR_F("unable to allocate memory for link object: %s", line);
+            ERROR("unable to allocate memory for link object: %s", line);
         } else {
             strcpy(obj.name, label); /* set the name */
             obj.value = 0xFFFF; /* it does not matter */
@@ -351,7 +351,7 @@ void first_process_numbers(char * line, int column_index) {
     int i = 0;
 
     if (!list) {
-        ERROR_F("expected numbers, got: %s", line);
+        ERROR("expected numbers, got: %s", line);
         return;
     }
 
@@ -361,7 +361,7 @@ void first_process_numbers(char * line, int column_index) {
     while (number) {
         /* check if number is valid */
         if (is_valid_numeric_literal(number, 0) == false) {
-            ERROR_F("not a valid numeric literal: '%s'", number);
+            ERROR("not a valid numeric literal: '%s'", number);
             return;
         }
 
@@ -389,7 +389,7 @@ void first_process_string(char * line, int column_index) {
 
     /* check if the parameter is a valid string literal */
     if (string[0] != '"') {
-        ERROR_F("not a valid string literal: '%s'", string);
+        ERROR("not a valid string literal: '%s'", string);
     } else {
         /* copy the contents of the literal into tha data image */
         while (string[i] && string[i] != '"') {
@@ -403,7 +403,7 @@ void first_process_string(char * line, int column_index) {
         ADD_DATA(0); /* add terminating NULL */
 
         if (i != strlen(string) - 1) {
-            WARN_F("unclosed string literal: '%s'", string);
+            WARN("unclosed string literal: '%s'", string);
         }
     }
 
@@ -427,7 +427,7 @@ void first_process_operation(char * line, int column_index) {
     operation_t * op = get_operation(operation); /* identify the operation */
 
     if (!operation || !op) {
-        ERROR_F("invalid operation: %s", line);
+        ERROR("invalid operation: %s", line);
     } else {
         /* count the number of the operands */
         uint8_t number_of_operands = 0;
@@ -435,8 +435,8 @@ void first_process_operation(char * line, int column_index) {
         number_of_operands += operand2 ? 1 : 0;
 
         if (number_of_operands != op->operands) {
-            ERROR_F("wrong number of operands at '%s', expected %u, got %u",
-                    operation, op->operands, number_of_operands);
+            ERROR("wrong number of operands at '%s', expected %u, got %u",
+                  operation, op->operands, number_of_operands);
         } else {
             switch (op->operands) {
             /* operations with no operands */
@@ -452,7 +452,7 @@ void first_process_operation(char * line, int column_index) {
 
                 /* check if addressing is valid for this operation */
                 if (is_valid_addressing(op, dest_mode, 1) == false) {
-                    ERROR_F("wrong destination addressing mode '%s'", operand1);
+                    ERROR("wrong destination addressing mode '%s'", operand1);
                 } else {
                     uint16_t inst = first_create_instruction(op, NULL, operand1); /* create instruction from operation */
 
@@ -471,11 +471,11 @@ void first_process_operation(char * line, int column_index) {
 
                 /* check if 1st addressing is valid for this operation */
                 if (is_valid_addressing(op, src_mode, 0) == false) {
-                    ERROR_F("wrong source addressing mode '%s'", operand1);
+                    ERROR("wrong source addressing mode '%s'", operand1);
                 } else {
                     /* check if 2nd addressing is valid for this operation */
                     if (is_valid_addressing(op, dest_mode, 1) == false) {
-                        ERROR_F("wrong destination addressing mode '%s", operand2);
+                        ERROR("wrong destination addressing mode '%s", operand2);
                         return;
                     } else {
                         uint16_t inst = first_create_instruction(op, operand1, operand2); /* create instruction from operation */

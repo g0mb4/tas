@@ -22,43 +22,22 @@
 #define TABLE_SIZE 2000
 
 /*!
- * \brief error reporting
- * 
- * \note file_base_name, line_number and errors must be defined in the file, where this macro is ussed
- * 
- * \param s	message of the error
- */
-#define ERROR(s) error(file_base_name, line_number, s), errors++
-
-/*!
  * \brief formatted error reporting
  * 
  * \note file_base_name, line_number and errors must be defined in the file, where this macro is ussed
  * 
- * \param s		message of the error (printf style format string)
- * \param ...	argument list
+ * \param ...  format string and arguments
  */
-#define ERROR_F(s, ...) \
-    error(file_base_name, line_number, s, __VA_ARGS__), errors++
-
-/*!
- * \brief warning reporting
- * 
- * \note file_base_name, line_number and errors must be defined in the file, where this macro is ussed
- * 
- * \param s	message of the error
- */
-#define WARN(s) warning(file_base_name, line_number, s)
+#define ERROR(...) error(file_base_name, line_number, __VA_ARGS__), errors++
 
 /*!
  * \brief formatted warning reporting
  * 
  * \note file_base_name, line_number and errors must be defined in the file, where this macro is ussed
  * 
- * \param s		message of the error (printf style format string)
- * \param ...	argument list
+ * \param ...  format string and arguments
  */
-#define WARN_F(s, ...) warning(file_base_name, line_number, s, __VA_ARGS__)
+#define WARN(...) warning(file_base_name, line_number, __VA_ARGS__)
 
 /*!
  * \brief possible types of a column
@@ -194,7 +173,7 @@ void second_process_operation(char * line, int column_index);
 uint16_t second_get_symbol_value(char * symbol, int start_index, bool * ext);
 
 void second_create_words(operation_t * op, char * src, char * dest,
-                         uint16_t * word1, uint16_t * word2, 
+                         uint16_t * word1, uint16_t * word2,
                          bool * ext1, bool * ext2);
 uint16_t second_get_word(char * operand, bool * ext);
 void second_add_object_word(char * operand, uint16_t word, bool ext);

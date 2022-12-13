@@ -102,7 +102,7 @@ uint16_t second_pass(const char * file_name) {
 
     fp = fopen(file_name, "r");
     if (fp == NULL) {
-        ERROR_F("unable to open '%s'", file_name);
+        ERROR("unable to open '%s'", file_name);
         return 1;
     }
 
@@ -114,7 +114,7 @@ uint16_t second_pass(const char * file_name) {
         char * clean = clean_line(line);
 
         if (!clean) {
-            ERROR_F("unable to clean the line: %s", line);
+            ERROR("unable to clean the line: %s", line);
         } else {
             if (strlen(clean) == 0) {
                 /* empty line  */
@@ -209,7 +209,7 @@ void second_process_line(char * line, int column_index) {
 
     case UNKNOWN:
     default:
-        ERROR_F("unknown column type: %s", col_str);
+        ERROR("unknown column type: %s", col_str);
     }
 
     free(col_str);
@@ -238,7 +238,7 @@ void second_process_label(char * line) {
         /* had been dealt with during the first pass */
         break;
     default:
-        ERROR_F("unknown column type: %s", col2_str);
+        ERROR("unknown column type: %s", col2_str);
         break;
     }
 
@@ -297,12 +297,12 @@ void second_add_external(char * operand) {
     case DIRECT_REGISTER:
     case INDIRECT_REGISTER:
     default:
-        ERROR_F("expected EXTERN LABEL with DIRECT|INDIRECT addressing, got: %s", operand);
+        ERROR("expected EXTERN LABEL with DIRECT|INDIRECT addressing, got: %s", operand);
         return;
     }
 
     if (!real_symbol) {
-        ERROR_F("cannot allocate memory for symbol: %s", operand);
+        ERROR("cannot allocate memory for symbol: %s", operand);
         return;
     }
 
@@ -310,7 +310,7 @@ void second_add_external(char * operand) {
 
     obj.name = (char *)malloc(strlen(real_symbol) + 1);
     if (!obj.name) {
-        ERROR_F("unable ot allocate memory for external symbol: %s", real_symbol);
+        ERROR("unable ot allocate memory for external symbol: %s", real_symbol);
     } else {
         strcpy(obj.name, real_symbol);
         obj.type = 'e';
@@ -340,7 +340,7 @@ void second_process_operation(char * line, int column_index) {
     operation_t * op = get_operation(operation); /* identify the operation */
 
     if (!operation || !op) {
-        ERROR_F("invalid operation: %s", line);
+        ERROR("invalid operation: %s", line);
     } else {
         switch (op->operands) {
         /* operations with no operands */
@@ -473,7 +473,7 @@ uint16_t second_get_symbol_value(char * symbol, int start_index, bool * ext) {
 
     char * real_symbol = (char *)malloc(strlen(symbol) + 1);
     if (!real_symbol) {
-        ERROR_F("cannot allocate memory for symbol: %s", symbol);
+        ERROR("cannot allocate memory for symbol: %s", symbol);
         return 0;
     }
 
@@ -500,6 +500,6 @@ uint16_t second_get_symbol_value(char * symbol, int start_index, bool * ext) {
     }
 
     free(real_symbol);
-    ERROR_F("symbol is not defined and not external: %s", real_symbol);
+    ERROR("symbol is not defined and not external: %s", real_symbol);
     return 0xFFFF;
 }
